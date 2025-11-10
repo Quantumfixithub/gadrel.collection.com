@@ -65,20 +65,31 @@
       display: block;
     }
     .hero {
-      background-color: #F5E3C7;
+      position: relative;
       text-align: center;
-      padding: 60px 20px;
+      color: #FFFFFF;
     }
     .hero img {
-      max-width: 200px;
-      margin-bottom: 20px;
+      width: 100%;
+      height: auto;
+      max-height: 600px;
+      object-fit: cover;
     }
-    .hero h1 {
-      font-size: 32px;
-      margin-bottom: 20px;
-      color: #021D34;
+    .hero-text {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+    .hero-text h1 {
+      font-size: 36px;
+      background-color: rgba(2, 29, 52, 0.7);
+      padding: 10px 20px;
+      border-radius: 6px;
     }
     .cta {
+      display: inline-block;
+      margin-top: 20px;
       background-color: #D9AF6C;
       color: #021D34;
       padding: 12px 24px;
@@ -102,6 +113,36 @@
       gap: 30px;
       max-width: 1200px;
       margin: auto;
+    }
+    .product {
+      background-color: #FFFFFF;
+      border: 1px solid #D9AF6C;
+      border-radius: 8px;
+      padding: 20px;
+      text-align: center;
+    }
+    .product img {
+      width: 100%;
+      height: auto;
+      border-radius: 6px;
+      margin-bottom: 10px;
+    }
+    .product h3 {
+      color: #021D34;
+      margin: 10px 0;
+    }
+    .product p {
+      font-size: 16px;
+      margin: 5px 0 15px;
+    }
+    .product button {
+      background-color: #D9AF6C;
+      color: #021D34;
+      border: none;
+      padding: 10px 16px;
+      border-radius: 4px;
+      cursor: pointer;
+      font-weight: bold;
     }
     footer {
       background-color: #021D34;
@@ -139,14 +180,13 @@
     </nav>
   </header>
 
-  <section class="hero" style="position: relative; text-align: center; color: #FFFFFF;">
-  <!--<img src="https://thumbs.dreamstime.com/b/young-indian-retail-store-manager-using-laptop-counter-cash-register-fashion-shop-sales-area-working-checkout-desk-showroom-409554585.jpg?w=768.jpg" alt="Gadrel Collection Banner" style="width: 100%; height: auto; max-height: 600px; object-fit: cover;" />-->
-  <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);">
-    <h1 style="font-size: 36px; color: #FFFFFF; background-color: rgba(2, 29, 52, 0.7); padding: 10px 20px; border-radius: 6px;">Where Beauty Meets Fashion</h1>
-    <a href="shop.html" class="cta" style="display: inline-block; margin-top: 20px; background-color: #D9AF6C; color: #021D34; padding: 12px 24px; text-decoration: none; font-weight: bold; border-radius: 6px;">Explore the Collection</a>
-  </div>
-</section>
-
+  <section class="hero">
+    <img src="https://static.vecteezy.com/system/resources/previews/013/319/398/original/trendy-fashion-collection-social-media-cover-banner-template-vector.jpg" alt="Gadrel Collection Banner" />
+    <div class="hero-text">
+      <h1>Where Beauty Meets Fashion</h1>
+      <a href="shop.html" class="cta">Explore the Collection</a>
+    </div>
+  </section>
 
   <section class="featured">
     <h2>Featured Picks</h2>
