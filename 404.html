@@ -9,13 +9,29 @@
     body {
       margin: 0;
       font-family: sans-serif;
-      background-color: #000;
+      background: linear-gradient(135deg, #000 0%, #111 100%);
       color: #fff;
       text-align: center;
-      padding-top: 80px;
+      overflow: hidden;
+    }
+    .stars {
+      position: fixed;
+      width: 100%;
+      height: 100%;
+      background: repeating-radial-gradient(circle, #d4af37 1px, transparent 2px);
+      background-size: 50px 50px;
+      animation: twinkle 10s linear infinite;
+      opacity: 0.05;
+      z-index: 0;
+    }
+    @keyframes twinkle {
+      0% { background-position: 0 0; }
+      100% { background-position: 100px 100px; }
     }
     .featured {
-      padding: 60px 20px;
+      position: relative;
+      z-index: 1;
+      padding: 100px 20px;
     }
     h2 {
       color: #d4af37;
@@ -43,25 +59,34 @@
       bottom: 0;
       width: 100%;
       border-top: 1px solid #db073d;
+      z-index: 1;
     }
   </style>
+  <script>
+    setTimeout(() => {
+      window.location.href = "index.html";
+    }, 8000); // Redirect after 8 seconds
+  </script>
 </head>
 <body>
+  <div class="stars"></div>
+
   <header>
-    <div class="logo">GADREL COLLECTION</div>
-    <nav>
-      <a href="index.html">Home</a>
-      <a href="shop.html">Shop</a>
-      <a href="about.html">About</a>
-      <a href="contact.html">Contact</a>
-      <a href="cart.html">Cart 🛒</a>
+    <div class="logo" style="color:#d4af37; font-size:24px; font-weight:bold;">GADREL COLLECTION</div>
+    <nav style="margin-top:10px;">
+      <a href="index.html" style="color:#fff; margin:0 10px;">Home</a>
+      <a href="shop.html" style="color:#fff; margin:0 10px;">Shop</a>
+      <a href="about.html" style="color:#fff; margin:0 10px;">About</a>
+      <a href="contact.html" style="color:#fff; margin:0 10px;">Contact</a>
+      <a href="cart.html" style="color:#fff; margin:0 10px;">Cart 🛒</a>
     </nav>
   </header>
 
   <section class="featured">
     <h2>Page Not Found</h2>
     <p>Oops! The page you're looking for doesn't exist.</p>
-    <a href="index.html" class="cta">Return Home</a>
+    <p>You’ll be redirected to the homepage in 8 seconds.</p>
+    <a href="index.html" class="cta">Return Home Now</a>
   </section>
 
   <footer>
