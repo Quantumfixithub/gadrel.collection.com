@@ -5,54 +5,244 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>About Us - Gadrel Collection</title>
   <link rel="stylesheet" href="styles/styles.css" />
+  <style>
+    body {
+      margin: 0;
+      font-family: sans-serif;
+      background-color: #000;
+      color: #fff;
+    }
+    header, footer {
+      background-color: #111;
+      color: #d4af37;
+      text-align: center;
+      padding: 20px;
+      border-top: 1px solid #db073d;
+    }
+    nav a {
+      color: #fff;
+      margin: 0 10px;
+      text-decoration: none;
+      font-weight: bold;
+    }
+    .featured {
+      padding: 40px 20px;
+      max-width: 900px;
+      margin: auto;
+      text-align: center;
+    }
+    .featured h2 {
+      color: #d4af37;
+      margin-bottom: 10px;
+    }
+    .featured p, .featured ul {
+      font-size: 18px;
+      line-height: 1.6;
+      margin-bottom: 20px;
+    }
+    .featured ul {
+      list-style: none;
+      padding: 0;
+    }
+    .featured li {
+      margin: 10px 0;
+    }
+    .team-grid {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 30px;
+      margin-top: 30px;
+    }
+    .team-member {
+      background-color: #111;
+      border: 1px solid #db073d;
+      padding: 20px;
+      border-radius: 8px;
+      width: 250px;
+    }
+    .team-member img {
+      width: 100%;
+      border-radius: 8px;
+      margin-bottom: 10px;
+    }
+    .team-member h4 {
+      color: #d4af37;
+      margin-bottom: 5px;
+    }
+    .testimonial {
+      background-color: #111;
+      border-left: 4px solid #db073d;
+      padding: 20px;
+      margin: 20px auto;
+      max-width: 700px;
+      font-style: italic;
+    }
+    .testimonial strong {
+      display: block;
+      margin-top: 10px;
+      color: #d4af37;
+    }
+    .fade-in {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: all 0.8s ease-out;
+    }
+    .fade-in.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .lang-fr {
+      display: none;
+    }
+    .language-switch {
+      margin-top: 10px;
+    }
+    .language-switch button {
+      background-color: #db073d;
+      color: #fff;
+      border: none;
+      padding: 8px 16px;
+      margin: 0 5px;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    form input, form textarea {
+      width: 100%;
+      padding: 10px;
+      margin: 10px 0;
+      border-radius: 4px;
+      border: none;
+    }
+    form button {
+      background-color: #d4af37;
+      color: #000;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    .social-links a {
+      color: #d4af37;
+      margin: 0 10px;
+      text-decoration: none;
+    }
+  </style>
+  <script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const faders = document.querySelectorAll(".fade-in");
+      const observer = new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) entry.target.classList.add("visible");
+        });
+      });
+      faders.forEach(el => observer.observe(el));
+    });
+
+    function switchLanguage(lang) {
+      document.querySelectorAll(".lang-en").forEach(el => el.style.display = lang === "en" ? "block" : "none");
+      document.querySelectorAll(".lang-fr").forEach(el => el.style.display = lang === "fr" ? "block" : "none");
+    }
+
+    emailjs.init("your_userID"); // Replace with your EmailJS user ID
+
+    function sendContact(e) {
+      e.preventDefault();
+      emailjs.sendForm("your_serviceID", "your_templateID", e.target)
+        .then(() => alert("Message sent!"))
+        .catch(err => alert("Error: " + err));
+    }
+  </script>
 </head>
 <body>
   <header>
     <div class="logo">GADREL COLLECTION</div>
     <nav>
       <a href="index.html">Home</a>
-      <div class="dropdown">
-        <button class="dropbtn">Shop</button>
-        <div class="dropdown-content">
-          <a href="shop.html">All Products</a>
-          <a href="men.html">Men</a>
-          <a href="women.html">Women</a>
-          <a href="accessories.html">Accessories</a>
-          <a href="bags.html">Bags</a>
-          <a href="beauty.html">Beauty</a>
-        </div>
-      </div>
+      <a href="shop.html">Shop</a>
       <a href="about.html">About</a>
       <a href="contact.html">Contact</a>
       <a href="cart.html">Cart 🛒</a>
     </nav>
+    <div class="language-switch">
+      <button onclick="switchLanguage('en')">English</button>
+      <button onclick="switchLanguage('fr')">Français</button>
+    </div>
   </header>
 
   <section class="featured">
-    <h2>Our Story</h2>
-    <p style="max-width: 800px; margin: 0 auto; font-size: 18px;">
-      Gadrel Collection was born from a passion for elegance, empowerment, and expression. Founded in Abuja, Nigeria, our brand blends timeless fashion with bold beauty, offering curated pieces that celebrate individuality and confidence.
-    </p>
-    <br />
-    <h2>Our Mission</h2>
-    <p style="max-width: 800px; margin: 0 auto; font-size: 18px;">
-      We believe fashion is more than clothing — it's a statement. Our mission is to provide high-quality, stylish, and affordable fashion and beauty products that inspire self-love and creativity. Every item in our collection is handpicked to reflect sophistication, strength, and flair.
-    </p>
-    <br />
-    <h2>Why Choose Us</h2>
-    <ul style="max-width: 800px; margin: 0 auto; font-size: 18px; list-style: none; padding: 0;">
-      <li>✨ Unique designs with African elegance</li>
-      <li>🛍️ Carefully curated collections for every occasion</li>
-      <li>💬 Friendly customer support and fast delivery</li>
-      <li>🌍 Proudly Nigerian, globally inspired</li>
-    </ul>
+    <div class="fade-in lang-en">
+      <h2>Our Story</h2>
+      <p>Gadrel Collection was born from a passion for elegance, empowerment, and expression. Founded in Abuja, Nigeria, our brand blends timeless fashion with bold beauty, offering curated pieces that celebrate individuality and confidence.</p>
+    </div>
+    <div class="fade-in lang-fr">
+      <h2>Notre histoire</h2>
+      <p>Gadrel Collection est née d'une passion pour l'élégance, l'autonomisation et l'expression. Fondée à Abuja, notre marque allie mode intemporelle et beauté audacieuse pour célébrer l'individualité et la confiance.</p>
+    </div>
+
+    <div class="fade-in">
+      <h2>Meet the Founder</h2>
+      <p><strong style="color:#d4af37;">Remilekun Amoke</strong> is the visionary behind Gadrel Collection. With a background in fashion design and a heart for empowering women, she built Gadrel to be more than a brand — it’s a movement of style, strength, and self-love.</p>
+    </div>
+
+    <div class="fade-in">
+      <h2>Our Team</h2>
+      <div class="team-grid">
+        <div class="team-member">
+          <img src="images/remilekun.jpg" alt="Remilekun Amoke" />
+          <h4>Remilekun Amoke</h4>
+          <p>Founder & Creative Director</p>
+        </div>
+        <div class="team-member">
+          <img src="images/chinedu.jpg" alt="Chinedu Okeke" />
+          <h4>Chinedu Okeke</h4>
+          <p>Operations Manager</p>
+        </div>
+        <div class="team-member">
+          <img src="images/fatima.jpg" alt="Fatima Bello" />
+          <h4>Fatima Bello</h4>
+          <p>Customer Experience Lead</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="fade-in">
+      <h2>Customer Testimonials</h2>
+      <div class="testimonial">
+        “Gadrel Collection helped me feel confident and beautiful. Their pieces are truly empowering.”
+        <strong>— Ada, Lagos</strong>
+      </div>
+      <div class="testimonial">
+        “Fast delivery, great quality, and amazing customer service. I’m a loyal fan!”
+        <strong>— Tolu, Abuja</strong>
+      </div>
+    </div>
+
+    <div class="fade-in">
+      <h2>Contact Us</h2>
+      <form id="contact-form" onsubmit="sendContact(event)">
+        <input type="text" name="name" placeholder="Your Name" required />
+        <input type="email" name="email" placeholder="Your Email" required />
+        <textarea name="message" placeholder="Your Message" rows="5" required></textarea>
+        <button type="submit">Send Message</button>
+      </form>
+    </div>
+
+    <div class="fade-in">
+      <h2>Join Our Newsletter</h2>
+      <form id="newsletter-form" onsubmit="event.preventDefault(); alert('Thanks for subscribing!'); this.reset();">
+        <input type="email" name="email" placeholder="Your Email" required />
+        <button type="submit">Subscribe</button>
+           </form>
+    </div>
   </section>
 
   <footer>
     <p>&copy; 2025 Gadrel Collection. All rights reserved.</p>
     <div class="social-links">
       <a href="https://instagram.com/gadrelcollection">Instagram</a>
-      <a href="mailto:johnamoke18@gmail.com">Email Us</a>
+      <a href="johnamoke18@gmail.com">Email Us</a>
       <a href="https://wa.me/2348105429924">Chat on WhatsApp</a>
     </div>
   </footer>
