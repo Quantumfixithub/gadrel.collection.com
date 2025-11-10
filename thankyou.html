@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Thank You - Gadrel Collection</title>
+  <link rel="stylesheet" href="styles/styles.css" />
+  <style>
+    body {
+      margin: 0;
+      font-family: sans-serif;
+      background-color: #000;
+      color: #fff;
+      text-align: center;
+      padding-top: 80px;
+    }
+    .thankyou-box {
+      max-width: 600px;
+      margin: auto;
+      background-color: #111;
+      padding: 30px;
+      border: 1px solid #db073d;
+      border-radius: 8px;
+    }
+    .thankyou-box h2 {
+      color: #d4af37;
+      margin-bottom: 20px;
+    }
+    .thankyou-box p {
+      font-size: 18px;
+      margin-bottom: 10px;
+    }
+    footer {
+      background-color: #111;
+      color: #d4af37;
+      text-align: center;
+      padding: 20px;
+      position: fixed;
+      bottom: 0;
+      width: 100%;
+      border-top: 1px solid #db073d;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="logo">GADREL COLLECTION</div>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="shop.html">Shop</a>
+      <a href="about.html">About</a>
+      <a href="contact.html">Contact</a>
+      <a href="cart.html">Cart 🛒</a>
+    </nav>
+  </header>
+
+  <div class="thankyou-box">
+    <h2>Thank You for Your Order!</h2>
+    <p>Your payment was successful.</p>
+    <p>We’re preparing your items for delivery.</p>
+    <p><strong>Order Reference:</strong> <span id="order-ref"></span></p>
+    <p>Estimated delivery: 2–5 business days</p>
+    <p>Need help? <a href="mailto:support@gadrelcollection.com" style="color:#d4af37;">Contact us</a></p>
+  </div>
+
+  <footer>
+    &copy; 2025 Gadrel Collection. All rights reserved. |
+    <a href="https://instagram.com/gadrelcollection" style="color:#d4af37;">Instagram</a> |
+    <a href="mailto:johnamoke18@gmail.com" style="color:#d4af37;">Email Us</a> |
+    <a href="https://wa.me/2348105429924" style="color:#d4af37;">Chat us on WhatsApp</a>
+  </footer>
+
+  <script>
+    const ref = localStorage.getItem("lastRef") || "GC" + Math.floor(Math.random() * 1000000000);
+    document.getElementById("order-ref").textContent = ref;
+  </script>
+</body>
+</html>
