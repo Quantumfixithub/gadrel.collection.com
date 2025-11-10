@@ -1,12 +1,207 @@
-// cart.js
-export function getCart() {
-  return JSON.parse(localStorage.getItem("cart") || "[]");
-}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Your Cart - Gadrel Collection</title>
+  <link rel="stylesheet" href="styles/styles.css" />
+  <style>
+    body {
+      margin: 0;
+      font-family: sans-serif;
+      background-color: #F8F8F8;
+      color: #021D34;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+    header {
+      background-color: #021D34;
+      color: #FFFFFF;
+      text-align: center;
+      padding: 20px;
+    }
+    .logo {
+      font-size: 24px;
+      font-weight: bold;
+      color: #D9AF6C;
+    }
+    nav {
+      margin-top: 10px;
+    }
+    nav a {
+      color: #F5E3C7;
+      margin: 0 10px;
+      text-decoration: none;
+      font-weight: bold;
+    }
+    .dropdown {
+      display: inline-block;
+      position: relative;
+    }
+    .dropbtn {
+      background: none;
+      border: none;
+      color: #F5E3C7;
+      font-weight: bold;
+      cursor: pointer;
+    }
+    .dropdown-content {
+      display: none;
+      position: absolute;
+      background-color: #FFFFFF;
+      border: 1px solid #D9AF6C;
+      min-width: 160px;
+      z-index: 1;
+    }
+    .dropdown-content a {
+      display: block;
+      padding: 10px;
+      color: #021D34;
+      text-decoration: none;
+    }
+    .dropdown:hover .dropdown-content {
+      display: block;
+    }
+    .featured {
+      padding: 40px 20px;
+      background-color: #F5E3C7;
+      text-align: center;
+      flex: 1;
+    }
+    .featured h2 {
+      margin-bottom: 30px;
+    }
+    .product-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 30px;
+      max-width: 1200px;
+      margin: auto;
+    }
+    .product {
+      background-color: #FFFFFF;
+      border: 1px solid #D9AF6C;
+      border-radius: 8px;
+      padding: 20px;
+      text-align: center;
+    }
+    .product img {
+      width: 100%;
+      height: auto;
+      border-radius: 6px;
+      margin-bottom: 10px;
+    }
+    .product h3 {
+      margin: 10px 0;
+    }
+    .product p {
+      font-size: 16px;
+      margin: 5px 0 15px;
+    }
+    .product button {
+      background-color: #D9AF6C;
+      color: #021D34;
+      border: none;
+      padding: 10px 16px;
+      border-radius: 4px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+    #cart-summary {
+      margin-top: 30px;
+      font-size: 18px;
+    }
+    footer {
+      background-color: #021D34;
+      color: #FFFFFF;
+      text-align: center;
+      padding: 20px;
+      margin-top: auto;
+    }
+    .social-links a {
+      color: #D9AF6C;
+      margin: 0 10px;
+      text-decoration: none;
+    }
+  </style>
+  <script defer>
+    document.addEventListener("DOMContentLoaded", () => {
+      const cart = JSON.parse(localStorage.getItem("cart") || "[]");
+      const container = document.getElementById("cart-items");
+      const summary = document.getElementById("cart-summary");
 
-export function clearCart() {
-  localStorage.removeItem("cart");
-}
+      function renderCart() {
+        container.innerHTML = "";
+        let total = 0;
 
-export function getCartTotal() {
-  return getCart().reduce((sum, item) => sum + item.price, 0);
-}
+        if (cart.length === 0) {
+          container.innerHTML = "<p>Your cart is empty.</p>";
+          summary.innerHTML = "";
+          return;
+        }
+
+        cart.forEach((item, index) => {
+          total += item.price;
+          const div = document.createElement("div");
+          div.className = "product";
+          div.innerHTML = `
+            <img src="${item.image}" alt="${item.name}" />
+            <h3>${item.name}</h3>
+            <p>₦${item.price.toLocaleString()}</p>
+            <button onclick="removeItem(${index})">Remove</button>
+          `;
+          container.appendChild(div);
+        });
+
+        summary.innerHTML = `<strong>Total: ₦${total.toLocaleString()}</strong>`;
+      }
+
+      window.removeItem = function(index) {
+        cart.splice(index, 1);
+        localStorage.setItem("cart", JSON.stringify(cart));
+        renderCart();
+      };
+
+      renderCart();
+    });
+  </script>
+</head>
+<body>
+  <header>
+    <div class="logo">GADREL COLLECTION</div>
+    <nav>
+      <a href="index.html">Home</a>
+      <div class="dropdown">
+        <button class="dropbtn">Shop</button>
+        <div class="dropdown-content">
+          <a href="shop.html">All Products</a>
+          <a href="men.html">Men</a>
+          <a href="women.html">Women</a>
+          <a href="accessories.html">Accessories</a>
+          <a href="bags.html">Bags</a>
+          <a href="beauty.html">Beauty</a>
+        </div>
+      </div>
+      <a href="about.html">About</a>
+      <a href="contact.html">Contact</a>
+      <a href="cart.html">Cart 🛒</a>
+    </nav>
+  </header>
+
+  <section class="featured">
+    <h2>Your Cart</h2>
+    <div class="product-grid" id="cart-items"></div>
+    <div id="cart-summary"></div>
+  </section>
+
+  <footer>
+    <p>&copy; 2025 Gadrel Collection. All rights reserved.</p>
+    <div class="social-links">
+      <a href="https://instagram.com/gadrelcollection">Instagram</a>
+      <a href="mailto:support@gadrelcollection.com">Email Us</a>
+      <a href="https://wa.me/2348105429924">WhatsApp</a>
+    </div>
+  </footer>
+</body>
+</html>
