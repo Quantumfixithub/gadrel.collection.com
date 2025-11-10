@@ -11,7 +11,19 @@
     <div class="logo">GADREL COLLECTION</div>
     <nav>
       <a href="index.html">Home</a>
-      <a href="shop.html">Shop</a>
+      <div class="dropdown">
+        <button class="dropbtn">Shop</button>
+        <div class="dropdown-content">
+          <a href="shop.html">All Products</a>
+          <a href="men.html">Men</a>
+          <a href="women.html">Women</a>
+          <a href="accessories.html">Accessories</a>
+          <a href="bags.html">Bags</a>
+          <a href="beauty.html">Beauty</a>
+        </div>
+      </div>
+      <a href="about.html">About</a>
+      <a href="contact.html">Contact</a>
       <a href="cart.html">Cart 🛒</a>
     </nav>
   </header>
@@ -20,21 +32,69 @@
     <h2>Women's Collection</h2>
     <div class="product-grid">
       <div class="product">
-        <img src="assets/images/heels.jpg" alt="Golden Hour Heels" />
-        <h3>Golden Hour Heels</h3>
-        <p>₦27,000</p>
-        <button onclick="addToCart('Golden Hour Heels', 27000, 'assets/images/heels.jpg')">Add to Cart</button>
+        <img src="https://assets.vogue.com/photos/65a8486fb1bd8dd90f38da3c/master/w_2560%2Cc_limit/00001-lgn-louis-gabriel-nouchi-fall-2024-womens-credit-gorunway.jpg" alt="Crimson Silk Dress" />
+        <h3>Crimson Silk Dress</h3>
+        <p>₦64,000</p>
+        <button onclick="addToCart('Crimson Silk Dress', 64000, 'https://assets.vogue.com/photos/65a8486fb1bd8dd90f38da3c/master/w_2560%2Cc_limit/00001-lgn-louis-gabriel-nouchi-fall-2024-womens-credit-gorunway.jpg')">Add to Cart</button>
       </div>
       <div class="product">
-        <img src="assets/images/skirt.jpg" alt="Noir Wrap Skirt" />
-        <h3>Noir Wrap Skirt</h3>
+        <img src="https://media.vogue.fr/photos/65a8486fb1bd8dd90f38da3c/2:3/w_2560%2Cc_limit/LGN-LGN-Louis-Gabriel-Nouchi-Fall-2024-Paris-Fashion-Week-Womens-1.jpg" alt="Velvet Wrap Gown" />
+        <h3>Velvet Wrap Gown</h3>
+        <p>₦72,000</p>
+        <button onclick="addToCart('Velvet Wrap Gown', 72000, 'https://media.vogue.fr/photos/65a8486fb1bd8dd90f38da3c/2:3/w_2560%2Cc_limit/LGN-LGN-Louis-Gabriel-Nouchi-Fall-2024-Paris-Fashion-Week-Womens-1.jpg')">Add to Cart</button>
+      </div>
+      <div class="product">
+        <img src="https://cdn-img.prettylittlething.com/9/3/3/7/9337d3c1e1c3c6e3c1c3e1c3e1c3e1c3e1c3e1c3.jpeg" alt="Satin Midi Dress" />
+        <h3>Satin Midi Dress</h3>
+        <p>₦48,000</p>
+        <button onclick="addToCart('Satin Midi Dress', 48000, 'https://cdn-img.prettylittlething.com/9/3/3/7/9337d3c1e1c3c6e3c1c3e1c3e1c3e1c3e1c3e1c3.jpeg')">Add to Cart</button>
+      </div>
+      <div class="product">
+        <img src="https://cdn-img.prettylittlething.com/1/2/3/4/1234abcd1234abcd1234abcd1234abcd1234abcd.jpeg" alt="Gold Sequin Dress" />
+        <h3>Gold Sequin Dress</h3>
+        <p>₦55,000</p>
+        <button onclick="addToCart('Gold Sequin Dress', 55000, 'https://cdn-img.prettylittlething.com/1/2/3/4/1234abcd1234abcd1234abcd1234abcd1234abcd.jpeg')">Add to Cart</button>
+      </div>
+      <div class="product">
+        <img src="https://cdn-img.prettylittlething.com/5/6/7/8/5678efgh5678efgh5678efgh5678efgh5678efgh.jpeg" alt="Black Mesh Top" />
+        <h3>Black Mesh Top</h3>
+        <p>₦22,000</p>
+        <button onclick="addToCart('Black Mesh Top', 22000, 'https://cdn-img.prettylittlething.com/5/6/7/8/5678efgh5678efgh5678efgh5678efgh5678efgh.jpeg')">Add to Cart</button>
+      </div>
+      <div class="product">
+        <img src="https://cdn-img.prettylittlething.com/9/8/7/6/9876ijkl9876ijkl9876ijkl9876ijkl9876ijkl.jpeg" alt="White Lace Blouse" />
+        <h3>White Lace Blouse</h3>
+        <p>₦26,000</p>
+        <button onclick="addToCart('White Lace Blouse', 26000, 'https://cdn-img.prettylittlething.com/9/8/7/6/9876ijkl9876ijkl9876ijkl9876ijkl9876ijkl.jpeg')">Add to Cart</button>
+      </div>
+      <div class="product">
+        <img src="https://cdn-img.prettylittlething.com/2/4/6/8/2468mnop2468mnop2468mnop2468mnop2468mnop.jpeg" alt="Floral Maxi Skirt" />
+        <h3>Floral Maxi Skirt</h3>
+        <p>₦30,000</p>
+        <button onclick="addToCart('Floral Maxi Skirt', 30000, 'https://cdn-img.prettylittlething.com/2/4/6/8/2468mnop2468mnop2468mnop2468mnop2468mnop.jpeg')">Add to Cart</button>
+      </div>
+      <div class="product">
+        <img src="https://cdn-img.prettylittlething.com/3/5/7/9/3579qrst3579qrst3579qrst3579qrst3579qrst.jpeg" alt="Crimson High Heels" />
+        <h3>Crimson High Heels</h3>
+        <p>₦35,000</p>
+        <button onclick="addToCart('Crimson High Heels', 35000, 'https://cdn-img.prettylittlething.com/3/5/7/9/3579qrst3579qrst3579qrst3579qrst3579qrst.jpeg')">Add to Cart</button>
+      </div>
+      <div class="product">
+        <img src="https://cdn-img.prettylittlething.com/4/6/8/0/4680uvwx4680uvwx4680uvwx4680uvwx4680uvwx.jpeg" alt="Pearl Clutch Bag" />
+        <h3>Pearl Clutch Bag</h3>
+        <p>₦28,000</p>
+        <button onclick="addToCart('Pearl Clutch Bag', 28000, 'https://cdn-img.prettylittlething.com/4/6/8/0/4680uvwx4680uvwx4680uvwx4680uvwx4680uvwx.jpeg')">Add to Cart</button>
+      </div>
+      <div class="product">
+        <img src="https://cdn-img.prettylittlething.com/7/8/9/0/7890yzab7890yzab7890yzab7890yzab7890yzab.jpeg" alt="Rose Gold Earrings" />
+        <h3>Rose Gold Earrings</h3>
         <p>₦18,000</p>
-        <button onclick="addToCart('Noir Wrap Skirt', 18000, 'assets/images/skirt.jpg')">Add to Cart</button>
+        <button onclick="addToCart('Rose Gold Earrings', 18000, 'https://cdn-img.prettylittlething.com/7/8/9/0/7890yzab7890yzab7890yzab7890yzab7890yzab.jpeg')">Add to Cart</button>
       </div>
     </div>
   </section>
 
-  <footer>
+ <footer>
     <p>&copy; 2025 Gadrel Collection. All rights reserved.</p>
     <div class="social-links">
       <a href="https://instagram.com/gadrelcollection">Instagram</a>
@@ -45,11 +105,10 @@
 
   <script>
     function addToCart(name, price, image) {
-      const cart = JSON.parse(localStorage.getItem("cart") || "[]");
-      cart.push({ name, price, image });
-      localStorage.setItem("cart", JSON.stringify(cart));
-      alert(`${name} added to cart!`);
-    }
-  </script>
-</body>
-</html>
+      const cart = JSON
+
+
+
+
+
+
