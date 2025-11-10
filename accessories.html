@@ -11,6 +11,9 @@
       font-family: sans-serif;
       background-color: #f9f9f9;
       color: #111;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
     }
     header {
       background-color: #fff;
@@ -64,6 +67,7 @@
     .featured {
       padding: 40px 20px;
       text-align: center;
+      flex: 1;
     }
     .featured h2 {
       color: #db073d;
@@ -106,13 +110,23 @@
       cursor: pointer;
       font-weight: bold;
     }
+    .next-page {
+      margin-top: 40px;
+    }
+    .next-page a {
+      background-color: #db073d;
+      color: #fff;
+      padding: 10px 20px;
+      text-decoration: none;
+      border-radius: 6px;
+      font-weight: bold;
+    }
     footer {
       background-color: #fff;
       color: #db073d;
       text-align: center;
       padding: 20px;
       border-top: 1px solid #db073d;
-      margin-top: 40px;
     }
     .social-links a {
       color: #db073d;
@@ -146,15 +160,40 @@
   <section class="featured">
     <h2>Accessories Collection</h2>
     <div class="product-grid">
-      <!-- Repeat this block for each product -->
       <div class="product">
         <img src="https://images.unsplash.com/photo-1600185364003-0c3b5f3e1e2e" alt="Gold Hoop Earrings" />
         <h3>Gold Hoop Earrings</h3>
         <p>₦18,000</p>
-        <button onclick="addToCart('Gold Hoop Earrings', 18000, 'https://images.unsplash.com/photo-1600185364003-0c3b5f3e1e2e')">Add to Cart</button>
+        <button onclick="addToCart('Gold Hoop Earrings', 18000)">Add to Cart</button>
       </div>
-      <!-- Add other products here as needed -->
-      <!-- ... -->
+      <div class="product">
+        <img src="https://images.unsplash.com/photo-1585386959984-a415522b831d" alt="Pearl Hair Clip" />
+        <h3>Pearl Hair Clip</h3>
+        <p>₦8,000</p>
+        <button onclick="addToCart('Pearl Hair Clip', 8000)">Add to Cart</button>
+      </div>
+      <div class="product">
+        <img src="https://images.unsplash.com/photo-1618354691214-8e3c3e9a3e3f" alt="Leather Belt" />
+        <h3>Leather Belt</h3>
+        <p>₦12,000</p>
+        <button onclick="addToCart('Leather Belt', 12000)">Add to Cart</button>
+      </div>
+      <div class="product">
+        <img src="https://images.unsplash.com/photo-1622464115814-9b3f3e9a3e3f" alt="Crystal Pendant Necklace" />
+        <h3>Crystal Pendant Necklace</h3>
+        <p>₦22,000</p>
+        <button onclick="addToCart('Crystal Pendant Necklace', 22000)">Add to Cart</button>
+      </div>
+      <div class="product">
+        <img src="https://images.unsplash.com/photo-1598032891746-9b3f3e9a3e3f" alt="Silk Scarf" />
+        <h3>Silk Scarf</h3>
+        <p>₦15,000</p>
+        <button onclick="addToCart('Silk Scarf', 15000)">Add to Cart</button>
+      </div>
+    </div>
+
+    <div class="next-page">
+      <a href="accessories-page2.html">Next →</a>
     </div>
   </section>
 
@@ -168,9 +207,9 @@
   </footer>
 
   <script>
-    function addToCart(name, price, image) {
+    function addToCart(name, price) {
       const cart = JSON.parse(localStorage.getItem("cart") || "[]");
-      cart.push({ name, price, image });
+      cart.push({ name, price });
       localStorage.setItem("cart", JSON.stringify(cart));
       alert(`${name} added to cart!`);
     }
