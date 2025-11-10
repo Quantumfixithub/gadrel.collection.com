@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Search - Gadrel Collection</title>
+  <link rel="stylesheet" href="styles/styles.css" />
+</head>
+<body>
+  <header>
+    <div class="logo">GADREL COLLECTION</div>
+    <nav><a href="index.html">Home</a></nav>
+  </header>
+
+  <section class="featured">
+    <h2>Search Products</h2>
+    <input type="text" id="search-input" placeholder="Search..." />
+    <div class="product-grid" id="search-results"></div>
+  </section>
+
+  <footer>
+    <p>&copy; 2025 Gadrel Collection. All rights reserved.</p>
+    <div class="social-links">
+      <a href="https://instagram.com/gadrelcollection">Instagram</a>
+      <a href="mailto:johnamoke18@gmail.com">Email Us</a>
+      <a href="https://wa.me/2348105429924">Chat on WhatsApp</a>
+    </div>
+  </footer>
+
+  <script>
+    const products = [
+      { name: "Noir Luxe Tote", price: 32000, image: "assets/images/bag1.jpg" },
+      { name: "Radiance Serum", price: 12000, image: "assets/images/serum.jpg" }
+    ];
+    const input = document.getElementById("search-input");
+    const results = document.getElementById("search-results");
+
+    input.addEventListener("input", () => {
+      const query = input.value.toLowerCase();
+      results.innerHTML = "";
+      products.filter(p => p.name.toLowerCase().includes(query)).forEach(p => {
+        const div = document.createElement("div");
+        div.className = "product";
+        div.innerHTML = `<img src="${p.image}" /><h3>${p.name}</h3><p>₦${p.price}</p>`;
+        results.appendChild(div);
+      });
+    });
+  </script>
+</body>
+</html>

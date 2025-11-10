@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Beauty - Gadrel Collection</title>
+  <link rel="stylesheet" href="styles/styles.css" />
+</head>
+<body>
+  <header>
+    <div class="logo">GADREL COLLECTION</div>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="shop.html">Shop</a>
+      <a href="cart.html">Cart 🛒</a>
+    </nav>
+  </header>
+
+  <section class="featured">
+    <h2>Beauty & Personal Care</h2>
+    <div class="product-grid">
+      <div class="product">
+        <img src="assets/images/serum.jpg" alt="Radiance Serum" />
+        <h3>Radiance Serum</h3>
+        <p>₦12,000</p>
+        <button onclick="addToCart('Radiance Serum', 12000, 'assets/images/serum.jpg')">Add to Cart</button>
+      </div>
+      <div class="product">
+        <img src="assets/images/lipstick.jpg" alt="Noir Lip Velvet" />
+        <h3>Noir Lip Velvet</h3>
+        <p>₦4,500</p>
+        <button onclick="addToCart('Noir Lip Velvet', 4500, 'assets/images/lipstick.jpg')">Add to Cart</button>
+      </div>
+      <div class="product">
+        <img src="assets/images/blush.jpg" alt="Crimson Bloom Blush" />
+        <h3>Crimson Bloom Blush</h3>
+        <p>₦6,000</p>
+        <button onclick="addToCart('Crimson Bloom Blush', 6000, 'assets/images/blush.jpg')">Add to Cart</button>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <p>&copy; 2025 Gadrel Collection. All rights reserved.</p>
+    <div class="social-links">
+      <a href="https://instagram.com/gadrelcollection">Instagram</a>
+      <a href="mailto:johnamoke18@gmail.com">Email Us</a>
+      <a href="https://wa.me/2348105429924">Chat on WhatsApp</a>
+    </div>
+  </footer>
+
+  <script>
+    function addToCart(name, price, image) {
+      const cart = JSON.parse(localStorage.getItem("cart") || "[]");
+      cart.push({ name, price, image });
+      localStorage.setItem("cart", JSON.stringify(cart));
+      alert(`${name} added to cart!`);
+    }
+  </script>
+</body>
+</html>

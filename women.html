@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Women - Gadrel Collection</title>
+  <link rel="stylesheet" href="styles/styles.css" />
+</head>
+<body>
+  <header>
+    <div class="logo">GADREL COLLECTION</div>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="shop.html">Shop</a>
+      <a href="cart.html">Cart 🛒</a>
+    </nav>
+  </header>
+
+  <section class="featured">
+    <h2>Women's Collection</h2>
+    <div class="product-grid">
+      <div class="product">
+        <img src="assets/images/heels.jpg" alt="Golden Hour Heels" />
+        <h3>Golden Hour Heels</h3>
+        <p>₦27,000</p>
+        <button onclick="addToCart('Golden Hour Heels', 27000, 'assets/images/heels.jpg')">Add to Cart</button>
+      </div>
+      <div class="product">
+        <img src="assets/images/skirt.jpg" alt="Noir Wrap Skirt" />
+        <h3>Noir Wrap Skirt</h3>
+        <p>₦18,000</p>
+        <button onclick="addToCart('Noir Wrap Skirt', 18000, 'assets/images/skirt.jpg')">Add to Cart</button>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <p>&copy; 2025 Gadrel Collection. All rights reserved.</p>
+    <div class="social-links">
+      <a href="https://instagram.com/gadrelcollection">Instagram</a>
+      <a href="mailto:johnamoke18@gmail.com">Email Us</a>
+      <a href="https://wa.me/2348105429924">Chat on WhatsApp</a>
+    </div>
+  </footer>
+
+  <script>
+    function addToCart(name, price, image) {
+      const cart = JSON.parse(localStorage.getItem("cart") || "[]");
+      cart.push({ name, price, image });
+      localStorage.setItem("cart", JSON.stringify(cart));
+      alert(`${name} added to cart!`);
+    }
+  </script>
+</body>
+</html>
