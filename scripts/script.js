@@ -30,8 +30,15 @@ if (container) {
       <img src="${p.image}" alt="${p.name}" />
       <h3>${p.name}</h3>
       <p>${p.price}</p>
-      <a href="product.html">View</a>
+      <button onclick='addToCart(${JSON.stringify(p)})'>Add to Cart</button>
     `;
     container.appendChild(div);
   });
+}
+
+function addToCart(product) {
+  const cart = JSON.parse(localStorage.getItem("cart") || "[]");
+  cart.push(product);
+  localStorage.setItem("cart", JSON.stringify(cart));
+  alert(`${product.name} added to cart!`);
 }
