@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Paystack Test</title>
+  <script src="https://js.paystack.co/v1/inline.js"></script>
+</head>
+<body style="font-family:sans-serif; text-align:center; padding:50px;">
+  <h2>Test Paystack Payment</h2>
+  <button onclick="payWithPaystack()" style="padding:12px 24px; font-weight:bold; background:#D9AF6C; color:#021D34; border:none; border-radius:6px;">Pay ₦500</button>
+
+  <script>
+    function payWithPaystack() {
+      PaystackPop.setup({
+        key: 'pk_test_XXXXXXXXXXXXXXXXXXXXXXXXXXXXXX', // Replace with your actual public key
+        email: 'test@example.com',
+        amount: 50000, // ₦500.00
+        currency: 'NGN',
+        ref: 'GC' + Math.floor(Math.random() * 1000000000),
+        callback: function(response) {
+          alert('Payment successful! Ref: ' + response.reference);
+        },
+        onClose: function() {
+          alert('Payment window closed.');
+        }
+      }).openIframe();
+    }
+  </script>
+</body>
+</html>
