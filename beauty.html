@@ -11,31 +11,85 @@
     <div class="logo">GADREL COLLECTION</div>
     <nav>
       <a href="index.html">Home</a>
-      <a href="shop.html">Shop</a>
+      <div class="dropdown">
+        <button class="dropbtn">Shop</button>
+        <div class="dropdown-content">
+          <a href="shop.html">All Products</a>
+          <a href="men.html">Men</a>
+          <a href="women.html">Women</a>
+          <a href="accessories.html">Accessories</a>
+          <a href="bags.html">Bags</a>
+          <a href="beauty.html">Beauty</a>
+        </div>
+      </div>
+      <a href="about.html">About</a>
+      <a href="contact.html">Contact</a>
       <a href="cart.html">Cart 🛒</a>
     </nav>
   </header>
 
   <section class="featured">
-    <h2>Beauty & Personal Care</h2>
+    <h2>Beauty Essentials</h2>
     <div class="product-grid">
       <div class="product">
-        <img src="assets/images/serum.jpg" alt="Radiance Serum" />
+        <img src="https://images.unsplash.com/photo-1600185364003-0c3b5f3e1e2e" alt="Radiance Serum" />
         <h3>Radiance Serum</h3>
         <p>₦12,000</p>
-        <button onclick="addToCart('Radiance Serum', 12000, 'assets/images/serum.jpg')">Add to Cart</button>
+        <button onclick="addToCart('Radiance Serum', 12000, 'https://images.unsplash.com/photo-1600185364003-0c3b5f3e1e2e')">Add to Cart</button>
       </div>
       <div class="product">
-        <img src="assets/images/lipstick.jpg" alt="Noir Lip Velvet" />
-        <h3>Noir Lip Velvet</h3>
-        <p>₦4,500</p>
-        <button onclick="addToCart('Noir Lip Velvet', 4500, 'assets/images/lipstick.jpg')">Add to Cart</button>
+        <img src="https://images.unsplash.com/photo-1585386959984-a415522b831d" alt="Matte Lipstick Set" />
+        <h3>Matte Lipstick Set</h3>
+        <p>₦18,000</p>
+        <button onclick="addToCart('Matte Lipstick Set', 18000, 'https://images.unsplash.com/photo-1585386959984-a415522b831d')">Add to Cart</button>
       </div>
       <div class="product">
-        <img src="assets/images/blush.jpg" alt="Crimson Bloom Blush" />
-        <h3>Crimson Bloom Blush</h3>
-        <p>₦6,000</p>
-        <button onclick="addToCart('Crimson Bloom Blush', 6000, 'assets/images/blush.jpg')">Add to Cart</button>
+        <img src="https://images.unsplash.com/photo-1618354691214-8e3c3e9a3e3f" alt="Glow Foundation" />
+        <h3>Glow Foundation</h3>
+        <p>₦15,000</p>
+        <button onclick="addToCart('Glow Foundation', 15000, 'https://images.unsplash.com/photo-1618354691214-8e3c3e9a3e3f')">Add to Cart</button>
+      </div>
+      <div class="product">
+        <img src="https://images.unsplash.com/photo-1622464115814-9b3f3e9a3e3f" alt="Hydrating Face Mist" />
+        <h3>Hydrating Face Mist</h3>
+        <p>₦10,000</p>
+        <button onclick="addToCart('Hydrating Face Mist', 10000, 'https://images.unsplash.com/photo-1622464115814-9b3f3e9a3e3f')">Add to Cart</button>
+      </div>
+      <div class="product">
+        <img src="https://images.unsplash.com/photo-1598032891746-9b3f3e9a3e3f" alt="Luxury Perfume" />
+        <h3>Luxury Perfume</h3>
+        <p>₦25,000</p>
+        <button onclick="addToCart('Luxury Perfume', 25000, 'https://images.unsplash.com/photo-1598032891746-9b3f3e9a3e3f')">Add to Cart</button>
+      </div>
+      <div class="product">
+        <img src="https://images.unsplash.com/photo-1600185364003-0c3b5f3e1e2e" alt="Silk Body Lotion" />
+        <h3>Silk Body Lotion</h3>
+        <p>₦14,000</p>
+        <button onclick="addToCart('Silk Body Lotion', 14000, 'https://images.unsplash.com/photo-1600185364003-0c3b5f3e1e2e')">Add to Cart</button>
+      </div>
+      <div class="product">
+        <img src="https://images.unsplash.com/photo-1585386959984-a415522b831d" alt="Nude Eyeshadow Palette" />
+        <h3>Nude Eyeshadow Palette</h3>
+        <p>₦16,000</p>
+        <button onclick="addToCart('Nude Eyeshadow Palette', 16000, 'https://images.unsplash.com/photo-1585386959984-a415522b831d')">Add to Cart</button>
+      </div>
+      <div class="product">
+        <img src="https://images.unsplash.com/photo-1618354691214-8e3c3e9a3e3f" alt="Brow Sculpting Kit" />
+        <h3>Brow Sculpting Kit</h3>
+        <p>₦11,000</p>
+        <button onclick="addToCart('Brow Sculpting Kit', 11000, 'https://images.unsplash.com/photo-1618354691214-8e3c3e9a3e3f')">Add to Cart</button>
+      </div>
+      <div class="product">
+        <img src="https://images.unsplash.com/photo-1622464115814-9b3f3e9a3e3f" alt="Rosewater Toner" />
+        <h3>Rosewater Toner</h3>
+        <p>₦9,000</p>
+        <button onclick="addToCart('Rosewater Toner', 9000, 'https://images.unsplash.com/photo-1622464115814-9b3f3e9a3e3f')">Add to Cart</button>
+      </div>
+      <div class="product">
+        <img src="https://images.unsplash.com/photo-1598032891746-9b3f3e9a3e3f" alt="Cream Blush Duo" />
+        <h3>Cream Blush Duo</h3>
+        <p>₦13,000</p>
+        <button onclick="addToCart('Cream Blush Duo', 13000, 'https://images.unsplash.com/photo-1598032891746-9b3f3e9a3e3f')">Add to Cart</button>
       </div>
     </div>
   </section>
