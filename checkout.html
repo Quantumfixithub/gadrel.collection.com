@@ -5,38 +5,54 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Checkout - Gadrel Collection</title>
   <link rel="stylesheet" href="styles/styles.css" />
+  <script src="https://js.paystack.co/v1/inline.js"></script>
   <style>
-    .checkout-form {
-      max-width: 600px;
-      margin: 0 auto;
+    body {
+      margin: 0;
+      font-family: sans-serif;
+      background-color: #000;
+      color: #fff;
+    }
+    .featured {
+      padding: 30px;
+      max-width: 800px;
+      margin: auto;
+    }
+    .checkout-box {
       background-color: #111;
       padding: 20px;
       border: 1px solid #db073d;
       border-radius: 8px;
     }
-    label {
-      display: block;
-      margin: 10px 0 5px;
-      font-weight: bold;
+    .checkout-box h3 {
+      margin-top: 0;
+      color: #d4af37;
     }
-    input, textarea {
+    .checkout-box input, .checkout-box textarea {
       width: 100%;
       padding: 10px;
-      margin-bottom: 15px;
-      border: none;
+      margin: 10px 0;
       border-radius: 4px;
+      border: none;
     }
-    button {
+    .checkout-box button {
       background-color: #db073d;
       color: white;
       padding: 10px 20px;
       border: none;
       border-radius: 4px;
       cursor: pointer;
+      margin-top: 10px;
     }
-    .order-summary {
-      margin-bottom: 30px;
-      font-size: 18px;
+    footer {
+      background-color: #111;
+      color: #d4af37;
+      text-align: center;
+      padding: 20px;
+      position: fixed;
+      bottom: 0;
+      width: 100%;
+      border-top: 1px solid #db073d;
     }
   </style>
 </head>
@@ -64,51 +80,82 @@
 
   <section class="featured">
     <h2>Checkout</h2>
-    <div class="order-summary" id="order-summary"></div>
+    <div class="checkout-box">
+      <h3>Order Summary</h3>
+      <div id="order-summary"></div>
 
-    <form class="checkout-form">
       <label for="name">Full Name</label>
-      <input type="text" id="name" name="name" required />
+      <input type="text" id="name" placeholder="Enter your name" required />
 
       <label for="email">Email Address</label>
-      <input type="email" id="email" name="email" required />
+      <input type="email" id="email" placeholder="Enter your email" required />
 
       <label for="address">Shipping Address</label>
-      <textarea id="address" name="address" rows="4" required></textarea>
+      <textarea id="address" rows="4" placeholder="Enter your address" required></textarea>
 
-      <button type="submit">Place Order</button>
-    </form>
+      <button onclick="payWithPaystack()">Pay Now</button>
+    </div>
   </section>
 
-   <footer>
-    <p>&copy; 2025 Gadrel Collection. All rights reserved.</p>
-    <div class="social-links">
-      <a href="https://instagram.com/gadrelcollection">Instagram</a>
-      <a href="mailto:johnamoke18@gmail.com">Email Us</a>
-      <a href="https://wa.me/2348105429924">Chat on WhatsApp</a>
-    </div>
+  <footer>
+    &copy; 2025 Gadrel Collection. All rights reserved. |
+    <a href="https://instagram.com/gadrelcollection" style="color:#d4af37;">Instagram</a> |
+    <a href="mailto:johnamoke18@gmail.com" style="color:#d4af37;">Email Us</a> |
+    <a href="https://wa.me/2348105429924" style="color:#d4af37;">Chat us on WhatsApp</a>
   </footer>
 
   <script>
     const cart = JSON.parse(localStorage.getItem("cart") || "[]");
     const summary = document.getElementById("order-summary");
 
-    if (cart.length === 0) {
-      summary.innerHTML = "<p>Your cart is empty.</p>";
-    } else {
+    function renderSummary() {
       let total = 0;
-      let list = "<ul>";
+      let html = "<ul>";
       cart.forEach(item => {
         total += item.price;
-        list += `<li>${item.name} — ₦${item.price.toLocaleString()}</li>`;
+        html += `<li>${item.name} — ₦${item.price.toLocaleString()}</li>`;
       });
-      list += "</ul>";
-      summary.innerHTML = `
-        <h3>Order Summary</h3>
-        ${list}
-        <strong>Total: ₦${total.toLocaleString()}</strong>
-      `;
+      html += "</ul>";
+      html += `<strong>Total: ₦${total.toLocaleString()}</strong>`;
+      summary.innerHTML = html;
     }
+
+    function payWithPaystack() {
+      const email = document.getElementById("email").value;
+      const name = document.getElementById("name").value;
+      const address = document.getElementById("address").value;
+      const amount = cart.reduce((sum, item) => sum + item.price, 0) * 100;
+
+      if (!email || !name || !address || cart.length === 0) {
+        alert("Please fill all fields and ensure your cart is not empty.");
+        return;
+      }
+
+      const handler = PaystackPop.setup({
+        key: 'pk_test_xxxxxxxxxxxxxxxxxxxxxxxx', // Replace with your Paystack public key
+        email: email,
+        amount: amount,
+        currency: "NGN",
+        ref: 'GC' + Math.floor(Math.random() * 1000000000),
+        metadata: {
+          custom_fields: [
+            { display_name: "Name", variable_name: "name", value: name },
+            { display_name: "Address", variable_name: "address", value: address }
+          ]
+        },
+        callback: function(response) {
+          alert("Payment successful! Reference: " + response.reference);
+          localStorage.removeItem("cart");
+          window.location.href = "thankyou.html";
+        },
+        onClose: function() {
+          alert("Payment window closed.");
+        }
+      });
+      handler.openIframe();
+    }
+
+    renderSummary();
   </script>
 </body>
 </html>
