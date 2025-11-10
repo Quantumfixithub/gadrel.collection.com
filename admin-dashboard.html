@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Admin Dashboard - Gadrel Collection</title>
+  <link rel="stylesheet" href="styles/styles.css" />
+  <style>
+    body {
+      margin: 0;
+      font-family: sans-serif;
+      background-color: #000;
+      color: #fff;
+    }
+    .dashboard {
+      max-width: 1000px;
+      margin: auto;
+      padding: 30px;
+    }
+    h2 {
+      color: #d4af37;
+      text-align: center;
+      margin-bottom: 30px;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      background-color: #111;
+    }
+    th, td {
+      padding: 12px;
+      border: 1px solid #db073d;
+      text-align: left;
+    }
+    th {
+      background-color: #db073d;
+      color: #fff;
+    }
+    footer {
+      background-color: #111;
+      color: #d4af37;
+      text-align: center;
+      padding: 20px;
+      position: fixed;
+      bottom: 0;
+      width: 100%;
+      border-top: 1px solid #db073d;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="logo">GADREL COLLECTION</div>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="shop.html">Shop</a>
+      <a href="about.html">About</a>
+      <a href="contact.html">Contact</a>
+      <a href="cart.html">Cart 🛒</a>
+    </nav>
+  </header>
+
+  <section class="dashboard">
+    <h2>Admin Dashboard</h2>
+    <table id="orders-table">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Email</th>
+          <th>Address</th>
+          <th>Cart Items</th>
+          <th>Reference</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+  </section>
+
+   <footer>
+    <p>&copy; 2025 Gadrel Collection. All rights reserved.</p>
+    <div class="social-links">
+      <a href="https://instagram.com/gadrelcollection">Instagram</a>
+      <a href="mailto:johnamoke18@gmail.com">Email Us</a>
+      <a href="https://wa.me/2348105429924">Chat on WhatsApp</a>
+    </div>
+  </footer>
+
+  <script>
+    // Demo orders stored in localStorage (replace with EmailJS fetch if needed)
+    const demoOrders = JSON.parse(localStorage.getItem("adminOrders") || "[]");
+
+    const tbody = document.querySelector("#orders-table tbody");
+
+    if (demoOrders.length === 0) {
+      tbody.innerHTML = "<tr><td colspan='5'>No orders found.</td></tr>";
+    } else {
+      demoOrders.forEach(order => {
+        const row = document.createElement("tr");
+        row.innerHTML = `
+          <td>${order.name}</td>
+          <td>${order.email}</td>
+          <td>${order.address}</td>
+          <td>${order.cart.replace(/\n/g, "<br>")}</td>
+          <td>${order.reference}</td>
+        `;
+        tbody.appendChild(row);
+      });
+    }
+  </script>
+</body>
+</html>
