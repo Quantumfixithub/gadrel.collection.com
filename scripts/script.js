@@ -86,23 +86,6 @@ const featuredProducts = [
   });
 });
 
-  }
-];
-
-const container = document.getElementById("featured-products");
-if (container) {
-  featuredProducts.forEach(p => {
-    const div = document.createElement("div");
-    div.className = "product";
-    div.innerHTML = `
-      <img src="${p.image}" alt="${p.name}" />
-      <h3>${p.name}</h3>
-      <p>${p.price}</p>
-      <button onclick='addToCart(${JSON.stringify(p)})'>Add to Cart</button>
-    `;
-    container.appendChild(div);
-  });
-}
 
 function addToCart(product) {
   const cart = JSON.parse(localStorage.getItem("cart") || "[]");
@@ -110,4 +93,5 @@ function addToCart(product) {
   localStorage.setItem("cart", JSON.stringify(cart));
   alert(`${product.name} added to cart!`);
 }
+
 
