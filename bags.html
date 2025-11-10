@@ -5,6 +5,125 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Bags - Gadrel Collection</title>
   <link rel="stylesheet" href="styles/styles.css" />
+  <style>
+    body {
+      margin: 0;
+      font-family: sans-serif;
+      background-color: #f9f9f9;
+      color: #111;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+    header {
+      background-color: #fff;
+      color: #db073d;
+      text-align: center;
+      padding: 20px;
+      border-bottom: 1px solid #db073d;
+    }
+    .logo {
+      font-size: 24px;
+      font-weight: bold;
+      color: #db073d;
+    }
+    nav {
+      margin-top: 10px;
+    }
+    nav a {
+      color: #db073d;
+      margin: 0 10px;
+      text-decoration: none;
+      font-weight: bold;
+    }
+    .dropdown {
+      display: inline-block;
+      position: relative;
+    }
+    .dropbtn {
+      background: none;
+      border: none;
+      color: #db073d;
+      font-weight: bold;
+      cursor: pointer;
+    }
+    .dropdown-content {
+      display: none;
+      position: absolute;
+      background-color: #fff;
+      border: 1px solid #db073d;
+      min-width: 160px;
+      z-index: 1;
+    }
+    .dropdown-content a {
+      display: block;
+      padding: 10px;
+      color: #db073d;
+      text-decoration: none;
+    }
+    .dropdown:hover .dropdown-content {
+      display: block;
+    }
+    .featured {
+      padding: 40px 20px;
+      text-align: center;
+      flex: 1;
+    }
+    .featured h2 {
+      color: #db073d;
+      margin-bottom: 30px;
+    }
+    .product-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 30px;
+      max-width: 1200px;
+      margin: auto;
+    }
+    .product {
+      background-color: #fff;
+      border: 1px solid #db073d;
+      border-radius: 8px;
+      padding: 20px;
+      text-align: center;
+    }
+    .product img {
+      width: 100%;
+      height: auto;
+      border-radius: 6px;
+      margin-bottom: 10px;
+    }
+    .product h3 {
+      color: #db073d;
+      margin: 10px 0;
+    }
+    .product p {
+      font-size: 16px;
+      margin: 5px 0 15px;
+    }
+    .product button {
+      background-color: #db073d;
+      color: #fff;
+      border: none;
+      padding: 10px 16px;
+      border-radius: 4px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+    footer {
+      background-color: #fff;
+      color: #db073d;
+      text-align: center;
+      padding: 20px;
+      border-top: 1px solid #db073d;
+      margin-top: auto;
+    }
+    .social-links a {
+      color: #db073d;
+      margin: 0 10px;
+      text-decoration: none;
+    }
+  </style>
 </head>
 <body>
   <header>
@@ -31,71 +150,70 @@
   <section class="featured">
     <h2>Luxury Bags</h2>
     <div class="product-grid">
-  <div class="product">
-    <img src="https://images.unsplash.com/photo-1618354691214-8e3c3e9a3e3f?auto=format&fit=crop&w=600&q=80" alt="Noir Luxe Tote" />
-    <h3>Noir Luxe Tote</h3>
-    <p>₦32,000</p>
-    <button onclick="addToCart('Noir Luxe Tote', 32000)">Add to Cart</button>
-  </div>
-  <div class="product">
-    <img src="https://images.unsplash.com/photo-1585386959984-a415522b831d?auto=format&fit=crop&w=600&q=80" alt="Crimson Voyager" />
-    <h3>Crimson Voyager</h3>
-    <p>₦45,000</p>
-    <button onclick="addToCart('Crimson Voyager', 45000)">Add to Cart</button>
-  </div>
-  <div class="product">
-    <img src="https://images.unsplash.com/photo-1622464115814-9b3f3e9a3e3f?auto=format&fit=crop&w=600&q=80" alt="Quilted Crossbody" />
-    <h3>Quilted Crossbody</h3>
-    <p>₦28,000</p>
-    <button onclick="addToCart('Quilted Crossbody', 28000)">Add to Cart</button>
-  </div>
-  <div class="product">
-    <img src="https://images.unsplash.com/photo-1600185364003-0c3b5f3e1e2e?auto=format&fit=crop&w=600&q=80" alt="Tan Leather Satchel" />
-    <h3>Tan Leather Satchel</h3>
-    <p>₦39,000</p>
-    <button onclick="addToCart('Tan Leather Satchel', 39000)">Add to Cart</button>
-  </div>
-  <div class="product">
-    <img src="https://images.unsplash.com/photo-1598032891746-9b3f3e9a3e3f?auto=format&fit=crop&w=600&q=80" alt="Mini Chain Bag" />
-    <h3>Mini Chain Bag</h3>
-    <p>₦25,000</p>
-    <button onclick="addToCart('Mini Chain Bag', 25000)">Add to Cart</button>
-  </div>
-  <div class="product">
-    <img src="https://images.unsplash.com/photo-1618354691214-8e3c3e9a3e3f?auto=format&fit=crop&w=600&q=80" alt="Structured Box Bag" />
-    <h3>Structured Box Bag</h3>
-    <p>₦36,000</p>
-    <button onclick="addToCart('Structured Box Bag', 36000)">Add to Cart</button>
-  </div>
-  <div class="product">
-    <img src="https://images.unsplash.com/photo-1585386959984-a415522b831d?auto=format&fit=crop&w=600&q=80" alt="Pearl Handle Clutch" />
-    <h3>Pearl Handle Clutch</h3>
-    <p>₦30,000</p>
-    <button onclick="addToCart('Pearl Handle Clutch', 30000)">Add to Cart</button>
-  </div>
-  <div class="product">
-    <img src="https://images.unsplash.com/photo-1622464115814-9b3f3e9a3e3f?auto=format&fit=crop&w=600&q=80" alt="Canvas Travel Bag" />
-    <h3>Canvas Travel Bag</h3>
-    <p>₦42,000</p>
-    <button onclick="addToCart('Canvas Travel Bag', 42000)">Add to Cart</button>
-  </div>
-  <div class="product">
-    <img src="https://images.unsplash.com/photo-1600185364003-0c3b5f3e1e2e?auto=format&fit=crop&w=600&q=80" alt="Classic Shoulder Bag" />
-    <h3>Classic Shoulder Bag</h3>
-    <p>₦34,000</p>
+      <div class="product">
+        <img src="https://images.unsplash.com/photo-1618354691214-8e3c3e9a3e3f?auto=format&fit=crop&w=600&q=80" alt="Noir Luxe Tote" />
+        <h3>Noir Luxe Tote</h3>
+        <p>₦32,000</p>
+        <button onclick="addToCart('Noir Luxe Tote', 32000)">Add to Cart</button>
+      </div>
+      <div class="product">
+        <img src="https://images.unsplash.com/photo-1585386959984-a415522b831d?auto=format&fit=crop&w=600&q=80" alt="Crimson Voyager" />
+        <h3>Crimson Voyager</h3>
+        <p>₦45,000</p>
+        <button onclick="addToCart('Crimson Voyager', 45000)">Add to Cart</button>
+      </div>
+      <div class="product">
+        <img src="https://images.unsplash.com/photo-1622464115814-9b3f3e9a3e3f?auto=format&fit=crop&w=600&q=80" alt="Quilted Crossbody" />
+        <h3>Quilted Crossbody</h3>
+        <p>₦28,000</p>
+        <button onclick="addToCart('Quilted Crossbody', 28000)">Add to Cart</button>
+      </div>
+      <div class="product">
+        <img src="https://images.unsplash.com/photo-1600185364003-0c3b5f3e1e2e?auto=format&fit=crop&w=600&q=80" alt="Tan Leather Satchel" />
+        <h3>Tan Leather Satchel</h3>
+        <p>₦39,000</p>
+        <button onclick="addToCart('Tan Leather Satchel', 39000)">Add to Cart</button>
+      </div>
+      <div class="product">
+        <img src="https://images.unsplash.com/photo-1598032891746-9b3f3e9a3e3f?auto=format&fit=crop&w=600&q=80" alt="Mini Chain Bag" />
+        <h3>Mini Chain Bag</h3>
+        <p>₦25,000</p>
+        <button onclick="addToCart('Mini Chain Bag', 25000)">Add to Cart</button>
+      </div>
+      <div class="product">
+        <img src="https://images.unsplash.com/photo-1618354691214-8e3c3e9a3e3f?auto=format&fit=crop&w=600&q=80" alt="Structured Box Bag" />
+        <h3>Structured Box Bag</h3>
+        <p>₦36,000</p>
+        <button onclick="addToCart('Structured Box Bag', 36000)">Add to Cart</button>
+      </div>
+      <div class="product">
+        <img src="https://images.unsplash.com/photo-1585386959984-a415522b831d?auto=format&fit=crop&w=600&q=80" alt="Pearl Handle Clutch" />
+        <h3>Pearl Handle Clutch</h3>
+        <p>₦30,000</p>
+        <button onclick="addToCart('Pearl Handle Clutch', 30000)">Add to Cart</button>
+      </div>
+      <div class="product">
+        <img src="https://images.unsplash.com/photo-1622464115814-9b3f3e9a3e3f?auto=format&fit=crop&w=600&q=80" alt="Canvas Travel Bag" />
+        <h3>Canvas Travel Bag</h3>
+        <p>₦42,000</p>
+        <button onclick="addToCart('Canvas Travel Bag', 42000)">Add to Cart</button>
+      </div>
+      <div class="product">
+        <img src="https://images.unsplash.com/photo-1600185364003-0c3b5f3e1e2e?auto=format&fit=crop&w=600&q=80" alt="Classic Shoulder Bag" />
+        <h3>Classic Shoulder Bag</h3>
+        <p>₦34,000</p>
     <button onclick="addToCart('Classic Shoulder Bag', 34000)">Add to Cart</button>
-  </div>
-  <div class="product">
-    <img src="https://images.unsplash.com/photo-1598032891746-9b3f3e9a3e3f?auto=format&fit=crop&w=600&q=80" alt="Elegant Evening Bag" />
-    <h3>Elegant Evening Bag</h3>
-    <p>₦38,000</p>
-    <button onclick="addToCart('Elegant Evening Bag', 38000)">Add to Cart</button>
-  </div>
-</div>
-
+      </div>
+      <div class="product">
+        <img src="https://images.unsplash.com/photo-1598032891746-9b3f3e9a3e3f?auto=format&fit=crop&w=600&q=80" alt="Elegant Evening Bag" />
+        <h3>Elegant Evening Bag</h3>
+        <p>₦38,000</p>
+        <button onclick="addToCart('Elegant Evening Bag', 38000)">Add to Cart</button>
+      </div>
+    </div>
   </section>
 
- <footer>
+  <footer>
     <p>&copy; 2025 Gadrel Collection. All rights reserved.</p>
     <div class="social-links">
       <a href="https://instagram.com/gadrelcollection">Instagram</a>
@@ -105,9 +223,9 @@
   </footer>
 
   <script>
-    function addToCart(name, price, image) {
+    function addToCart(name, price) {
       const cart = JSON.parse(localStorage.getItem("cart") || "[]");
-      cart.push({ name, price, image });
+      cart.push({ name, price });
       localStorage.setItem("cart", JSON.stringify(cart));
       alert(`${name} added to cart!`);
     }
