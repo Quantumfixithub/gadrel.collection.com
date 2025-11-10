@@ -5,34 +5,82 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Checkout - Gadrel Collection</title>
   <link rel="stylesheet" href="styles/styles.css" />
+  <style>
+    .checkout-form {
+      max-width: 600px;
+      margin: 0 auto;
+      background-color: #111;
+      padding: 20px;
+      border: 1px solid #db073d;
+      border-radius: 8px;
+    }
+    label {
+      display: block;
+      margin: 10px 0 5px;
+      font-weight: bold;
+    }
+    input, textarea {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 15px;
+      border: none;
+      border-radius: 4px;
+    }
+    button {
+      background-color: #db073d;
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    .order-summary {
+      margin-bottom: 30px;
+      font-size: 18px;
+    }
+  </style>
 </head>
 <body>
   <header>
     <div class="logo">GADREL COLLECTION</div>
     <nav>
       <a href="index.html">Home</a>
+      <div class="dropdown">
+        <button class="dropbtn">Shop</button>
+        <div class="dropdown-content">
+          <a href="shop.html">All Products</a>
+          <a href="men.html">Men</a>
+          <a href="women.html">Women</a>
+          <a href="accessories.html">Accessories</a>
+          <a href="bags.html">Bags</a>
+          <a href="beauty.html">Beauty</a>
+        </div>
+      </div>
+      <a href="about.html">About</a>
+      <a href="contact.html">Contact</a>
       <a href="cart.html">Cart 🛒</a>
     </nav>
   </header>
 
   <section class="featured">
-    <h2>Secure Checkout</h2>
-    <form>
-      <label>Full Name</label><br />
-      <input type="text" required /><br />
-      <label>Email Address</label><br />
-      <input type="email" required /><br />
-      <label>Shipping Address</label><br />
-      <input type="text" required /><br />
-      <label>Payment Method</label><br />
-      <select>
-        <option>Paystack</option>
-        <option>Bank Transfer</option>
-      </select><br /><br />
-      <a href="paystack.html" class="cta">Pay Now</a>
+    <h2>Checkout</h2>
+    <div class="order-summary" id="order-summary"></div>
+
+    <form class="checkout-form">
+      <label for="name">Full Name</label>
+      <input type="text" id="name" name="name" required />
+
+      <label for="email">Email Address</label>
+      <input type="email" id="email" name="email" required />
+
+      <label for="address">Shipping Address</label>
+      <textarea id="address" name="address" rows="4" required></textarea>
+
+      <button type="submit">Place Order</button>
     </form>
   </section>
-  <footer>
+
+   <footer>
     <p>&copy; 2025 Gadrel Collection. All rights reserved.</p>
     <div class="social-links">
       <a href="https://instagram.com/gadrelcollection">Instagram</a>
@@ -40,5 +88,27 @@
       <a href="https://wa.me/2348105429924">Chat on WhatsApp</a>
     </div>
   </footer>
+
+  <script>
+    const cart = JSON.parse(localStorage.getItem("cart") || "[]");
+    const summary = document.getElementById("order-summary");
+
+    if (cart.length === 0) {
+      summary.innerHTML = "<p>Your cart is empty.</p>";
+    } else {
+      let total = 0;
+      let list = "<ul>";
+      cart.forEach(item => {
+        total += item.price;
+        list += `<li>${item.name} — ₦${item.price.toLocaleString()}</li>`;
+      });
+      list += "</ul>";
+      summary.innerHTML = `
+        <h3>Order Summary</h3>
+        ${list}
+        <strong>Total: ₦${total.toLocaleString()}</strong>
+      `;
+    }
+  </script>
 </body>
 </html>
