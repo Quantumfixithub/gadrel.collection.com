@@ -11,30 +11,90 @@
     <div class="logo">GADREL COLLECTION</div>
     <nav>
       <a href="index.html">Home</a>
-      <a href="shop.html">Shop</a>
+      <div class="dropdown">
+        <button class="dropbtn">Shop</button>
+        <div class="dropdown-content">
+          <a href="shop.html">All Products</a>
+          <a href="men.html">Men</a>
+          <a href="women.html">Women</a>
+          <a href="accessories.html">Accessories</a>
+          <a href="bags.html">Bags</a>
+          <a href="beauty.html">Beauty</a>
+        </div>
+      </div>
+      <a href="about.html">About</a>
+      <a href="contact.html">Contact</a>
       <a href="cart.html">Cart 🛒</a>
     </nav>
   </header>
 
   <section class="featured">
-    <h2>Accessories</h2>
+    <h2>Accessories Collection</h2>
     <div class="product-grid">
       <div class="product">
-        <img src="assets/images/bracelet.jpg" alt="Gold Cuff Bracelet" />
-        <h3>Gold Cuff Bracelet</h3>
-        <p>₦15,000</p>
-        <button onclick="addToCart('Gold Cuff Bracelet', 15000, 'assets/images/bracelet.jpg')">Add to Cart</button>
+        <img src="https://images.unsplash.com/photo-1600185364003-0c3b5f3e1e2e" alt="Gold Hoop Earrings" />
+        <h3>Gold Hoop Earrings</h3>
+        <p>₦18,000</p>
+        <button onclick="addToCart('Gold Hoop Earrings', 18000, 'https://images.unsplash.com/photo-1600185364003-0c3b5f3e1e2e')">Add to Cart</button>
       </div>
       <div class="product">
-        <img src="assets/images/scarf.jpg" alt="Silk Scarf" />
+        <img src="https://images.unsplash.com/photo-1585386959984-a415522b831d" alt="Pearl Hair Clip" />
+        <h3>Pearl Hair Clip</h3>
+        <p>₦8,000</p>
+        <button onclick="addToCart('Pearl Hair Clip', 8000, 'https://images.unsplash.com/photo-1585386959984-a415522b831d')">Add to Cart</button>
+      </div>
+      <div class="product">
+        <img src="https://images.unsplash.com/photo-1618354691214-8e3c3e9a3e3f" alt="Leather Belt" />
+        <h3>Leather Belt</h3>
+        <p>₦12,000</p>
+        <button onclick="addToCart('Leather Belt', 12000, 'https://images.unsplash.com/photo-1618354691214-8e3c3e9a3e3f')">Add to Cart</button>
+      </div>
+      <div class="product">
+        <img src="https://images.unsplash.com/photo-1622464115814-9b3f3e9a3e3f" alt="Crystal Pendant Necklace" />
+        <h3>Crystal Pendant Necklace</h3>
+        <p>₦22,000</p>
+        <button onclick="addToCart('Crystal Pendant Necklace', 22000, 'https://images.unsplash.com/photo-1622464115814-9b3f3e9a3e3f')">Add to Cart</button>
+      </div>
+      <div class="product">
+        <img src="https://images.unsplash.com/photo-1598032891746-9b3f3e9a3e3f" alt="Silk Scarf" />
         <h3>Silk Scarf</h3>
-        <p>₦9,500</p>
-        <button onclick="addToCart('Silk Scarf', 9500, 'assets/images/scarf.jpg')">Add to Cart</button>
+        <p>₦15,000</p>
+        <button onclick="addToCart('Silk Scarf', 15000, 'https://images.unsplash.com/photo-1598032891746-9b3f3e9a3e3f')">Add to Cart</button>
+      </div>
+      <div class="product">
+        <img src="https://images.unsplash.com/photo-1600185364003-0c3b5f3e1e2e" alt="Statement Ring" />
+        <h3>Statement Ring</h3>
+        <p>₦10,000</p>
+        <button onclick="addToCart('Statement Ring', 10000, 'https://images.unsplash.com/photo-1600185364003-0c3b5f3e1e2e')">Add to Cart</button>
+      </div>
+      <div class="product">
+        <img src="https://images.unsplash.com/photo-1585386959984-a415522b831d" alt="Beaded Bracelet" />
+        <h3>Beaded Bracelet</h3>
+        <p>₦9,000</p>
+        <button onclick="addToCart('Beaded Bracelet', 9000, 'https://images.unsplash.com/photo-1585386959984-a415522b831d')">Add to Cart</button>
+      </div>
+      <div class="product">
+        <img src="https://images.unsplash.com/photo-1618354691214-8e3c3e9a3e3f" alt="Gold Anklet" />
+        <h3>Gold Anklet</h3>
+        <p>₦11,000</p>
+        <button onclick="addToCart('Gold Anklet', 11000, 'https://images.unsplash.com/photo-1618354691214-8e3c3e9a3e3f')">Add to Cart</button>
+      </div>
+      <div class="product">
+        <img src="https://images.unsplash.com/photo-1622464115814-9b3f3e9a3e3f" alt="Vintage Brooch" />
+        <h3>Vintage Brooch</h3>
+        <p>₦14,000</p>
+        <button onclick="addToCart('Vintage Brooch', 14000, 'https://images.unsplash.com/photo-1622464115814-9b3f3e9a3e3f')">Add to Cart</button>
+      </div>
+      <div class="product">
+        <img src="https://images.unsplash.com/photo-1598032891746-9b3f3e9a3e3f" alt="Gemstone Hairband" />
+        <h3>Gemstone Hairband</h3>
+        <p>₦13,000</p>
+        <button onclick="addToCart('Gemstone Hairband', 13000, 'https://images.unsplash.com/photo-1598032891746-9b3f3e9a3e3f')">Add to Cart</button>
       </div>
     </div>
   </section>
 
-  <footer>
+   <footer>
     <p>&copy; 2025 Gadrel Collection. All rights reserved.</p>
     <div class="social-links">
       <a href="https://instagram.com/gadrelcollection">Instagram</a>
@@ -52,4 +112,4 @@
     }
   </script>
 </body>
-</html>
+</html> 
