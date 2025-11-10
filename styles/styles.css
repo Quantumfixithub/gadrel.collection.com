@@ -150,11 +150,14 @@ nav a,
 }
 
 footer {
+  background-color: #fff;
+  color: #db073d;
   text-align: center;
   padding: 20px;
-  background-color: #0a0a0a;
-  border-top: 2px solid #db073d;
+  border-top: 1px solid #db073d;
+  margin-top: auto; /* 👈 This keeps the footer at the bottom */
 }
+
 
 .social-links {
   margin-top: 10px;
@@ -185,3 +188,4 @@ footer {
     align-items: flex-start;
   }
 }
+
