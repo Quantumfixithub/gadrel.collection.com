@@ -5,191 +5,40 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Contact Us - Gadrel Collection</title>
   <link rel="stylesheet" href="styles/styles.css" />
-  <style>
-    body {
-      margin: 0;
-      font-family: sans-serif;
-      background-color: #F8F8F8;
-      color: #021D34;
-      display: flex;
-      flex-direction: column;
-      min-height: 100vh;
-    }
-    header {
-      background-color: #021D34;
-      color: #FFFFFF;
-      text-align: center;
-      padding: 20px;
-    }
-    .logo {
-      font-size: 24px;
-      font-weight: bold;
-      color: #D9AF6C;
-    }
-    nav {
-      margin-top: 10px;
-    }
-    nav a {
-      color: #F5E3C7;
-      margin: 0 10px;
-      text-decoration: none;
-      font-weight: bold;
-    }
-    .dropdown {
-      display: inline-block;
-      position: relative;
-    }
-    .dropbtn {
-      background: none;
-      border: none;
-      color: #F5E3C7;
-      font-weight: bold;
-      cursor: pointer;
-    }
-    .dropdown-content {
-      display: none;
-      position: absolute;
-      background-color: #FFFFFF;
-      border: 1px solid #D9AF6C;
-      min-width: 160px;
-      z-index: 1;
-    }
-    .dropdown-content a {
-      display: block;
-      padding: 10px;
-      color: #021D34;
-      text-decoration: none;
-    }
-    .dropdown:hover .dropdown-content {
-      display: block;
-    }
-    .featured {
-      padding: 40px 20px;
-      background-color: #F5E3C7;
-      text-align: center;
-      flex: 1;
-    }
-    .featured h2 {
-      margin-bottom: 30px;
-    }
-    form {
-      max-width: 600px;
-      margin: 0 auto;
-      background-color: #FFFFFF;
-      padding: 20px;
-      border: 1px solid #D9AF6C;
-      border-radius: 8px;
-      color: #021D34;
-    }
-    label {
-      display: block;
-      margin: 10px 0 5px;
-      font-weight: bold;
-    }
-    input, textarea {
-      width: 100%;
-      padding: 10px;
-      margin-bottom: 15px;
-      border: 1px solid #D9AF6C;
-      border-radius: 4px;
-      background-color: #F8F8F8;
-      color: #021D34;
-    }
-    button {
-      background-color: #D9AF6C;
-      color: #021D34;
-      padding: 10px 20px;
-      border: none;
-      border-radius: 4px;
-      cursor: pointer;
-      font-weight: bold;
-    }
-    .contact-links {
-      text-align: center;
-      margin-top: 30px;
-      font-size: 18px;
-    }
-    .contact-links a {
-      color: #021D34;
-      margin: 0 10px;
-      text-decoration: none;
-      font-weight: bold;
-    }
-    .newsletter {
-      margin-top: 60px;
-      background-color: #021D34;
-      color: #fff;
-      padding: 2rem;
-    }
-    .newsletter h3 {
-      margin-bottom: 1rem;
-    }
-    .newsletter form {
-      max-width: 400px;
-      margin: 0 auto;
-    }
-    .newsletter input {
-      width: 100%;
-      padding: 0.75rem;
-      border: none;
-      border-radius: 6px;
-      margin-bottom: 1rem;
-      font-size: 1rem;
-    }
-    .newsletter button {
-      background-color: #D9AF6C;
-      color: #021D34;
-      padding: 0.75rem 1.5rem;
-      border: none;
-      border-radius: 6px;
-      font-weight: bold;
-      cursor: pointer;
-    }
-    footer {
-      background-color: #021D34;
-      color: #FFFFFF;
-      text-align: center;
-      padding: 20px;
-      margin-top: auto;
-    }
-    .social-links a {
-      color: #D9AF6C;
-      margin: 0 10px;
-      text-decoration: none;
-    }
-  </style>
 </head>
 <body>
   <header>
     <div class="logo">GADREL COLLECTION</div>
     <nav>
-      <a href="index.html">Home</a>
-      <div class="dropdown">
-        <button class="dropbtn">Shop</button>
-        <div class="dropdown-content">
-          <a href="shop.html">All Products</a>
-          <a href="men.html">Men</a>
-          <a href="women.html">Women</a>
-          <a href="accessories.html">Accessories</a>
-          <a href="bags.html">Bags</a>
-          <a href="beauty.html">Beauty</a>
-          <a href="perfume.html">Perfume</a>
-          <a href="earrings.html">Earrings</a>
-        </div>
-      </div>
-      <div class="dropdown">
-        <button class="dropbtn">Account</button>
-        <div class="dropdown-content">
-          <a href="signin.html">Sign In</a>
-          <a href="signup.html">Sign Up</a>
-          <a href="account.html">My Account</a>
-          <a href="orders.html">Orders</a>
-          <a href="wishlist.html">Wishlist</a>
-        </div>
-      </div>
-      <a href="about.html">About</a>
-      <a href="contact.html">Contact</a>
-      <a href="cart.html">Cart 🛒</a>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li class="dropdown">
+          <a href="shop.html">Shop ▾</a>
+          <ul class="dropdown-menu">
+            <li><a href="shop.html">All Products</a></li>
+            <li><a href="men.html">Men</a></li>
+            <li><a href="women.html">Women</a></li>
+            <li><a href="accessories.html">Accessories</a></li>
+            <li><a href="bags.html">Bags</a></li>
+            <li><a href="beauty.html">Beauty</a></li>
+            <li><a href="perfume.html">Perfume</a></li>
+            <li><a href="earrings.html">Earrings</a></li>
+          </ul>
+        </li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="contact.html">Contact</a></li>
+        <li><a href="cart.html">Cart 🛒</a></li>
+        <li class="dropdown">
+          <a href="account.html">Account ▾</a>
+          <ul class="dropdown-menu">
+            <li><a href="signin.html">Sign In</a></li>
+            <li><a href="signup.html">Sign Up</a></li>
+            <li><a href="account.html">My Account</a></li>
+            <li><a href="orders.html">Orders</a></li>
+            <li><a href="wishlist.html">Wishlist</a></li>
+          </ul>
+        </li>
+      </ul>
     </nav>
   </header>
 
