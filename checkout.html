@@ -30,12 +30,25 @@
     }
 
     .checkout-box {
-      max-width: 500px;
+      max-width: 600px;
       margin: 2rem auto;
       background: var(--white);
       padding: 2rem;
       border-radius: 8px;
       box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+    }
+
+    h2 {
+      text-align: center;
+      margin-bottom: 1rem;
+    }
+
+    ul {
+      padding-left: 1rem;
+    }
+
+    li {
+      margin-bottom: 0.5rem;
     }
 
     label {
@@ -44,7 +57,7 @@
       font-weight: 600;
     }
 
-    input {
+    input, textarea {
       width: 100%;
       padding: 0.75rem;
       margin-top: 0.25rem;
@@ -89,30 +102,57 @@
     .toast.show {
       opacity: 1;
     }
+
+    .total {
+      font-weight: bold;
+      margin-top: 1rem;
+    }
   </style>
 </head>
 <body>
 
   <header>
-    <h1>💳 Checkout</h1>
-    <p>Complete your purchase securely</p>
+    <h1>🛍️ Checkout</h1>
+    <p>Review your cart and complete your purchase</p>
   </header>
 
   <main class="checkout-box">
+    <h2>Order Summary</h2>
+    <div id="cart-summary"></div>
+
     <form onsubmit="payWithPaystack(event)">
+      <label for="name">Full Name</label>
+      <input type="text" id="name" placeholder="Enter your name" required />
+
       <label for="email">Email Address</label>
       <input type="email" id="email" placeholder="you@example.com" required />
 
-      <label for="amount">Amount (₦)</label>
-      <input type="number" id="amount" placeholder="Enter amount" required min="100" />
+      <label for="address">Shipping Address</label>
+      <textarea id="address" rows="4" placeholder="Enter your address" required></textarea>
 
-      <button type="submit">Pay Now</button>
+      <button type="submit" id="pay-btn">Pay Now</button>
     </form>
   </main>
 
   <div id="toast" class="toast"></div>
 
   <script>
+    const cart = JSON.parse(localStorage.getItem("cart") || "[]");
+    const summary = document.getElementById("cart-summary");
+
+    function renderSummary() {
+      let total = 0;
+      let html = "<ul>";
+      cart.forEach(item => {
+        const price = typeof item.price === "string" ? parseInt(item.price.replace(/\D/g, "")) : item.price;
+        total += price;
+        html += `<li>${item.name} — ₦${price.toLocaleString()}</li>`;
+      });
+      html += "</ul>";
+      html += `<div class="total">Total: ₦${total.toLocaleString()}</div>`;
+      summary.innerHTML = html;
+    }
+
     function showToast(message) {
       const toast = document.getElementById("toast");
       toast.textContent = message;
@@ -123,18 +163,29 @@
     function payWithPaystack(e) {
       e.preventDefault();
       const email = document.getElementById("email").value.trim();
-      const amount = parseFloat(document.getElementById("amount").value) * 100;
+      const name = document.getElementById("name").value.trim();
+      const address = document.getElementById("address").value.trim();
+      const amount = cart.reduce((sum, item) => {
+        const price = typeof item.price === "string" ? parseInt(item.price.replace(/\D/g, "")) : item.price;
+        return sum + price;
+      }, 0) * 100;
 
-      if (!email || isNaN(amount) || amount < 10000) {
-        showToast("Please enter a valid email and amount (₦100+)");
+      if (!email || !name || !address || cart.length === 0) {
+        showToast("Please fill all fields and ensure your cart is not empty.");
         return;
       }
 
       const paystack = new PaystackPop();
       paystack.newTransaction({
-        key: 'pk_test_xxxxxxxxxxxxxxxxxxxxxxxx', // 🔑 Replace with your actual Paystack public key
+        key: 'pk_test_xxxxxxxxxxxxxxxxxxxxxxxx', // Replace with your actual public key
         email: email,
         amount: amount,
+        metadata: {
+          custom_fields: [
+            { display_name: "Name", variable_name: "name", value: name },
+            { display_name: "Address", variable_name: "address", value: address }
+          ]
+        },
         onSuccess: (transaction) => {
           showToast("Payment successful!");
           localStorage.removeItem("cart");
@@ -147,6 +198,8 @@
         }
       });
     }
+
+    renderSummary();
   </script>
 </body>
 </html>
