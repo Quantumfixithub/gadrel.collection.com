@@ -83,7 +83,7 @@
   </style>
 </head>
 <body>
-
+ <div class="page-wrapper">
   <header>
     <h1>🛒 Your Cart</h1>
     <p>Review your selected items</p>
@@ -93,6 +93,51 @@
     <h2>Items in Cart</h2>
     <div id="cart-content"></div>
   </main>
+ </div>
+   <!-- Add this just before </body> -->
+<footer class="site-footer">
+  <div class="footer-content">
+    <p>&copy; 2025 Gadrel Collection. All rights reserved.</p>
+    <div class="footer-links">
+      <a href="https://instagram.com/gadrelcollection" target="_blank">Instagram</a>
+      <a href="mailto:support@gadrelcollection.com">Email Us</a>
+    </div>
+  </div>
+</footer>
+
+<a href="https://wa.me/2348105429924" class="whatsapp-float" target="_blank" title="Chat with us">
+  🟡 Chat on WhatsApp
+</a>
+
+<style>
+  .site-footer {
+    text-align: center;
+    padding: 2rem 1rem;
+    background: #021D34;
+    color: #fff;
+    margin-top: 4rem;
+  }
+
+  .footer-links a {
+    color: #D9AF6C;
+    margin: 0 1rem;
+    text-decoration: none;
+  }
+
+  .whatsapp-float {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background-color: #D9AF6C;
+    color: #021D34;
+    padding: 0.75rem 1rem;
+    border-radius: 50px;
+    font-weight: bold;
+    text-decoration: none;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+    z-index: 999;
+  }
+</style>
 
   <script>
     const cart = JSON.parse(localStorage.getItem("cart") || "[]");
