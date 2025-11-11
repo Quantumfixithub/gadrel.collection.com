@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Secure Payment - Gadrel Collection</title>
+  <script src="https://js.paystack.co/v2/inline.js"></script>
+  <style>
+    :root {
+      --navy: #021D34;
+      --gold: #D9AF6C;
+      --cream: #F5E3C7;
+      --white: #FFFFFF;
+      --light-grey: #F8F8F8;
+    }
+
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      margin: 0;
+      padding: 0;
+      background: var(--light-grey);
+      color: var(--navy);
+    }
+
+    header {
+      text-align: center;
+      padding: 2rem 1rem;
+      background: var(--navy);
+      color: var(--white);
+    }
+
+    .payment-section {
+      max-width: 500px;
+      margin: 2rem auto;
+      padding: 2rem;
+      background: var(--white);
+      border-radius: 8px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+    }
+
+    form {
+      display: flex;
+      flex-direction: column;
+    }
+
+    label {
+      margin-top: 1rem;
+      font-weight: 600;
+    }
+
+    input {
+      padding: 0.75rem;
+      margin-top: 0.25rem;
+      border: 1px solid var(--gold);
+      border-radius: 6px;
+      font-size: 1rem;
+      background-color: var(--cream);
+      color: var(--navy);
+    }
+
+    .shop-button {
+      margin-top: 2rem;
+      background-color: var(--gold);
+      color: var(--navy);
+      padding: 0.75rem;
+      font-size: 1rem;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background 0.3s ease;
+      font-weight: bold;
+    }
+
+    .shop-button:disabled {
+      background-color: #ccc;
+      cursor: not-allowed;
+    }
+
+    .shop-button:hover:not(:disabled) {
+      background-color: #c89a4f;
+    }
+
+    .site-footer {
+      text-align: center;
+      padding: 2rem 1rem;
+      background: var(--navy);
+      color: var(--white);
+    }
+
+    .footer-links a {
+      color: var(--gold);
+      margin: 0 1rem;
+      text-decoration: none;
+    }
+
+    .whatsapp-float {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background-color: var(--gold);
+      color: var(--navy);
+      padding: 0.75rem 1rem;
+      border-radius: 50px;
+      font-weight: bold;
+      text-decoration: none;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+      z-index: 999;
+    }
+
+    .toast {
+      position: fixed;
+      bottom: 30px;
+      left: 50%;
+      transform: translateX(-50%);
+      background-color: var(--navy);
+      color: var(--white);
+      padding: 1rem 2rem;
+      border-radius: 6px;
+      font-size: 1rem;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      z-index: 999;
+    }
+
+    .toast.show {
+      opacity: 1;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Page Header -->
+  <header>
+    <h1>💳 Secure Payment</h1>
+    <p>Complete your purchase safely and quickly.</p>
+  </header>
+
+  <!-- Main Payment Section -->
+  <main class="payment-section">
+    <form id="payment-form" onsubmit="payWithPaystack(event)">
+      <label for="email">Email Address</label>
+      <input type="email" id="email-address" placeholder="you@example.com" required />
+
+      <label for="amount">Amount (₦)</label>
+      <input type="number" id="amount" placeholder="Enter amount" required min="100" />
+
+      <button type="submit" class="shop-button" id="pay-btn">Pay Now</button>
+    </form>
+  </main>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="footer-content">
+      <p>&copy; 2025 Gadrel Collection. All rights reserved.</p>
+      <div class="footer-links">
+        <a href="https://instagram.com/gadrelcollection" target="_blank">Instagram</a>
+        <a href="mailto:support@gadrelcollection.com">Email Us</a>
+      </div>
+    </div>
+  </footer>
+
+
+  <!-- Toast Notification -->
+  <div id="toast" class="toast"></div>
+
+  <!-- Paystack Script -->
+  <script>
+    function showToast(message) {
+      const toast = document.getElementById("toast");
+      toast.textContent = message;
+      toast.classList.add("show");
+      setTimeout(() => toast.classList.remove("show"), 3000);
+    }
+
+    function payWithPaystack(e) {
+      e.preventDefault();
+      const email = document.getElementById("email-address").value.trim();
+      const amount = parseFloat(document.getElementById("amount").value) * 100;
+      const payBtn = document.getElementById("pay-btn");
+
+      if (!email || isNaN(amount) || amount < 10000) {
+        showToast("Please enter a valid email and amount (₦100+)");
+        return;
+      }
+
+      payBtn.disabled = true;
+      payBtn.textContent = "Processing...";
+
+      const paystack = new PaystackPop();
+      paystack.newTransaction({
+        key: 'pk_test_xxxxxxxxxxxxxxxxxxxxxxxx', // Replace with your actual public key
+        email: email,
+        amount: amount,
+        onSuccess: (transaction) => {
+          showToast("Payment successful!");
+          setTimeout(() => {
+            window.location.href = "confirmation.html";
+          }, 1500);
+        },
+        onCancel: () => {
+          showToast("Payment cancelled.");
+          payBtn.disabled = false;
+          payBtn.textContent = "Pay Now";
+        }
+      });
+    }
+  </script>
+</body>
+</html>
