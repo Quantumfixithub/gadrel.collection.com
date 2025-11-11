@@ -4,94 +4,75 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Sign Up - Gadrel Collection</title>
-  <style>
-    body {
-      font-family: 'Segoe UI', sans-serif;
-      background: #F8F8F8;
-      color: #021D34;
-      margin: 0;
-      padding: 0;
-    }
-
-    .auth-box {
-      max-width: 400px;
-      margin: 5rem auto;
-      background: #fff;
-      padding: 2rem;
-      border-radius: 8px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.05);
-    }
-
-    h2 {
-      text-align: center;
-      margin-bottom: 1.5rem;
-    }
-
-    label {
-      display: block;
-      margin-top: 1rem;
-      font-weight: bold;
-    }
-
-    input {
-      width: 100%;
-      padding: 0.75rem;
-      margin-top: 0.25rem;
-      border: 1px solid #D9AF6C;
-      border-radius: 6px;
-      background-color: #F5E3C7;
-      color: #021D34;
-    }
-
-    button {
-      margin-top: 2rem;
-      background-color: #D9AF6C;
-      color: #021D34;
-      padding: 0.75rem;
-      font-size: 1rem;
-      border: none;
-      border-radius: 6px;
-      cursor: pointer;
-      font-weight: bold;
-      width: 100%;
-    }
-
-    button:hover {
-      background-color: #c89a4f;
-    }
-
-    .auth-footer {
-      text-align: center;
-      margin-top: 1rem;
-    }
-
-    .auth-footer a {
-      color: #021D34;
-      text-decoration: none;
-      font-weight: bold;
-    }
-  </style>
+  <link rel="stylesheet" href="styles/styles.css" />
 </head>
 <body>
+  <!-- Header with full navigation -->
+  <header>
+    <div class="logo">GADREL COLLECTION</div>
+    <nav>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li class="dropdown">
+          <a href="shop.html">Shop ▾</a>
+          <ul class="dropdown-menu">
+            <li><a href="shop.html">All Products</a></li>
+            <li><a href="men.html">Men</a></li>
+            <li><a href="women.html">Women</a></li>
+            <li><a href="accessories.html">Accessories</a></li>
+            <li><a href="bags.html">Bags</a></li>
+            <li><a href="beauty.html">Beauty</a></li>
+            <li><a href="perfume.html">Perfume</a></li>
+            <li><a href="earrings.html">Earrings</a></li>
+          </ul>
+        </li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="contact.html">Contact</a></li>
+        <li><a href="cart.html">Cart 🛒</a></li>
+        <li class="dropdown">
+          <a href="account.html">Account ▾</a>
+          <ul class="dropdown-menu">
+            <li><a href="signin.html">Sign In</a></li>
+            <li><a href="signup.html">Sign Up</a></li>
+            <li><a href="account.html">My Account</a></li>
+            <li><a href="orders.html">Orders</a></li>
+            <li><a href="wishlist.html">Wishlist</a></li>
+          </ul>
+        </li>
+      </ul>
+    </nav>
+  </header>
 
-  <div class="auth-box">
-    <h2>Create Account</h2>
-    <form>
-      <label for="name">Full Name</label>
-      <input type="text" id="name" placeholder="Your name" required />
+  <!-- Sign Up Form -->
+  <main>
+    <div class="auth-box">
+      <h2>Create Account</h2>
+      <form>
+        <label for="name">Full Name</label>
+        <input type="text" id="name" placeholder="Your name" required />
 
-      <label for="email">Email Address</label>
-      <input type="email" id="email" placeholder="you@example.com" required />
+        <label for="email">Email Address</label>
+        <input type="email" id="email" placeholder="you@example.com" required />
 
-      <label for="password">Password</label>
-      <input type="password" id="password" placeholder="Create a password" required />
+        <label for="password">Password</label>
+        <input type="password" id="password" placeholder="Create a password" required />
 
-      <button type="submit">Sign Up</button>
-    </form>
-    <div class="auth-footer">
-      <p>Already have an account? <a href="signin.html">Sign In</a></p>
+        <button type="submit">Sign Up</button>
+      </form>
+      <div class="auth-footer">
+        <p>Already have an account? <a href="signin.html">Sign In</a></p>
+      </div>
     </div>
-  </div>
+  </main>
 
+  <!-- Footer -->
+  <footer>
+    <p>&copy; 2025 Gadrel Collection. All rights reserved.</p>
+    <div class="social-links">
+      <a href="https://instagram.com/gadrelcollection">Instagram</a>
+      <a href="mailto:johnamoke18@gmail.com">Email Us</a>
+      <a href="https://wa.me/2348105429924">Chat on WhatsApp</a>
+    </div>
+  </footer>
 </body>
 </html>
