@@ -1,4 +1,105 @@
-<section class="featured">
-  <h2>Order History</h2>
-  <p>You haven’t placed any orders yet.</p>
-</section>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>My Orders - Gadrel Collection</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #F8F8F8;
+      color: #021D34;
+      margin: 0;
+      padding: 0;
+    }
+
+    header {
+      background: #021D34;
+      color: #fff;
+      padding: 1.5rem 2rem;
+      text-align: center;
+    }
+
+    .orders-container {
+      max-width: 800px;
+      margin: 2rem auto;
+      background: #fff;
+      padding: 2rem;
+      border-radius: 8px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+    }
+
+    h2 {
+      margin-bottom: 1rem;
+    }
+
+    .order {
+      border-bottom: 1px solid #ddd;
+      padding: 1rem 0;
+    }
+
+    .order:last-child {
+      border-bottom: none;
+    }
+
+    .order h3 {
+      margin: 0;
+    }
+
+    .order p {
+      margin: 0.25rem 0;
+    }
+
+    footer {
+      text-align: center;
+      padding: 2rem 1rem;
+      background: #021D34;
+      color: #fff;
+      margin-top: 4rem;
+    }
+
+    .social-links a {
+      color: #D9AF6C;
+      margin: 0 1rem;
+      text-decoration: none;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>My Orders</h1>
+    <p>Track your recent purchases</p>
+  </header>
+
+  <main class="orders-container">
+    <h2>Order History</h2>
+
+    <div class="order">
+      <h3>Order #1001</h3>
+      <p>Date: Oct 15, 2025</p>
+      <p>Items: Noir Luxe Tote (Black, Medium)</p>
+      <p>Total: ₦32,000</p>
+      <p>Status: Delivered</p>
+    </div>
+
+    <div class="order">
+      <h3>Order #1002</h3>
+      <p>Date: Nov 2, 2025</p>
+      <p>Items: Blush Mini Satchel (Rose, Small)</p>
+      <p>Total: ₦24,500</p>
+      <p>Status: In Transit</p>
+    </div>
+  </main>
+
+  <footer>
+    <p>&copy; 2025 Gadrel Collection. All rights reserved.</p>
+    <div class="social-links">
+      <a href="https://instagram.com/gadrelcollection">Instagram</a>
+      <a href="mailto:johnamoke18@gmail.com">Email Us</a>
+      <a href="https://wa.me/2348105429924">Chat on WhatsApp</a>
+    </div>
+  </footer>
+
+</body>
+</html>
