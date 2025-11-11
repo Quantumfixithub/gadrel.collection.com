@@ -121,6 +121,12 @@
 
   <section class="shop-grid" id="shop-grid">
     <!-- Products will be injected here -->
+    <section id="perfume-products"></section>
+<section id="accessories-products"></section>
+<section id="dress-products"></section>
+<section id="bag-products"></section>
+<section id="skincare-products"></section>
+<section id="shoe-products"></section>
   </section>
 
   <footer>
@@ -133,89 +139,90 @@
   </footer>
 
   <script>
-    const products = [
-      {
-        name: "Noir Luxe Tote",
-        price: 32000,
-        image: "assets/images/bag1.jpg",
-        description: "Black leather tote with gold accents. Spacious, elegant, and timeless.",
-        sizes: ["Small", "Medium", "Large"],
-        colors: ["Black", "Brown", "Tan"]
-      },
-      {
-        name: "Blush Mini Satchel",
-        price: 24500,
-        image: "assets/images/bag2.jpg",
-        description: "Chic blush pink satchel with adjustable strap and gold hardware.",
-        sizes: ["Small", "Medium"],
-        colors: ["Blush", "Rose", "Cream"]
-      },
-      {
-        name: "Emerald Crossbody",
-        price: 28000,
-        image: "assets/images/bag3.jpg",
-        description: "Compact emerald green crossbody with magnetic flap and inner zip pocket.",
-        sizes: ["One Size"],
-        colors: ["Emerald", "Olive"]
-      }
-    ];
-
-    const shopGrid = document.getElementById("shop-grid");
-
-    products.forEach((product, index) => {
-      const card = document.createElement("div");
-      card.className = "product-card";
-      card.innerHTML = `
-        <img src="${product.image}" alt="${product.name}" />
-        <h3>${product.name}</h3>
-        <p>${product.description}</p>
-        <p><strong>₦${product.price.toLocaleString()}</strong></p>
-
-        <label for="size-${index}">Size</label>
-        <select id="size-${index}">
-          <option value="">Select size</option>
-          ${product.sizes.map(size => `<option value="${size}">${size}</option>`).join("")}
-        </select>
-
-        <label for="color-${index}">Color</label>
-        <select id="color-${index}">
-          <option value="">Select color</option>
-          ${product.colors.map(color => `<option value="${color}">${color}</option>`).join("")}
-        </select>
-
-        <label for="qty-${index}">Quantity</label>
-        <input type="number" id="qty-${index}" value="1" min="1" />
-
-        <button onclick="addToCart(${index})">Add to Cart</button>
-      `;
-      shopGrid.appendChild(card);
-    });
-
-    function addToCart(index) {
-      const size = document.getElementById(`size-${index}`).value;
-      const color = document.getElementById(`color-${index}`).value;
-      const quantity = parseInt(document.getElementById(`qty-${index}`).value);
-      const product = products[index];
-
-      if (!size || !color || quantity < 1) {
-        alert("Please select size, color, and quantity.");
-        return;
-      }
-
-      const item = {
-        name: product.name,
-        price: product.price,
-        image: product.image,
-        size: size,
-        color: color,
-        quantity: quantity
-      };
-
-      const cart = JSON.parse(localStorage.getItem("cart") || "[]");
-      cart.push(item);
-      localStorage.setItem("cart", JSON.stringify(cart));
-      alert(`${product.name} added to cart!`);
+  const products = [
+    {
+      name: "Noir Luxe Tote",
+      price: 32000,
+      image: "https://images.unsplash.com/photo-1585386959984-a415522b831d?auto=format&fit=crop&w=600&q=80",
+      description: "Black leather tote with gold accents. Spacious, elegant, and timeless.",
+      sizes: ["Small", "Medium", "Large"],
+      colors: ["Black", "Brown", "Tan"]
+    },
+    {
+      name: "Blush Mini Satchel",
+      price: 24500,
+      image: "https://images.unsplash.com/photo-1622464115814-9b3f3e9a3e3f?auto=format&fit=crop&w=600&q=80",
+      description: "Chic blush pink satchel with adjustable strap and gold hardware.",
+      sizes: ["Small", "Medium"],
+      colors: ["Blush", "Rose", "Cream"]
+    },
+    {
+      name: "Emerald Crossbody",
+      price: 28000,
+      image: "https://images.unsplash.com/photo-1600185364003-0c3b5f3e1e2e?auto=format&fit=crop&w=600&q=80",
+      description: "Compact emerald green crossbody with magnetic flap and inner zip pocket.",
+      sizes: ["One Size"],
+      colors: ["Emerald", "Olive"]
     }
-  </script>
+  ];
+
+  const shopGrid = document.getElementById("shop-grid");
+
+  products.forEach((product, index) => {
+    const card = document.createElement("div");
+    card.className = "product-card";
+    card.innerHTML = `
+      <img src="${product.image}" alt="${product.name}" />
+      <h3>${product.name}</h3>
+      <p>${product.description}</p>
+      <p><strong>₦${product.price.toLocaleString()}</strong></p>
+
+      <label for="size-${index}">Size</label>
+      <select id="size-${index}">
+        <option value="">Select size</option>
+        ${product.sizes.map(size => `<option value="${size}">${size}</option>`).join("")}
+      </select>
+
+      <label for="color-${index}">Color</label>
+      <select id="color-${index}">
+        <option value="">Select color</option>
+        ${product.colors.map(color => `<option value="${color}">${color}</option>`).join("")}
+      </select>
+
+      <label for="qty-${index}">Quantity</label>
+      <input type="number" id="qty-${index}" value="1" min="1" />
+
+      <button onclick="addToCart(${index})">Add to Cart</button>
+    `;
+    shopGrid.appendChild(card);
+  });
+
+  function addToCart(index) {
+    const size = document.getElementById(`size-${index}`).value;
+    const color = document.getElementById(`color-${index}`).value;
+    const quantity = parseInt(document.getElementById(`qty-${index}`).value);
+    const product = products[index];
+
+    if (!size || !color || quantity < 1) {
+      alert("Please select size, color, and quantity.");
+      return;
+    }
+
+    const item = {
+      name: product.name,
+      price: product.price,
+      image: product.image,
+      size: size,
+      color: color,
+      quantity: quantity
+    };
+
+    const cart = JSON.parse(localStorage.getItem("cart") || "[]");
+    cart.push(item);
+    localStorage.setItem("cart", JSON.stringify(cart));
+    alert(`${product.name} added to cart!`);
+  }
+</script>
+
 </body>
 </html>
