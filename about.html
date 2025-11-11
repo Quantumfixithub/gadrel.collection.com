@@ -148,6 +148,54 @@
       opacity: 1;
       transform: translateY(0);
     }
+    header {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  background-color: #021D34;
+  color: #FFFFFF;
+  padding: 1rem 2rem;
+}
+
+.logo {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-right: 2rem;
+  margin-top: 0.5rem;
+}
+
+.vertical-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.vertical-nav a {
+  color: #F5E3C7;
+  text-decoration: none;
+  font-weight: bold;
+  padding: 0.5rem 0;
+}
+
+.vertical-nav a:hover {
+  color: #D9AF6C;
+}
+
+.language-switch {
+  margin-top: 1rem;
+}
+
+.language-switch button {
+  background-color: #D9AF6C;
+  color: #021D34;
+  border: none;
+  padding: 0.5rem 1rem;
+  margin-right: 0.5rem;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
   </style>
   <script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
   <script>
@@ -177,20 +225,21 @@
   </script>
 </head>
 <body>
-  <header>
-    <div class="logo">GADREL COLLECTION</div>
-    <nav>
-      <a href="index.html">Home</a>
-      <a href="shop.html">Shop</a>
-      <a href="about.html">About</a>
-      <a href="contact.html">Contact</a>
-      <a href="cart.html">Cart 🛒</a>
-    </nav>
+<header>
+  <div class="logo">GADREL COLLECTION</div>
+  <nav class="vertical-nav">
+    <a href="index.html">Home</a>
+    <a href="shop.html">Shop</a>
+    <a href="about.html">About</a>
+    <a href="contact.html">Contact</a>
+    <a href="cart.html">Cart 🛒</a>
     <div class="language-switch">
       <button onclick="switchLanguage('en')">English</button>
       <button onclick="switchLanguage('fr')">Français</button>
     </div>
-  </header>
+  </nav>
+</header>
+
 
   <section class="featured">
     <div class="fade-in lang-en">
@@ -244,7 +293,7 @@
       <h2>Contact Us</h2>
       <form id="contact-form" onsubmit="sendContact(event)">
         <input type="text" name="name" placeholder="Your Name" required />
-               <input type="email" name="email" placeholder="Your Email" required />
+        <input type="email" name="email" placeholder="Your Email" required />
         <textarea name="message" placeholder="Your Message" rows="5" required></textarea>
         <button type="submit">Send Message</button>
       </form>
