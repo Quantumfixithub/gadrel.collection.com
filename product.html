@@ -5,6 +5,42 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Product - Gadrel Collection</title>
   <link rel="stylesheet" href="styles/styles.css" />
+  <style>
+    .product select,
+    .product input[type="number"] {
+      width: 100%;
+      padding: 0.5rem;
+      margin-top: 0.5rem;
+      border: 1px solid #D9AF6C;
+      border-radius: 6px;
+      background-color: #F5E3C7;
+      color: #021D34;
+      font-size: 1rem;
+    }
+
+    .product label {
+      display: block;
+      margin-top: 1rem;
+      font-weight: bold;
+    }
+
+    .product button {
+      margin-top: 1.5rem;
+      background-color: #D9AF6C;
+      color: #021D34;
+      padding: 0.75rem;
+      font-size: 1rem;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: bold;
+      transition: background 0.3s ease;
+    }
+
+    .product button:hover {
+      background-color: #c89a4f;
+    }
+  </style>
 </head>
 <body>
   <header>
@@ -23,6 +59,26 @@
         <img src="assets/images/bag1.jpg" alt="Noir Luxe Tote" />
         <p>Black leather tote with gold accents. Spacious, elegant, and timeless.</p>
         <p>₦32,000</p>
+
+        <label for="size">Size</label>
+        <select id="size">
+          <option value="">Select size</option>
+          <option value="Small">Small</option>
+          <option value="Medium">Medium</option>
+          <option value="Large">Large</option>
+        </select>
+
+        <label for="color">Color</label>
+        <select id="color">
+          <option value="">Select color</option>
+          <option value="Black">Black</option>
+          <option value="Brown">Brown</option>
+          <option value="Tan">Tan</option>
+        </select>
+
+        <label for="quantity">Quantity</label>
+        <input type="number" id="quantity" value="1" min="1" />
+
         <button onclick="addToCart()">Add to Cart</button>
       </div>
     </div>
@@ -39,11 +95,24 @@
 
   <script>
     function addToCart() {
+      const size = document.getElementById("size").value;
+      const color = document.getElementById("color").value;
+      const quantity = parseInt(document.getElementById("quantity").value);
+
+      if (!size || !color || quantity < 1) {
+        alert("Please select size, color, and quantity.");
+        return;
+      }
+
       const product = {
         name: "Noir Luxe Tote",
         price: 32000,
-        image: "assets/images/bag1.jpg"
+        image: "assets/images/bag1.jpg",
+        size: size,
+        color: color,
+        quantity: quantity
       };
+
       const cart = JSON.parse(localStorage.getItem("cart") || "[]");
       cart.push(product);
       localStorage.setItem("cart", JSON.stringify(cart));
@@ -52,5 +121,3 @@
   </script>
 </body>
 </html>
-
-
