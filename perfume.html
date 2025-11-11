@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Perfume - Gadrel Collection</title>
+  <link rel="stylesheet" href="styles/styles.css" />
+  <style>
+    body { font-family: 'Segoe UI', sans-serif; background: #F8F8F8; color: #021D34; margin: 0; }
+    header, footer { background: #021D34; color: #fff; text-align: center; padding: 1rem; }
+    .logo { font-size: 1.5rem; font-weight: bold; color: #D9AF6C; }
+    nav a { color: #F5E3C7; margin: 0 10px; text-decoration: none; font-weight: bold; }
+    .product-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem; padding: 2rem; }
+    .product-card { background: #fff; padding: 1rem; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.05); }
+    .product-card img { width: 100%; border-radius: 6px; margin-bottom: 1rem; }
+    .product-card h3 { margin: 0.5rem 0; }
+    .product-card p { margin: 0.25rem 0; }
+    .product-card button { background: #D9AF6C; color: #021D34; padding: 0.5rem 1rem; border: none; border-radius: 6px; font-weight: bold; cursor: pointer; margin-top: 1rem; }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="logo">GADREL COLLECTION</div>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="shop.html">Shop</a>
+      <a href="cart.html">Cart 🛒</a>
+    </nav>
+  </header>
+
+  <main>
+    <h2 style="text-align:center; margin-top:2rem;">Perfume Collection</h2>
+    <section class="product-grid">
+      <div class="product-card">
+        <img src="assets/images/perfume1.jpg" alt="Velvet Bloom" />
+        <h3>Velvet Bloom</h3>
+        <p>Floral notes with a warm amber base.</p>
+        <p>₦18,000</p>
+        <button onclick="addToCart('Velvet Bloom', 18000, 'assets/images/perfume1.jpg')">Add to Cart</button>
+      </div>
+      <div class="product-card">
+        <img src="assets/images/perfume2.jpg" alt="Citrus Noir" />
+        <h3>Citrus Noir</h3>
+        <p>Fresh citrus blend with a bold finish.</p>
+        <p>₦21,500</p>
+        <button onclick="addToCart('Citrus Noir', 21500, 'assets/images/perfume2.jpg')">Add to Cart</button>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <p>&copy; 2025 Gadrel Collection. All rights reserved.</p>
+  </footer>
+
+  <script>
+    function addToCart(name, price, image) {
+      const product = { name, price, image };
+      const cart = JSON.parse(localStorage.getItem("cart") || "[]");
+      cart.push(product);
+      localStorage.setItem("cart", JSON.stringify(cart));
+      alert(`${name} added to cart!`);
+    }
+  </script>
+</body>
+</html>
