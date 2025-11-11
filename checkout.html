@@ -4,114 +4,44 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Checkout - Gadrel Collection</title>
+  <link rel="stylesheet" href="styles/styles.css" />
   <script src="https://js.paystack.co/v2/inline.js"></script>
-  <style>
-    :root {
-      --navy: #021D34;
-      --gold: #D9AF6C;
-      --cream: #F5E3C7;
-      --white: #FFFFFF;
-      --light-grey: #F8F8F8;
-    }
-
-    body {
-      font-family: 'Segoe UI', sans-serif;
-      background: var(--light-grey);
-      color: var(--navy);
-      margin: 0;
-      padding: 0;
-    }
-
-    header {
-      background: var(--navy);
-      color: var(--white);
-      text-align: center;
-      padding: 2rem 1rem;
-    }
-
-    .checkout-box {
-      max-width: 600px;
-      margin: 2rem auto;
-      background: var(--white);
-      padding: 2rem;
-      border-radius: 8px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.05);
-    }
-
-    h2 {
-      text-align: center;
-      margin-bottom: 1rem;
-    }
-
-    ul {
-      padding-left: 1rem;
-    }
-
-    li {
-      margin-bottom: 0.5rem;
-    }
-
-    label {
-      display: block;
-      margin-top: 1rem;
-      font-weight: 600;
-    }
-
-    input, textarea {
-      width: 100%;
-      padding: 0.75rem;
-      margin-top: 0.25rem;
-      border: 1px solid var(--gold);
-      border-radius: 6px;
-      background-color: var(--cream);
-      color: var(--navy);
-    }
-
-    button {
-      margin-top: 2rem;
-      background-color: var(--gold);
-      color: var(--navy);
-      padding: 0.75rem;
-      font-size: 1rem;
-      border: none;
-      border-radius: 6px;
-      cursor: pointer;
-      font-weight: bold;
-      transition: background 0.3s ease;
-    }
-
-    button:hover {
-      background-color: #c89a4f;
-    }
-
-    .toast {
-      position: fixed;
-      bottom: 30px;
-      left: 50%;
-      transform: translateX(-50%);
-      background-color: var(--navy);
-      color: var(--white);
-      padding: 1rem 2rem;
-      border-radius: 6px;
-      font-size: 1rem;
-      opacity: 0;
-      transition: opacity 0.3s ease;
-      z-index: 999;
-    }
-
-    .toast.show {
-      opacity: 1;
-    }
-
-    .total {
-      font-weight: bold;
-      margin-top: 1rem;
-    }
-  </style>
 </head>
 <body>
 
   <header>
+    <div class="logo">GADREL COLLECTION</div>
+    <nav>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li class="dropdown">
+          <a href="shop.html">Shop ▾</a>
+          <ul class="dropdown-menu">
+            <li><a href="shop.html">All Products</a></li>
+            <li><a href="men.html">Men</a></li>
+            <li><a href="women.html">Women</a></li>
+            <li><a href="accessories.html">Accessories</a></li>
+            <li><a href="bags.html">Bags</a></li>
+            <li><a href="beauty.html">Beauty</a></li>
+            <li><a href="perfume.html">Perfume</a></li>
+            <li><a href="earrings.html">Earrings</a></li>
+          </ul>
+        </li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="contact.html">Contact</a></li>
+        <li><a href="cart.html">Cart 🛒</a></li>
+        <li class="dropdown">
+          <a href="account.html">Account ▾</a>
+          <ul class="dropdown-menu">
+            <li><a href="signin.html">Sign In</a></li>
+            <li><a href="signup.html">Sign Up</a></li>
+            <li><a href="account.html">My Account</a></li>
+            <li><a href="orders.html">Orders</a></li>
+            <li><a href="wishlist.html">Wishlist</a></li>
+          </ul>
+        </li>
+      </ul>
+    </nav>
     <h1>🛍️ Checkout</h1>
     <p>Review your cart and complete your purchase</p>
   </header>
