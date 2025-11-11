@@ -164,46 +164,54 @@
   <div id="toast" class="toast"></div>
 
   <!-- Paystack Script -->
-  <script>
-    function showToast(message) {
-      const toast = document.getElementById("toast");
-      toast.textContent = message;
-      toast.classList.add("show");
-      setTimeout(() => toast.classList.remove("show"), 3000);
+<script>
+  // Auto-fill amount from cart
+  const storedAmount = localStorage.getItem("cartTotal");
+  if (storedAmount) {
+    document.getElementById("amount").value = storedAmount;
+  }
+
+  function showToast(message) {
+    const toast = document.getElementById("toast");
+    toast.textContent = message;
+    toast.classList.add("show");
+    setTimeout(() => toast.classList.remove("show"), 3000);
+  }
+
+  function payWithPaystack(e) {
+    e.preventDefault();
+    const email = document.getElementById("email-address").value.trim();
+    const amount = parseFloat(document.getElementById("amount").value) * 100;
+    const payBtn = document.getElementById("pay-btn");
+
+    if (!email || isNaN(amount) || amount < 10000) {
+      showToast("Please enter a valid email and amount (₦100+)");
+      return;
     }
 
-    function payWithPaystack(e) {
-      e.preventDefault();
-      const email = document.getElementById("email-address").value.trim();
-      const amount = parseFloat(document.getElementById("amount").value) * 100;
-      const payBtn = document.getElementById("pay-btn");
+    payBtn.disabled = true;
+    payBtn.textContent = "Processing...";
 
-      if (!email || isNaN(amount) || amount < 10000) {
-        showToast("Please enter a valid email and amount (₦100+)");
-        return;
+    const paystack = new PaystackPop();
+    paystack.newTransaction({
+      key: 'pk_test_xxxxxxxxxxxxxxxxxxxxxxxx', // Replace with your actual public key
+      email: email,
+      amount: amount,
+      onSuccess: (transaction) => {
+        showToast("Payment successful! Ref: " + transaction.reference);
+        localStorage.removeItem("cart");
+        localStorage.removeItem("cartTotal");
+        setTimeout(() => {
+          window.location.href = "thankyou.html";
+        }, 1500);
+      },
+      onCancel: () => {
+        showToast("Payment cancelled.");
+        payBtn.disabled = false;
+        payBtn.textContent = "Pay Now";
       }
-
-      payBtn.disabled = true;
-      payBtn.textContent = "Processing...";
-
-      const paystack = new PaystackPop();
-      paystack.newTransaction({
-        key: 'pk_test_xxxxxxxxxxxxxxxxxxxxxxxx', // Replace with your actual public key
-        email: email,
-        amount: amount,
-        onSuccess: (transaction) => {
-          showToast("Payment successful!");
-          setTimeout(() => {
-            window.location.href = "confirmation.html";
-          }, 1500);
-        },
-        onCancel: () => {
-          showToast("Payment cancelled.");
-          payBtn.disabled = false;
-          payBtn.textContent = "Pay Now";
-        }
-      });
-    }
-  </script>
+    });
+  }
+</script>
 </body>
 </html>
