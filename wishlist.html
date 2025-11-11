@@ -1,4 +1,125 @@
-<section class="featured">
-  <h2>My Wishlist</h2>
-  <p>Your wishlist is currently empty.</p>
-</section>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Wishlist - Gadrel Collection</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #F8F8F8;
+      color: #021D34;
+      margin: 0;
+      padding: 0;
+    }
+
+    header {
+      background: #021D34;
+      color: #fff;
+      padding: 1.5rem 2rem;
+      text-align: center;
+    }
+
+    .wishlist-container {
+      max-width: 800px;
+      margin: 2rem auto;
+      background: #fff;
+      padding: 2rem;
+      border-radius: 8px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+    }
+
+    h2 {
+      margin-bottom: 1rem;
+    }
+
+    .wishlist-item {
+      display: flex;
+      align-items: center;
+      margin-bottom: 1rem;
+      border-bottom: 1px solid #ddd;
+      padding-bottom: 1rem;
+    }
+
+    .wishlist-item img {
+      width: 80px;
+      height: 80px;
+      object-fit: cover;
+      border-radius: 6px;
+      margin-right: 1rem;
+    }
+
+    .wishlist-details h3 {
+      margin: 0;
+    }
+
+    .wishlist-details p {
+      margin: 0.25rem 0;
+    }
+
+    .wishlist-details button {
+      margin-top: 0.5rem;
+      background-color: #D9AF6C;
+      color: #021D34;
+      padding: 0.5rem 1rem;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    footer {
+      text-align: center;
+      padding: 2rem 1rem;
+      background: #021D34;
+      color: #fff;
+      margin-top: 4rem;
+    }
+
+    .social-links a {
+      color: #D9AF6C;
+      margin: 0 1rem;
+      text-decoration: none;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>Wishlist</h1>
+    <p>Your saved favorites</p>
+  </header>
+
+  <main class="wishlist-container">
+    <h2>Saved Items</h2>
+
+    <div class="wishlist-item">
+      <img src="assets/images/bag1.jpg" alt="Noir Luxe Tote" />
+      <div class="wishlist-details">
+        <h3>Noir Luxe Tote</h3>
+        <p>₦32,000</p>
+        <button>Add to Cart</button>
+      </div>
+    </div>
+
+    <div class="wishlist-item">
+      <img src="assets/images/bag2.jpg" alt="Blush Mini Satchel" />
+      <div class="wishlist-details">
+        <h3>Blush Mini Satchel</h3>
+        <p>₦24,500</p>
+        <button>Add to Cart</button>
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    <p>&copy; 2025 Gadrel Collection. All rights reserved.</p>
+    <div class="social-links">
+      <a href="https://instagram.com/gadrelcollection">Instagram</a>
+      <a href="mailto:johnamoke18@gmail.com">Email Us</a>
+      <a href="https://wa.me/2348105429924">Chat on WhatsApp</a>
+    </div>
+  </footer>
+
+</body>
+</html>
