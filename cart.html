@@ -4,164 +4,43 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Your Cart - Gadrel Collection</title>
-  <style>
-    :root {
-      --navy: #021D34;
-      --gold: #D9AF6C;
-      --cream: #F5E3C7;
-      --white: #FFFFFF;
-      --light-grey: #F8F8F8;
-    }
-
-    body {
-      font-family: 'Segoe UI', sans-serif;
-      background: var(--light-grey);
-      color: var(--navy);
-      margin: 0;
-      padding: 0;
-    }
-
-    header {
-      background: var(--navy);
-      color: var(--white);
-      text-align: center;
-      padding: 2rem 1rem;
-    }
-
-    .cart-container {
-      display: flex;
-      flex-wrap: wrap;
-      max-width: 1000px;
-      margin: 2rem auto;
-      gap: 2rem;
-      padding: 0 1rem;
-    }
-
-    .cart-items {
-      flex: 2;
-      background: var(--white);
-      padding: 1rem;
-      border-radius: 8px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.05);
-    }
-
-    .cart-summary {
-      flex: 1;
-      background: var(--white);
-      padding: 1rem;
-      border-radius: 8px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.05);
-      position: sticky;
-      top: 100px;
-      height: fit-content;
-    }
-
-    .cart-item {
-      display: flex;
-      align-items: flex-start;
-      margin-bottom: 1rem;
-      border-bottom: 1px solid #ddd;
-      padding-bottom: 1rem;
-    }
-
-    .cart-item img {
-      width: 80px;
-      height: 80px;
-      object-fit: cover;
-      border-radius: 6px;
-      margin-right: 1rem;
-    }
-
-    .cart-item-details {
-      flex: 1;
-    }
-
-    .cart-item-details h4 {
-      margin: 0 0 0.5rem;
-    }
-
-    .cart-item-details p {
-      margin: 0.25rem 0;
-    }
-
-    .cart-item-details label {
-      display: block;
-      margin-top: 0.5rem;
-    }
-
-    .cart-item-details input {
-      width: 60px;
-      padding: 0.25rem;
-      margin-top: 0.25rem;
-      border: 1px solid var(--gold);
-      border-radius: 4px;
-      background-color: var(--cream);
-      color: var(--navy);
-    }
-
-    .remove-btn {
-      background: none;
-      border: none;
-      color: red;
-      cursor: pointer;
-      font-size: 0.9rem;
-      margin-top: 0.5rem;
-    }
-
-    .summary-total {
-      font-weight: bold;
-      margin-top: 1rem;
-      font-size: 1.2rem;
-    }
-
-    .checkout-btn {
-      display: block;
-      width: 100%;
-      margin-top: 1rem;
-      background-color: var(--gold);
-      color: var(--navy);
-      padding: 0.75rem;
-      font-size: 1rem;
-      border: none;
-      border-radius: 6px;
-      cursor: pointer;
-      font-weight: bold;
-      text-align: center;
-      text-decoration: none;
-    }
-
-    .site-footer {
-      text-align: center;
-      padding: 2rem 1rem;
-      background: var(--navy);
-      color: var(--white);
-      margin-top: 4rem;
-    }
-
-    .footer-links a {
-      color: var(--gold);
-      margin: 0 1rem;
-      text-decoration: none;
-    }
-
-    .whatsapp-float {
-      position: fixed;
-      bottom: 20px;
-      right: 20px;
-      background-color: var(--gold);
-      color: var(--navy);
-      padding: 0.75rem 1rem;
-      border-radius: 50px;
-      font-weight: bold;
-      text-decoration: none;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
-      z-index: 999;
-    }
-  </style>
+  <link rel="stylesheet" href="styles/styles.css" />
 </head>
 <body>
 
   <header>
+    <div class="logo">GADREL COLLECTION</div>
+    <nav>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li class="dropdown">
+          <a href="shop.html">Shop ▾</a>
+          <ul class="dropdown-menu">
+            <li><a href="shop.html">All Products</a></li>
+            <li><a href="men.html">Men</a></li>
+            <li><a href="women.html">Women</a></li>
+            <li><a href="accessories.html">Accessories</a></li>
+            <li><a href="bags.html">Bags</a></li>
+            <li><a href="beauty.html">Beauty</a></li>
+            <li><a href="perfume.html">Perfume</a></li>
+            <li><a href="earrings.html">Earrings</a></li>
+          </ul>
+        </li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="contact.html">Contact</a></li>
+        <li><a href="cart.html">Cart 🛒</a></li>
+        <li class="dropdown">
+          <a href="account.html">Account ▾</a>
+          <ul class="dropdown-menu">
+            <li><a href="signin.html">Sign In</a></li>
+            <li><a href="signup.html">Sign Up</a></li>
+            <li><a href="account.html">My Account</a></li>
+            <li><a href="orders.html">Orders</a></li>
+            <li><a href="wishlist.html">Wishlist</a></li>
+          </ul>
+        </li>
+      </ul>
+    </nav>
     <h1>🛒 Your Cart</h1>
     <p>Review your selected items</p>
   </header>
@@ -177,11 +56,12 @@
       <div class="footer-links">
         <a href="https://instagram.com/gadrelcollection" target="_blank">Instagram</a>
         <a href="mailto:support@gadrelcollection.com">Email Us</a>
-         
       </div>
     </div>
   </footer>
- <a href="https://wa.me/2348105429924" class="whatsapp-float" target="_blank" title="Chat with us">Chat on WhatsApp </a>
+
+  <a href="https://wa.me/2348105429924" class="whatsapp-float" target="_blank" title="Chat with us">Chat on WhatsApp</a>
+
   <script>
     const cart = JSON.parse(localStorage.getItem("cart") || "[]");
     const cartItems = document.getElementById("cart-items");
