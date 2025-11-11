@@ -84,7 +84,7 @@
       background-color: var(--cream);
       padding: 1rem;
       border-radius: 6px;
-      margin-bottom: 1rem;
+      margin-bottom: 1.5rem;
       box-shadow: 0 2px 4px rgba(0,0,0,0.05);
     }
 
@@ -95,6 +95,27 @@
 
     .order p {
       margin: 0.25rem 0;
+    }
+
+    .order-actions {
+      margin-top: 1rem;
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .order-btn {
+      background-color: var(--gold);
+      color: var(--navy);
+      padding: 0.5rem 1rem;
+      border-radius: 6px;
+      text-decoration: none;
+      font-weight: bold;
+      transition: background 0.3s ease;
+    }
+
+    .order-btn:hover {
+      background-color: #c89a4f;
     }
 
     footer {
@@ -160,6 +181,11 @@
       <p><strong>Items:</strong> Noir Luxe Tote (Black, Medium)</p>
       <p><strong>Total:</strong> ₦32,000</p>
       <p><strong>Status:</strong> Delivered</p>
+      <div class="order-actions">
+        <a href="track.html?order=1001" class="order-btn">Track Order</a>
+        <a href="receipt-1001.pdf" class="order-btn" download>Download Receipt</a>
+        <a href="product.html?id=noir-luxe-tote" class="order-btn">Reorder</a>
+      </div>
     </div>
 
     <div class="order">
@@ -168,6 +194,11 @@
       <p><strong>Items:</strong> Blush Mini Satchel (Rose, Small)</p>
       <p><strong>Total:</strong> ₦24,500</p>
       <p><strong>Status:</strong> In Transit</p>
+      <div class="order-actions">
+        <a href="track.html?order=1002" class="order-btn">Track Order</a>
+        <a href="receipt-1002.pdf" class="order-btn" download>Download Receipt</a>
+        <a href="product.html?id=blush-mini-satchel" class="order-btn">Reorder</a>
+      </div>
     </div>
   </main>
 
