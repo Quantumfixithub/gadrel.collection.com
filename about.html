@@ -5,6 +5,150 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>About Us - Gadrel Collection</title>
   <link rel="stylesheet" href="styles/styles.css" />
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #F8F8F8;
+      color: #021D34;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+
+    header {
+      background-color: #021D34;
+      color: #FFFFFF;
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .logo {
+      font-size: 1.5rem;
+      font-weight: bold;
+    }
+
+    nav a {
+      color: #F5E3C7;
+      margin: 0 1rem;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    .language-switch button {
+      background-color: #D9AF6C;
+      color: #021D34;
+      border: none;
+      padding: 0.5rem 1rem;
+      margin-left: 0.5rem;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    .featured {
+      padding: 2rem;
+      flex: 1;
+    }
+
+    .featured h2 {
+      color: #021D34;
+      margin-top: 2rem;
+    }
+
+    .featured p {
+      margin: 1rem 0;
+      line-height: 1.6;
+    }
+
+    .team-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 2rem;
+      margin-top: 1rem;
+    }
+
+    .team-member {
+      background-color: #F5E3C7;
+      padding: 1rem;
+      border-radius: 8px;
+      text-align: center;
+    }
+
+    .team-member img {
+      width: 100%;
+      max-width: 180px;
+      border-radius: 50%;
+      margin-bottom: 1rem;
+    }
+
+    .testimonial {
+      background-color: #FFFFFF;
+      padding: 1rem;
+      margin: 1rem 0;
+      border-left: 4px solid #D9AF6C;
+      font-style: italic;
+    }
+
+    form {
+      margin-top: 1rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      max-width: 500px;
+    }
+
+    input, textarea {
+      padding: 0.75rem;
+      border: 1px solid #D9AF6C;
+      border-radius: 6px;
+      background-color: #F5E3C7;
+      color: #021D34;
+      font-size: 1rem;
+    }
+
+    button[type="submit"] {
+      background-color: #D9AF6C;
+      color: #021D34;
+      border: none;
+      padding: 0.75rem;
+      font-size: 1rem;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    button[type="submit"]:hover {
+      background-color: #c89a4f;
+    }
+
+    footer {
+      background-color: #021D34;
+      color: #FFFFFF;
+      text-align: center;
+      padding: 2rem 1rem;
+    }
+
+    .social-links a {
+      color: #D9AF6C;
+      margin: 0 1rem;
+      text-decoration: none;
+    }
+
+    .fade-in {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+    }
+
+    .fade-in.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  </style>
   <script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
   <script>
     document.addEventListener("DOMContentLoaded", () => {
@@ -53,7 +197,7 @@
       <h2>Our Story</h2>
       <p>Gadrel Collection was born from a passion for elegance, empowerment, and expression. Founded in Abuja, Nigeria, our brand blends timeless fashion with bold beauty, offering curated pieces that celebrate individuality and confidence.</p>
     </div>
-    <div class="fade-in lang-fr">
+    <div class="fade-in lang-fr" style="display:none;">
       <h2>Notre histoire</h2>
       <p>Gadrel Collection est née d'une passion pour l'élégance, l'autonomisation et l'expression. Fondée à Abuja, notre marque allie mode intemporelle et beauté audacieuse pour célébrer l'individualité et la confiance.</p>
     </div>
@@ -100,7 +244,7 @@
       <h2>Contact Us</h2>
       <form id="contact-form" onsubmit="sendContact(event)">
         <input type="text" name="name" placeholder="Your Name" required />
-        <input type="email" name="email" placeholder="Your Email" required />
+               <input type="email" name="email" placeholder="Your Email" required />
         <textarea name="message" placeholder="Your Message" rows="5" required></textarea>
         <button type="submit">Send Message</button>
       </form>
