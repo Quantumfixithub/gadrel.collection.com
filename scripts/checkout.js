@@ -1,22 +1,32 @@
 // checkout.js
+
 import { getCart, clearCart, getCartTotal } from './cart.js';
 import { sendOrderEmail } from './email.js';
 
+/**
+ * Renders the cart summary inside a container.
+ * @param {string} containerId - The ID of the container element.
+ */
 export function renderCartSummary(containerId) {
   const container = document.getElementById(containerId);
   const cart = getCart();
   let html = "<ul>";
+
   cart.forEach(item => {
-    html += `<li>${item.name} — ₦${item.price.toLocaleString()}</li>`;
+    html += `<li>${sanitize(item.name)} — ₦${item.price.toLocaleString()}</li>`;
   });
-  html += "</ul><strong>Total: ₦" + getCartTotal().toLocaleString() + "</strong>";
+
+  html += `</ul><strong>Total: ₦${getCartTotal().toLocaleString()}</strong>`;
   container.innerHTML = html;
 }
 
+/**
+ * Initiates Paystack payment flow.
+ */
 export function payWithPaystack() {
-  const name = document.getElementById("name").value;
-  const email = document.getElementById("email").value;
-  const address = document.getElementById("address").value;
+  const name = document.getElementById("name").value.trim();
+  const email = document.getElementById("email").value.trim();
+  const address = document.getElementById("address").value.trim();
   const cart = getCart();
   const amount = getCartTotal() * 100;
   const ref = "GC" + Math.floor(Math.random() * 1000000000);
@@ -29,7 +39,7 @@ export function payWithPaystack() {
   localStorage.setItem("lastRef", ref);
 
   const handler = PaystackPop.setup({
-    key: "pk_test_xxxxxxxxxxxxxxxxxxxxxxxx", // Replace with your key
+    key: "pk_test_xxxxxxxxxxxxxxxxxxxxxxxx", // Replace with your actual public key
     email,
     amount,
     currency: "NGN",
@@ -54,10 +64,33 @@ export function payWithPaystack() {
   handler.openIframe();
 }
 
+/**
+ * Saves the order to localStorage for admin view.
+ * @param {string} name
+ * @param {string} email
+ * @param {string} address
+ * @param {Array} cart
+ * @param {string} reference
+ */
 function saveOrder(name, email, address, cart, reference) {
   const items = cart.map(item => `${item.name} - ₦${item.price.toLocaleString()}`).join("\n");
   const order = { name, email, address, cart: items, reference };
   const adminOrders = JSON.parse(localStorage.getItem("adminOrders") || "[]");
   adminOrders.push(order);
   localStorage.setItem("adminOrders", JSON.stringify(adminOrders));
+}
+
+/**
+ * Escapes HTML to prevent injection.
+ * @param {string} str
+ * @returns {string}
+ */
+function sanitize(str) {
+  return String(str).replace(/[&<>"']/g, tag => ({
+    '&': '&amp;',
+    '<': '&lt;',
+    '>': '&gt;',
+    '"': '&quot;',
+    "'": '&#39;',
+  }[tag]));
 }
