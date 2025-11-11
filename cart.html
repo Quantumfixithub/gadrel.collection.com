@@ -58,7 +58,7 @@
 
     .cart-item {
       display: flex;
-      align-items: center;
+      align-items: flex-start;
       margin-bottom: 1rem;
       border-bottom: 1px solid #ddd;
       padding-bottom: 1rem;
@@ -84,12 +84,28 @@
       margin: 0.25rem 0;
     }
 
+    .cart-item-details label {
+      display: block;
+      margin-top: 0.5rem;
+    }
+
+    .cart-item-details input {
+      width: 60px;
+      padding: 0.25rem;
+      margin-top: 0.25rem;
+      border: 1px solid var(--gold);
+      border-radius: 4px;
+      background-color: var(--cream);
+      color: var(--navy);
+    }
+
     .remove-btn {
       background: none;
       border: none;
       color: red;
       cursor: pointer;
       font-size: 0.9rem;
+      margin-top: 0.5rem;
     }
 
     .summary-total {
@@ -161,12 +177,10 @@
       <div class="footer-links">
         <a href="https://instagram.com/gadrelcollection" target="_blank">Instagram</a>
         <a href="mailto:support@gadrelcollection.com">Email Us</a>
-         <a href="https://wa.me/2348105429924" class="whatsapp-float" target="_blank" title="Chat with us">Chat on WhatsApp </a>
+          <a href="https://wa.me/2348105429924" class="whatsapp-float" target="_blank" title="Chat with us">Chat on WhatsApp </a>
       </div>
     </div>
   </footer>
-
- 
 
   <script>
     const cart = JSON.parse(localStorage.getItem("cart") || "[]");
@@ -184,13 +198,21 @@
       let itemsHTML = "";
       cart.forEach((item, index) => {
         const price = typeof item.price === "string" ? parseInt(item.price.replace(/\D/g, "")) : item.price;
-        total += price;
+        const quantity = item.quantity || 1;
+        const itemTotal = price * quantity;
+        total += itemTotal;
+
         itemsHTML += `
           <div class="cart-item">
             <img src="${item.image || 'placeholder.jpg'}" alt="${item.name}" />
             <div class="cart-item-details">
               <h4>${item.name}</h4>
-              <p>₦${price.toLocaleString()}</p>
+              <p>Size: ${item.size || 'N/A'}</p>
+              <p>Color: ${item.color || 'N/A'}</p>
+              <label>Quantity:
+                <input type="number" min="1" value="${quantity}" onchange="updateQuantity(${index}, this.value)" />
+              </label>
+              <p>Total: ₦${itemTotal.toLocaleString()}</p>
               <button class="remove-btn" onclick="removeItem(${index})">Remove</button>
             </div>
           </div>
@@ -204,6 +226,13 @@
       `;
 
       localStorage.setItem("cartTotal", total);
+      localStorage.setItem("cart", JSON.stringify(cart));
+    }
+
+    function updateQuantity(index, newQty) {
+      cart[index].quantity = parseInt(newQty);
+      localStorage.setItem("cart", JSON.stringify(cart));
+      renderCart();
     }
 
     function removeItem(index) {
