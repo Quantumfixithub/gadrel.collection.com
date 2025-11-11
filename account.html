@@ -1,9 +1,114 @@
-<section class="featured">
-  <h2>My Account</h2>
-  <ul>
-    <li><a href="orders.html">Order History</a></li>
-    <li><a href="profile.html">Profile Settings</a></li>
-    <li><a href="wishlist.html">My Wishlist</a></li>
-    <li><a href="logout.html">Logout</a></li>
-  </ul>
-</section>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>My Account - Gadrel Collection</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #F8F8F8;
+      color: #021D34;
+      margin: 0;
+      padding: 0;
+    }
+
+    header {
+      background: #021D34;
+      color: #fff;
+      padding: 1.5rem 2rem;
+      text-align: center;
+    }
+
+    .account-container {
+      max-width: 800px;
+      margin: 2rem auto;
+      background: #fff;
+      padding: 2rem;
+      border-radius: 8px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+    }
+
+    h2 {
+      margin-bottom: 1rem;
+    }
+
+    .account-info {
+      margin-bottom: 2rem;
+    }
+
+    .account-info p {
+      margin: 0.5rem 0;
+    }
+
+    .account-links {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 1rem;
+    }
+
+    .account-links a {
+      display: block;
+      background: #D9AF6C;
+      color: #021D34;
+      text-align: center;
+      padding: 1rem;
+      border-radius: 6px;
+      text-decoration: none;
+      font-weight: bold;
+      transition: background 0.3s ease;
+    }
+
+    .account-links a:hover {
+      background: #c89a4f;
+    }
+
+    footer {
+      text-align: center;
+      padding: 2rem 1rem;
+      background: #021D34;
+      color: #fff;
+      margin-top: 4rem;
+    }
+
+    .social-links a {
+      color: #D9AF6C;
+      margin: 0 1rem;
+      text-decoration: none;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>My Account</h1>
+    <p>Welcome back to Gadrel Collection</p>
+  </header>
+
+  <main class="account-container">
+    <section class="account-info">
+      <h2>Account Details</h2>
+      <p><strong>Name:</strong> Remilekun</p>
+      <p><strong>Email:</strong> you@example.com</p>
+    </section>
+
+    <section class="account-links">
+      <a href="orders.html">🧾 My Orders</a>
+      <a href="wishlist.html">💖 Wishlist</a>
+      <a href="settings.html">⚙️ Account Settings</a>
+      <a href="cart.html">🛒 View Cart</a>
+      <a href="index.html">🏠 Back to Home</a>
+    </section>
+  </main>
+
+  <footer>
+    <p>&copy; 2025 Gadrel Collection. All rights reserved.</p>
+    <div class="social-links">
+      <a href="https://instagram.com/gadrelcollection">Instagram</a>
+      <a href="mailto:johnamoke18@gmail.com">Email Us</a>
+      <a href="https://wa.me/2348105429924">Chat on WhatsApp</a>
+    </div>
+  </footer>
+
+</body>
+</html>
