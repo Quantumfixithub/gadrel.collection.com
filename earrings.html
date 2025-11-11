@@ -5,6 +5,125 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Earrings - Gadrel Collection</title>
   <link rel="stylesheet" href="styles/styles.css" />
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #F8F8F8;
+      color: #021D34;
+    }
+
+    header {
+      background-color: #021D34;
+      color: #FFFFFF;
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      font-size: 1.5rem;
+      font-weight: bold;
+    }
+
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 1rem;
+      margin: 0;
+      padding: 0;
+    }
+
+    nav a {
+      color: #F5E3C7;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    .dropdown-menu {
+      display: none;
+      position: absolute;
+      background-color: #FFFFFF;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      padding: 0.5rem;
+    }
+
+    .dropdown:hover .dropdown-menu {
+      display: block;
+    }
+
+    main {
+      padding: 2rem;
+      text-align: center;
+    }
+
+    h2 {
+      margin-bottom: 2rem;
+      color: #021D34;
+    }
+
+    .product-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 2rem;
+      padding: 1rem;
+    }
+
+    .product-card {
+      background-color: #F5E3C7;
+      border-radius: 8px;
+      padding: 1rem;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+      text-align: left;
+    }
+
+    .product-card img {
+      width: 100%;
+      border-radius: 6px;
+      margin-bottom: 1rem;
+    }
+
+    .product-card h3 {
+      margin: 0.5rem 0;
+      color: #021D34;
+    }
+
+    .product-card p {
+      margin: 0.25rem 0;
+    }
+
+    .product-card button {
+      margin-top: 1rem;
+      background-color: #D9AF6C;
+      color: #021D34;
+      padding: 0.75rem;
+      font-size: 1rem;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: bold;
+      width: 100%;
+    }
+
+    .product-card button:hover {
+      background-color: #c89a4f;
+    }
+
+    footer {
+      background-color: #021D34;
+      color: #FFFFFF;
+      text-align: center;
+      padding: 2rem 1rem;
+      margin-top: 2rem;
+    }
+
+    .social-links a {
+      color: #D9AF6C;
+      margin: 0 1rem;
+      text-decoration: none;
+    }
+  </style>
 </head>
 <body>
   <header>
@@ -43,21 +162,21 @@
   </header>
 
   <main>
-    <h2 style="text-align:center; margin-top:2rem;">Earrings Collection</h2>
+    <h2>Earrings Collection</h2>
     <section class="product-grid">
       <div class="product-card">
-        <img src="assets/images/earring1.jpg" alt="Gold Hoop Earrings" />
+        <img src="https://images.unsplash.com/photo-1618354691214-8e3c3e9a3e3f?auto=format&fit=crop&w=600&q=80" alt="Gold Hoop Earrings" />
         <h3>Gold Hoop Earrings</h3>
         <p>Elegant gold hoops for everyday glam.</p>
-        <p>₦12,000</p>
-        <button onclick="addToCart('Gold Hoop Earrings', 12000, 'assets/images/earring1.jpg')">Add to Cart</button>
+        <p><strong>₦12,000</strong></p>
+        <button onclick="addToCart('Gold Hoop Earrings', 12000, 'https://images.unsplash.com/photo-1618354691214-8e3c3e9a3e3f?auto=format&fit=crop&w=600&q=80')">Add to Cart</button>
       </div>
       <div class="product-card">
-        <img src="assets/images/earring2.jpg" alt="Pearl Drop Earrings" />
+        <img src="https://images.unsplash.com/photo-1600185364003-0c3b5f3e1e2e?auto=format&fit=crop&w=600&q=80" alt="Pearl Drop Earrings" />
         <h3>Pearl Drop Earrings</h3>
         <p>Classic pearls with a modern twist.</p>
-        <p>₦15,500</p>
-        <button onclick="addToCart('Pearl Drop Earrings', 15500, 'assets/images/earring2.jpg')">Add to Cart</button>
+        <p><strong>₦15,500</strong></p>
+        <button onclick="addToCart('Pearl Drop Earrings', 15500, 'https://images.unsplash.com/photo-1600185364003-0c3b5f3e1e2e?auto=format&fit=crop&w=600&q=80')">Add to Cart</button>
       </div>
     </section>
   </main>
