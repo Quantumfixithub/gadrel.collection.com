@@ -5,6 +5,119 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>My Account - Gadrel Collection</title>
   <link rel="stylesheet" href="styles/styles.css" />
+  <style>
+    :root {
+      --navy: #021D34;
+      --gold: #D9AF6C;
+      --cream: #F5E3C7;
+      --white: #FFFFFF;
+      --light-grey: #F8F8F8;
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background-color: var(--light-grey);
+      color: var(--navy);
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+
+    header {
+      background-color: var(--navy);
+      color: var(--white);
+      padding: 1rem 2rem;
+    }
+
+    .logo {
+      font-size: 1.5rem;
+      font-weight: bold;
+    }
+
+    nav ul {
+      list-style: none;
+      padding: 0;
+      margin: 1rem 0 0;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    nav a {
+      color: var(--cream);
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    .dropdown-menu {
+      display: none;
+      position: absolute;
+      background-color: var(--white);
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      padding: 0.5rem;
+    }
+
+    .dropdown:hover .dropdown-menu {
+      display: block;
+    }
+
+    .account-container {
+      flex: 1;
+      padding: 2rem;
+      max-width: 800px;
+      margin: auto;
+    }
+
+    .account-info {
+      background-color: var(--cream);
+      padding: 1rem;
+      border-radius: 8px;
+      margin-bottom: 2rem;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+    }
+
+    .account-info h2 {
+      margin-top: 0;
+      border-bottom: 2px solid var(--gold);
+      padding-bottom: 0.5rem;
+    }
+
+    .account-links {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .account-links a {
+      background-color: var(--white);
+      padding: 1rem;
+      border-left: 4px solid var(--gold);
+      border-radius: 6px;
+      text-decoration: none;
+      color: var(--navy);
+      font-weight: bold;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+      transition: background 0.3s ease;
+    }
+
+    .account-links a:hover {
+      background-color: var(--cream);
+    }
+
+    footer {
+      background-color: var(--navy);
+      color: var(--white);
+      text-align: center;
+      padding: 2rem 1rem;
+    }
+
+    .social-links a {
+      color: var(--gold);
+      margin: 0 1rem;
+      text-decoration: none;
+    }
+  </style>
 </head>
 <body>
 
