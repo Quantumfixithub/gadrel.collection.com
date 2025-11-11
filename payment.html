@@ -29,13 +29,34 @@
       color: var(--white);
     }
 
+    nav ul {
+      list-style: none;
+      padding: 0;
+      margin: 1rem 0 0;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 1rem;
+    }
+
+    nav a {
+      color: var(--cream);
+      text-decoration: none;
+      font-weight: bold;
+    }
+
     .payment-section {
-      max-width: 500px;
+      max-width: 600px;
       margin: 2rem auto;
       padding: 2rem;
       background: var(--white);
       border-radius: 8px;
       box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+    }
+
+    h3 {
+      margin-top: 2rem;
+      color: var(--navy);
     }
 
     form {
@@ -48,7 +69,7 @@
       font-weight: 600;
     }
 
-    input {
+    input, textarea {
       padding: 0.75rem;
       margin-top: 0.25rem;
       border: 1px solid var(--gold);
@@ -78,6 +99,12 @@
 
     .shop-button:hover:not(:disabled) {
       background-color: #c89a4f;
+    }
+
+    .summary-total {
+      font-weight: bold;
+      margin-top: 1rem;
+      text-align: right;
     }
 
     .site-footer {
@@ -128,60 +155,49 @@
   </style>
 </head>
 <body>
- <div class="page-wrapper">
-  <!-- Page Header -->
   <header>
-  <div class="logo">GADREL COLLECTION</div>
-  <nav>
-    <ul>
-      <li><a href="index.html">Home</a></li>
-      <li class="dropdown">
-        <a href="shop.html">Shop ▾</a>
-        <ul class="dropdown-menu">
-          <li><a href="shop.html">All Products</a></li>
-          <li><a href="men.html">Men</a></li>
-          <li><a href="women.html">Women</a></li>
-          <li><a href="accessories.html">Accessories</a></li>
-          <li><a href="bags.html">Bags</a></li>
-          <li><a href="beauty.html">Beauty</a></li>
-          <li><a href="perfume.html">Perfume</a></li>
-          <li><a href="earrings.html">Earrings</a></li>
-        </ul>
-      </li>
-      <li><a href="about.html">About</a></li>
-      <li><a href="contact.html">Contact</a></li>
-      <li><a href="cart.html">Cart 🛒</a></li>
-      <li class="dropdown">
-        <a href="account.html">Account ▾</a>
-        <ul class="dropdown-menu">
-          <li><a href="signin.html">Sign In</a></li>
-          <li><a href="signup.html">Sign Up</a></li>
-          <li><a href="account.html">My Account</a></li>
-          <li><a href="orders.html">Orders</a></li>
-          <li><a href="wishlist.html">Wishlist</a></li>
-        </ul>
-      </li>
-    </ul>
-  </nav>
-  <h1>💳 Secure Payment</h1>
-  <p>Complete your purchase safely and quickly.</p>
-</header>
+    <div class="logo">GADREL COLLECTION</div>
+    <nav>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="shop.html">Shop</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="contact.html">Contact</a></li>
+        <li><a href="cart.html">Cart 🛒</a></li>
+      </ul>
+    </nav>
+    <h1>💳 Secure Payment</h1>
+    <p>Complete your purchase safely and quickly.</p>
+  </header>
 
-
-  <!-- Main Payment Section -->
   <main class="payment-section">
-    <form id="payment-form" onsubmit="payWithPaystack(event)">
-      <label for="email">Email Address</label>
+    <div id="cart-preview">
+      <h3>🛍️ Your Order Summary</h3>
+      <div id="cart-items"></div>
+      <div class="summary-total" id="cart-total"></div>
+    </div>
+
+    <h3>🚚 Delivery Details</h3>
+    <form id="delivery-form">
+      <label for="full-name">Full Name</label>
+      <input type="text" id="full-name" placeholder="Your full name" required />
+
+      <label for="email-address">Email Address</label>
       <input type="email" id="email-address" placeholder="you@example.com" required />
 
+      <label for="phone-number">Phone Number</label>
+      <input type="tel" id="phone-number" placeholder="08012345678" required />
+
+      <label for="delivery-address">Delivery Address</label>
+      <textarea id="delivery-address" rows="3" placeholder="Street, City, State" required></textarea>
+
       <label for="amount">Amount (₦)</label>
-      <input type="number" id="amount" placeholder="Enter amount" required min="100" />
+      <input type="number" id="amount" readonly />
 
       <button type="submit" class="shop-button" id="pay-btn">Pay Now</button>
     </form>
   </main>
 
-  <!-- Footer -->
   <footer class="site-footer">
     <div class="footer-content">
       <p>&copy; 2025 Gadrel Collection. All rights reserved.</p>
@@ -192,59 +208,100 @@
     </div>
   </footer>
 
+  <a href="https://wa.me/2348105429924" class="whatsapp-float" target="_blank" title="Chat with us">Chat on WhatsApp</a>
 
-  <!-- Toast Notification -->
   <div id="toast" class="toast"></div>
 
-  <!-- Paystack Script -->
-<script>
-  // Auto-fill amount from cart
-  const storedAmount = localStorage.getItem("cartTotal");
-  if (storedAmount) {
-    document.getElementById("amount").value = storedAmount;
-  }
+  <script>
+    const cart = JSON.parse(localStorage.getItem("cart") || "[]");
+    const cartItemsDiv = document.getElementById("cart-items");
+    const cartTotalDiv = document.getElementById("cart-total");
 
-  function showToast(message) {
-    const toast = document.getElementById("toast");
-    toast.textContent = message;
-    toast.classList.add("show");
-    setTimeout(() => toast.classList.remove("show"), 3000);
-  }
+    function renderCartPreview() {
+      if (cart.length === 0) {
+        cartItemsDiv.innerHTML = "<p>Your cart is empty.</p>";
+        cartTotalDiv.innerHTML = "";
+        return;
+      }
 
-  function payWithPaystack(e) {
-    e.preventDefault();
-    const email = document.getElementById("email-address").value.trim();
-    const amount = parseFloat(document.getElementById("amount").value) * 100;
-    const payBtn = document.getElementById("pay-btn");
+      let total = 0;
+      let itemsHTML = "";
 
-    if (!email || isNaN(amount) || amount < 10000) {
-      showToast("Please enter a valid email and amount (₦100+)");
-      return;
+      cart.forEach(item => {
+        const price = typeof item.price === "string" ? parseInt(item.price.replace(/\D/g, "")) : item.price;
+        const quantity = item.quantity || 1;
+        const itemTotal = price * quantity;
+        total += itemTotal;
+
+        itemsHTML += `
+          <div style="margin-bottom:1rem;">
+            <strong>${item.name}</strong> × ${quantity}<br/>
+            ₦${itemTotal.toLocaleString()}
+          </div>
+        `;
+      });
+
+      cartItemsDiv.innerHTML = itemsHTML;
+      cartTotalDiv.innerHTML = `<strong>Total: ₦${total.toLocaleString()}</strong>`;
+      document.getElementById("amount").value = total;
     }
 
-    payBtn.disabled = true;
-    payBtn.textContent = "Processing...";
+    renderCartPreview();
 
-    const paystack = new PaystackPop();
-    paystack.newTransaction({
-      key: 'pk_test_xxxxxxxxxxxxxxxxxxxxxxxx', // Replace with your actual public key
-      email: email,
-      amount: amount,
-      onSuccess: (transaction) => {
-        showToast("Payment successful! Ref: " + transaction.reference);
-        localStorage.removeItem("cart");
-        localStorage.removeItem("cartTotal");
-        setTimeout(() => {
-          window.location.href = "thankyou.html";
-        }, 1500);
-      },
-      onCancel: () => {
-        showToast("Payment cancelled.");
-        payBtn.disabled = false;
-        payBtn.textContent = "Pay Now";
+    function showToast(message) {
+      const toast = document.getElementById("toast");
+      toast.textContent = message;
+      toast.classList.add("show");
+      setTimeout(() => toast.classList.remove("show"), 3000);
+    }
+
+    function payWithPaystack(e) {
+      e.preventDefault();
+
+      const email = document.getElementById("email-address").value.trim();
+      const amount = parseFloat(document.getElementById("amount").value) * 100;
+      const phone = document.getElementById("phone-number").value.trim();
+      const name = document.getElementById("full-name").value.trim();
+      const address = document.getElementById("delivery-address").value.trim();
+      const payBtn = document.getElementById("pay-btn");
+
+      if (!email || !phone || !name || !address || isNaN(amount) || amount < 10000) {
+        showToast("Please fill all fields and ensure amount         < 100.");
+        return;
       }
-    });
-  }
-</script>
+
+      payBtn.disabled = true;
+      payBtn.textContent = "Processing...";
+
+      const paystack = new PaystackPop();
+      paystack.newTransaction({
+        key: 'pk_test_xxxxxxxxxxxxxxxxxxxxxxxx', // Replace with your actual public key
+        email: email,
+        amount: amount,
+        metadata: {
+          custom_fields: [
+            { display_name: "Full Name", variable_name: "full_name", value: name },
+            { display_name: "Phone Number", variable_name: "phone_number", value: phone },
+            { display_name: "Delivery Address", variable_name: "delivery_address", value: address }
+          ]
+        },
+        onSuccess: (transaction) => {
+          showToast("Payment successful! Ref: " + transaction.reference);
+          localStorage.removeItem("cart");
+          localStorage.removeItem("cartTotal");
+          setTimeout(() => {
+            window.location.href = "thankyou.html";
+          }, 1500);
+        },
+        onCancel: () => {
+          showToast("Payment cancelled.");
+          payBtn.disabled = false;
+          payBtn.textContent = "Pay Now";
+        }
+      });
+    }
+
+    document.getElementById("delivery-form").addEventListener("submit", payWithPaystack);
+  </script>
 </body>
 </html>
