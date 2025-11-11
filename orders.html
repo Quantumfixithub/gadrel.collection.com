@@ -5,25 +5,70 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>My Orders - Gadrel Collection</title>
   <style>
+    :root {
+      --navy: #021D34;
+      --gold: #D9AF6C;
+      --cream: #F5E3C7;
+      --white: #FFFFFF;
+      --light-grey: #F8F8F8;
+    }
+
     body {
       font-family: 'Segoe UI', sans-serif;
-      background: #F8F8F8;
-      color: #021D34;
+      background: var(--light-grey);
+      color: var(--navy);
       margin: 0;
       padding: 0;
     }
 
     header {
-      background: #021D34;
-      color: #fff;
+      background: var(--navy);
+      color: var(--white);
       padding: 1.5rem 2rem;
       text-align: center;
+    }
+
+    .logo {
+      font-size: 1.5rem;
+      font-weight: bold;
+    }
+
+    nav ul {
+      list-style: none;
+      padding: 0;
+      margin: 1rem 0 0;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 1rem;
+    }
+
+    nav a {
+      color: var(--cream);
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    .dropdown-menu {
+      display: none;
+      position: absolute;
+      background-color: var(--white);
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      padding: 0.5rem;
+    }
+
+    .dropdown:hover .dropdown-menu {
+      display: block;
+    }
+
+    h1 {
+      margin-top: 1rem;
     }
 
     .orders-container {
       max-width: 800px;
       margin: 2rem auto;
-      background: #fff;
+      background: var(--white);
       padding: 2rem;
       border-radius: 8px;
       box-shadow: 0 4px 12px rgba(0,0,0,0.05);
@@ -31,19 +76,21 @@
 
     h2 {
       margin-bottom: 1rem;
+      border-bottom: 2px solid var(--gold);
+      padding-bottom: 0.5rem;
     }
 
     .order {
-      border-bottom: 1px solid #ddd;
-      padding: 1rem 0;
-    }
-
-    .order:last-child {
-      border-bottom: none;
+      background-color: var(--cream);
+      padding: 1rem;
+      border-radius: 6px;
+      margin-bottom: 1rem;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.05);
     }
 
     .order h3 {
-      margin: 0;
+      margin: 0 0 0.5rem;
+      color: var(--navy);
     }
 
     .order p {
@@ -53,13 +100,13 @@
     footer {
       text-align: center;
       padding: 2rem 1rem;
-      background: #021D34;
-      color: #fff;
+      background: var(--navy);
+      color: var(--white);
       margin-top: 4rem;
     }
 
     .social-links a {
-      color: #D9AF6C;
+      color: var(--gold);
       margin: 0 1rem;
       text-decoration: none;
     }
@@ -68,60 +115,59 @@
 <body>
 
   <header>
-  <div class="logo">GADREL COLLECTION</div>
-  <nav>
-    <ul>
-      <li><a href="index.html">Home</a></li>
-      <li class="dropdown">
-        <a href="shop.html">Shop ▾</a>
-        <ul class="dropdown-menu">
-          <li><a href="shop.html">All Products</a></li>
-          <li><a href="men.html">Men</a></li>
-          <li><a href="women.html">Women</a></li>
-          <li><a href="accessories.html">Accessories</a></li>
-          <li><a href="bags.html">Bags</a></li>
-          <li><a href="beauty.html">Beauty</a></li>
-          <li><a href="perfume.html">Perfume</a></li>
-          <li><a href="earrings.html">Earrings</a></li>
-        </ul>
-      </li>
-      <li><a href="about.html">About</a></li>
-      <li><a href="contact.html">Contact</a></li>
-      <li><a href="cart.html">Cart 🛒</a></li>
-      <li class="dropdown">
-        <a href="account.html">Account ▾</a>
-        <ul class="dropdown-menu">
-          <li><a href="signin.html">Sign In</a></li>
-          <li><a href="signup.html">Sign Up</a></li>
-          <li><a href="account.html">My Account</a></li>
-          <li><a href="orders.html">Orders</a></li>
-          <li><a href="wishlist.html">Wishlist</a></li>
-        </ul>
-      </li>
-    </ul>
-  </nav>
-  <h1>My Orders</h1>
-  <p>Track your recent purchases</p>
-</header>
-
+    <div class="logo">GADREL COLLECTION</div>
+    <nav>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li class="dropdown">
+          <a href="shop.html">Shop ▾</a>
+          <ul class="dropdown-menu">
+            <li><a href="shop.html">All Products</a></li>
+            <li><a href="men.html">Men</a></li>
+            <li><a href="women.html">Women</a></li>
+            <li><a href="accessories.html">Accessories</a></li>
+            <li><a href="bags.html">Bags</a></li>
+            <li><a href="beauty.html">Beauty</a></li>
+            <li><a href="perfume.html">Perfume</a></li>
+            <li><a href="earrings.html">Earrings</a></li>
+          </ul>
+        </li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="contact.html">Contact</a></li>
+        <li><a href="cart.html">Cart 🛒</a></li>
+        <li class="dropdown">
+          <a href="account.html">Account ▾</a>
+          <ul class="dropdown-menu">
+            <li><a href="signin.html">Sign In</a></li>
+            <li><a href="signup.html">Sign Up</a></li>
+            <li><a href="account.html">My Account</a></li>
+            <li><a href="orders.html">Orders</a></li>
+            <li><a href="wishlist.html">Wishlist</a></li>
+          </ul>
+        </li>
+      </ul>
+    </nav>
+    <h1>My Orders</h1>
+    <p>Track your recent purchases</p>
+  </header>
 
   <main class="orders-container">
     <h2>Order History</h2>
 
     <div class="order">
       <h3>Order #1001</h3>
-      <p>Date: Oct 15, 2025</p>
-      <p>Items: Noir Luxe Tote (Black, Medium)</p>
-      <p>Total: ₦32,000</p>
-      <p>Status: Delivered</p>
+      <p><strong>Date:</strong> Oct 15, 2025</p>
+      <p><strong>Items:</strong> Noir Luxe Tote (Black, Medium)</p>
+      <p><strong>Total:</strong> ₦32,000</p>
+      <p><strong>Status:</strong> Delivered</p>
     </div>
 
     <div class="order">
       <h3>Order #1002</h3>
-      <p>Date: Nov 2, 2025</p>
-      <p>Items: Blush Mini Satchel (Rose, Small)</p>
-      <p>Total: ₦24,500</p>
-      <p>Status: In Transit</p>
+      <p><strong>Date:</strong> Nov 2, 2025</p>
+      <p><strong>Items:</strong> Blush Mini Satchel (Rose, Small)</p>
+      <p><strong>Total:</strong> ₦24,500</p>
+      <p><strong>Status:</strong> In Transit</p>
     </div>
   </main>
 
@@ -136,4 +182,3 @@
 
 </body>
 </html>
-
