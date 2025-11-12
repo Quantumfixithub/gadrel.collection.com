@@ -4,6 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>About Us - Gadrel Collection</title>
+  <link rel="stylesheet" href="styles/styles.css" />
   <style>
     body {
       margin: 0;
@@ -34,6 +35,17 @@
       color: #F5E3C7;
       margin: 0 1rem;
       text-decoration: none;
+      font-weight: bold;
+    }
+
+    .language-switch button {
+      background-color: #D9AF6C;
+      color: #021D34;
+      border: none;
+      padding: 0.5rem 1rem;
+      margin-left: 0.5rem;
+      border-radius: 6px;
+      cursor: pointer;
       font-weight: bold;
     }
 
@@ -81,76 +93,39 @@
       font-style: italic;
     }
 
-    .centered-section {
-      text-align: center;
-      margin-top: 3rem;
-    }
-
-    .centered-section h2 {
-      font-size: 1.8rem;
-      margin-bottom: 1rem;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      gap: 0.5rem;
-    }
-
-    .centered-section .icon {
-      font-size: 1.5rem;
-    }
-
-    .centered-section form {
-      margin: 0 auto;
-      max-width: 500px;
+    form {
+      margin-top: 1rem;
       display: flex;
       flex-direction: column;
       gap: 1rem;
+      max-width: 500px;
     }
 
-    input, textarea, button[type="submit"] {
+    input, textarea {
       padding: 0.75rem;
       border: 1px solid #D9AF6C;
       border-radius: 6px;
       background-color: #F5E3C7;
       color: #021D34;
       font-size: 1rem;
-      opacity: 0;
-      transform: translateY(20px);
-      transition: opacity 0.6s ease-out, transform 0.6s ease-out;
-    }
-
-    form.visible input,
-    form.visible textarea,
-    form.visible button[type="submit"] {
-      opacity: 1;
-      transform: translateY(0);
+      flex-direction: column;
     }
 
     button[type="submit"] {
       background-color: #D9AF6C;
+      color: #021D34;
+      border: none;
+      padding: 0.75rem;
+      font-size: 1rem;
+      border-radius: 6px;
       cursor: pointer;
       font-weight: bold;
+      flex-direction: column;
     }
 
     button[type="submit"]:hover {
       background-color: #c89a4f;
-    }
-
-    .success-message {
-      display: none;
-      color: green;
-      font-weight: bold;
-    }
-
-    .fade-in {
-      opacity: 0;
-      transform: translateY(30px);
-      transition: opacity 0.8s ease, transform 0.8s ease;
-    }
-
-    .fade-in.visible {
-      opacity: 1;
-      transform: translateY(0);
+      flex-direction: column;
     }
 
     footer {
@@ -165,24 +140,149 @@
       margin: 0 1rem;
       text-decoration: none;
     }
+
+    .fade-in {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+    }
+
+    .fade-in.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    header {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  background-color: #021D34;
+  color: #FFFFFF;
+  padding: 1rem 2rem;
+}
+
+.logo {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-right: 2rem;
+  margin-top: 0.5rem;
+}
+
+.vertical-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.vertical-nav a {
+  color: #F5E3C7;
+  text-decoration: none;
+  font-weight: bold;
+  padding: 0.5rem 0;
+}
+
+.vertical-nav a:hover {
+  color: #D9AF6C;
+}
+
+.language-switch {
+  margin-top: 1rem;
+}
+
+.language-switch button {
+  background-color: #D9AF6C;
+  color: #021D34;
+  border: none;
+  padding: 0.5rem 1rem;
+  margin-right: 0.5rem;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: bold;
+}
+.centered-section {
+  text-align: center;
+  margin-top: 2rem;
+}
+
+.centered-section form {
+  margin: 0 auto;
+}
+.fade-in {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
   </style>
+  <script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const faders = document.querySelectorAll(".fade-in");
+      const observer = new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) entry.target.classList.add("visible");
+        });
+      });
+      faders.forEach(el => observer.observe(el));
+    });
+
+    function switchLanguage(lang) {
+      document.querySelectorAll(".lang-en").forEach(el => el.style.display = lang === "en" ? "block" : "none");
+      document.querySelectorAll(".lang-fr").forEach(el => el.style.display = lang === "fr" ? "block" : "none");
+    }
+
+    emailjs.init("your_userID"); // Replace with your EmailJS user ID
+
+    function sendContact(e) {
+      e.preventDefault();
+      emailjs.sendForm("your_serviceID", "your_templateID", e.target)
+        .then(() => alert("Message sent!"))
+        .catch(err => alert("Error: " + err));
+    }
+  </script>
 </head>
 <body>
-  <header>
-    <div class="logo">GADREL COLLECTION</div>
-    <nav>
-      <a href="index.html">Home</a>
-      <a href="shop.html">Shop</a>
-      <a href="about.html">About</a>
-      <a href="contact.html">Contact</a>
-      <a href="cart.html">Cart 🛒</a>
+<header>
+  <div class="logo">GADREL COLLECTION</div>
+  <nav>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li class="dropdown">
+          <a href="shop.html">Shop ▾</a>
+          <ul class="dropdown-menu">
+            <li><a href="men.html">Men</a></li>
+            <li><a href="women.html">Women</a></li>
+            <li><a href="accessories.html">Accessories</a></li>
+            <li><a href="bags.html">Bags</a></li>
+            <li><a href="beauty.html">Beauty</a></li>
+            <li><a href="perfume.html">Perfume</a></li>
+            <li><a href="earrings.html">Earrings</a></li>
+          </ul>
+        </li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="contact.html">Contact</a></li>
+        <li><a href="cart.html">Cart 🛒</a></li>
+        <li class="dropdown">
+          <a href="account.html">Account ▾</a>
+          <ul class="dropdown-menu">
+            <li><a href="signin.html">Sign In</a></li>
+            <li><a href="signup.html">Sign Up</a></li>
+            <li><a href="account.html">My Account</a></li>
+            <li><a href="orders.html">Orders</a></li>
+            <li><a href="wishlist.html">Wishlist</a></li>
+          </ul>
+        </li>
+      </ul>
     </nav>
-  </header>
+</header>
+
 
   <section class="featured">
-    <div class="fade-in">
+    <div class="fade-in lang-en">
       <h2>Our Story</h2>
       <p>Gadrel Collection was born from a passion for elegance, empowerment, and expression. Founded in Abuja, Nigeria, our brand blends timeless fashion with bold beauty, offering curated pieces that celebrate individuality and confidence.</p>
+    </div>
+    <div class="fade-in lang-fr" style="display:none;">
+      <h2>Notre histoire</h2>
+      <p>Gadrel Collection est née d'une passion pour l'élégance, l'autonomisation et l'expression. Fondée à Abuja, notre marque allie mode intemporelle et beauté audacieuse pour célébrer l'individualité et la confiance.</p>
     </div>
 
     <div class="fade-in">
@@ -223,24 +323,24 @@
       </div>
     </div>
 
-    <div class="fade-in centered-section">
-      <h2><span class="icon">📬</span> Contact Us</h2>
-      <form id="contact-form" onsubmit="sendContact(event)">
-        <input type="text" name="name" placeholder="Your Name" required />
-        <input type="email" name="email" placeholder="Your Email" required />
-        <textarea name="message" placeholder="Your Message" rows="5" required></textarea>
-        <button type="submit">Send Message</button>
-      </form>
-    </div>
+   <div class="fade-in centered-section">
+  <h2>Contact Us</h2>
+  <form id="contact-form" onsubmit="sendContact(event)">
+    <input type="text" name="name" placeholder="Your Name" required />
+    <input type="email" name="email" placeholder="Your Email" required />
+    <textarea name="message" placeholder="Your Message" rows="5" required></textarea>
+    <button type="submit">Send Message</button>
+  </form>
+</div>
 
-    <div class="fade-in centered-section">
-      <h2><span class="icon">📰</span> Join Our Newsletter</h2>
-      <form id="newsletter-form" onsubmit="event.preventDefault(); showSuccess(this);">
-        <input type="email" name="email" placeholder="Your Email" required />
-        <button type="submit">Subscribe</button>
-        <p class="success-message">Thanks for subscribing!</p>
-      </form>
-    </div>
+<div class="fade-in centered-section">
+  <h2>Join Our Newsletter</h2>
+  <form id="newsletter-form" onsubmit="event.preventDefault(); alert('Thanks for subscribing!'); this.reset();">
+    <input type="email" name="email" placeholder="Your Email" required />
+    <button type="submit">Subscribe</button>
+  </form>
+</div>
+
   </section>
 
   <footer>
@@ -251,40 +351,5 @@
       <a href="https://wa.me/2348105429924">Chat on WhatsApp</a>
     </div>
   </footer>
-
-  <script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
-  <script>
-    document.addEventListener("DOMContentLoaded", () => {
-      const faders = document.querySelectorAll(".fade-in");
-      const observer = new IntersectionObserver(entries => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add("visible");
-            const form = entry.target.querySelector("form");
-            if (form) form.classList.add("visible");
-          }
-             });
-    });
-
-    emailjs.init("your_userID"); // Replace with your EmailJS user ID
-
-    function sendContact(e) {
-      e.preventDefault();
-      emailjs.sendForm("your_serviceID", "your_templateID", e.target)
-        .then(() => alert("Message sent!"))
-        .catch(err => alert("Error: " + err));
-    }
-
-    function showSuccess(form) {
-      form.reset();
-      const message = form.querySelector(".success-message");
-      message.style.display = "block";
-      message.style.opacity = 0;
-      message.style.transition = "opacity 0.6s ease";
-      setTimeout(() => message.style.opacity = 1, 100);
-      setTimeout(() => message.style.opacity = 0, 3000);
-    }
-  </script>
 </body>
 </html>
-
