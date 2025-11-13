@@ -244,6 +244,25 @@
       margin: 0 1rem;
       text-decoration: none;
     }
+#auth-modal input {
+  margin: 0.5rem 0;
+  padding: 0.75rem;
+  width: 100%;
+  border: 1px solid var(--gold);
+  border-radius: 6px;
+  background: var(--cream);
+  color: var(--navy);
+}
+
+#auth-modal button {
+  background: var(--gold);
+  color: var(--navy);
+  padding: 0.75rem;
+  border: none;
+  border-radius: 6px;
+  font-weight: bold;
+  cursor: pointer;
+}
 
     @media (max-width: 600px) {
       .hero h1 {
@@ -258,6 +277,29 @@
       }
     }
   </style>
+  <script>
+  function isLoggedIn() {
+    return localStorage.getItem("userLoggedIn") === "true";
+  }
+
+  function requireLogin(action) {
+    if (!isLoggedIn()) {
+      document.getElementById("auth-modal").style.display = "flex";
+      document.getElementById("auth-action").value = action;
+      return false;
+    }
+    return true;
+  }
+
+  function loginUser() {
+    localStorage.setItem("userLoggedIn", "true");
+    document.getElementById("auth-modal").style.display = "none";
+    const action = document.getElementById("auth-action").value;
+    if (action === "shop") window.location.href = "shop.html";
+    if (action === "cart") document.getElementById("cart-modal").style.display = "flex";
+  }
+</script>
+
 </head>
 <body>
 
@@ -303,7 +345,7 @@
     <div>
       <h1>Where Beauty Meet Fashion</h1>
       <p>Discover timeless fashion pieces crafted for elegance and confidence.</p>
-           <a href="shop.html">Shop Now</a>
+           <a href="#" onclick="requireLogin('shop')">Shop Now</a>
     </div>
   </section>
 
@@ -424,7 +466,17 @@
 
     setInterval(updateCountdown, 1000);
   </script>
-</body>
-</html>
+  <!-- Other modals like cart-modal go here -->
 
-        
+<!-- 🔐 Paste Step 4 Login Modal here -->
+<div id="auth-modal" class="cart-modal" style="display:none;">
+  <div class="cart-content">
+    <h2>Create Account</h2>
+    <input type="text" placeholder="Your Name" required />
+    <input type="email" placeholder="Your Email" required />
+    <button onclick="loginUser()">Create Account</button>
+    <input type="hidden" id="auth-action" />
+  </div>
+</div>
+</body>
+</html>   
