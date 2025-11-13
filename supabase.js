@@ -1,6 +1,6 @@
 // supabase.js
 const SUPABASE_URL = "https://amrvwccagixmktagoecv.supabase.co";
-const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImFtcnZ3Y2NhZ2l4bWt0YWdvZWN2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjMwNTEyMzksImV4cCI6MjA3ODYyNzIzOX0.I4lIPpprvDmD4Rs2ePlvnHXhdyyvmwxujAIE-8464Uw"; // Replace with full key
+const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImFtcnZ3Y2NhZ2l4bWt0YWdvZWN2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjMwNTEyMzksImV4cCI6MjA3ODYyNzIzOX0.I4lIPpprvDmD4Rs2ePlvnHXhdyyvmwxujAIE-8464Uw";
 
 const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
@@ -13,7 +13,7 @@ async function signUp(email, password) {
   const { data, error } = await supabase.auth.signUp({ email, password });
 
   if (error) {
-    alert(error.message);
+    alert("Signup failed: " + error.message);
     return;
   }
 
@@ -31,7 +31,7 @@ async function signUp(email, password) {
 
   if (profileError) {
     console.error("Profile insert error:", profileError.message);
-    alert("Account created, but profile setup failed.");
+    alert("Account created, but profile setup failed: " + profileError.message);
   } else {
     alert("Account created! Please check your email to confirm.");
   }
@@ -42,17 +42,23 @@ async function signIn(email, password) {
   const { data, error } = await supabase.auth.signInWithPassword({ email, password });
 
   if (error) {
-    alert(error.message);
+    alert("Login failed: " + error.message);
     return;
   }
 
   localStorage.setItem("userLoggedIn", "true");
 
-  const { data: profile } = await supabase
+  const { data: profile, error: profileError } = await supabase
     .from("profiles")
     .select("is_admin")
     .eq("id", data.user.id)
     .single();
+
+  if (profileError) {
+    console.error("Profile fetch error:", profileError.message);
+    alert("Login succeeded, but profile lookup failed.");
+    return;
+  }
 
   if (profile?.is_admin) {
     window.location.href = "admin-dashboard.html";
@@ -70,8 +76,8 @@ async function signOut() {
 
 // Check if current user is admin
 async function isAdminUser() {
-  const { data: { user } } = await supabase.auth.getUser();
-  if (!user) return false;
+  const { data: { user }, error } = await supabase.auth.getUser();
+  if (error || !user) return false;
 
   const { data: profile } = await supabase
     .from("profiles")
