@@ -1,6 +1,6 @@
 // supabase.js
 const SUPABASE_URL = "https://amrvwccagixmktagoecv.supabase.co";
-const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."; // Replace with full key
+const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImFtcnZ3Y2NhZ2l4bWt0YWdvZWN2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjMwNTEyMzksImV4cCI6MjA3ODYyNzIzOX0.I4lIPpprvDmD4Rs2ePlvnHXhdyyvmwxujAIE-8464Uw"; // Replace with full key
 
 const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
