@@ -134,6 +134,7 @@
       border-radius: 8px;
       box-shadow: 0 4px 12px rgba(0,0,0,0.05);
       transition: transform 0.3s ease;
+       margin-bottom: 3rem; /* space below categories */
     }
 
     .category:hover {
@@ -152,6 +153,24 @@
   flex-wrap: wrap;
   gap: 1.5rem;
   justify-content: center;
+   margin-bottom: 3rem; /* space below categories */
+}
+.category button,
+.swiper-slide button {
+  background-color: #021D34;
+  color: #fff;
+  border: none;
+  padding: 0.5rem 1rem;
+  margin-top: 0.5rem;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background-color 0.3s ease;
+}
+
+.category button:hover,
+.swiper-slide button:hover {
+  background-color: #16324d;
 }
 
 /* Each feature card */
@@ -200,6 +219,7 @@
   text-align: center;
   cursor: pointer;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
+   margin-bottom: 3rem; /* space below categories */
 }
 
 .category img, .swiper-slide img {
@@ -262,6 +282,7 @@
       border-left: 4px solid var(--gold);
       border-radius: 6px;
       box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+       margin-bottom: 3rem; /* space below categories */
     }
 
     .newsletter {
@@ -390,30 +411,36 @@
     </div>
   </section>
 
-  <section class="categories">
-  <div class="category" onclick="addToCart('Men Outfit', 35000, 'images/nen suite.jpg')">
+<section class="categories">
+  <div class="category">
     <img src="images/nen suite.jpg" alt="Men" />
     <h3>Men</h3>
+    <button onclick="addToCart('Men Outfit', 35000, 'images/nen suite.jpg')">Add to Cart</button>
   </div>
-  <div class="category" onclick="addToCart('Women Gown', 28000, 'images/gown 2.jpg')">
+  <div class="category">
     <img src="images/gown 2.jpg" alt="Women" />
     <h3>Women</h3>
+    <button onclick="addToCart('Women Gown', 28000, 'images/gown 2.jpg')">Add to Cart</button>
   </div>
-  <div class="category" onclick="addToCart('Leather Bag', 15000, 'images/bag4.jpg')">
+  <div class="category">
     <img src="images/bag4.jpg" alt="Bags" />
     <h3>Bags</h3>
+    <button onclick="addToCart('Leather Bag', 15000, 'images/bag4.jpg')">Add to Cart</button>
   </div>
-  <div class="category" onclick="addToCart('Blue Sapphire Perfume', 45000, 'images/Boadicea The Victorious Blue Sapphire.jpg')">
+  <div class="category">
     <img src="images/Boadicea The Victorious Blue Sapphire.jpg" alt="Perfume" />
     <h3>Perfume</h3>
+    <button onclick="addToCart('Blue Sapphire Perfume', 45000, 'images/Boadicea The Victorious Blue Sapphire.jpg')">Add to Cart</button>
   </div>
-  <div class="category" onclick="addToCart('Diamond Earrings', 22000, 'images/Diamond Pear Red Ruby Drop.jpg')">
+  <div class="category">
     <img src="images/Diamond Pear Red Ruby Drop.jpg" alt="Earrings" />
     <h3>Earrings</h3>
+    <button onclick="addToCart('Diamond Earrings', 22000, 'images/Diamond Pear Red Ruby Drop.jpg')">Add to Cart</button>
   </div>
-  <div class="category" onclick="addToCart('Sneakers', 18000, 'images/sneakers 2.jpg')">
+  <div class="category">
     <img src="images/sneakers 2.jpg" alt="Sneaker" />
     <h3>Sneaker</h3>
+    <button onclick="addToCart('Sneakers', 18000, 'images/sneakers 2.jpg')">Add to Cart</button>
   </div>
 </section>
 
@@ -421,25 +448,26 @@
   <h2>✨ Featured Products</h2>
   <div class="swiper">
     <div class="swiper-wrapper">
-      <div class="swiper-slide" onclick="addToCart('Gold Luxe Watch', 25000, 'images/Gold Luxe Watch.jpg')">
+      <div class="swiper-slide">
         <img src="images/Gold Luxe Watch.jpg" alt="Gold Luxe Watch">
         <p>Gold Luxe Watch</p>
+        <button onclick="addToCart('Gold Luxe Watch', 25000, 'images/Gold Luxe Watch.jpg')">Add to Cart</button>
       </div>
-      <div class="swiper-slide" onclick="addToCart('Velvet Tote Bag', 18000, 'images/Velvet Tote Bag.jpg')">
+      <div class="swiper-slide">
         <img src="images/Velvet Tote Bag.jpg" alt="Velvet Tote Bag">
         <p>Velvet Tote Bag</p>
+        <button onclick="addToCart('Velvet Tote Bag', 18000, 'images/Velvet Tote Bag.jpg')">Add to Cart</button>
       </div>
-      <div class="swiper-slide" onclick="addToCart('Silk Scarf', 8000, 'images/Silk Scarf.jpg')">
+      <div class="swiper-slide">
         <img src="images/Silk Scarf.jpg" alt="Silk Scarf">
         <p>Silk Scarf</p>
+        <button onclick="addToCart('Silk Scarf', 8000, 'images/Silk Scarf.jpg')">Add to Cart</button>
       </div>
     </div>
     <div class="swiper-button-prev"></div>
     <div class="swiper-button-next"></div>
   </div>
 </section>
-
-
   <section class="testimonials">
     <h2>💬 What Our Customers Say</h2>
     <div class="testimonial">
