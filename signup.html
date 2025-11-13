@@ -111,7 +111,7 @@
   </style>
 </head>
 <body>
-  <!-- Header with full navigation -->
+  <!-- Header -->
   <header>
     <div class="logo">GADREL COLLECTION</div>
     <nav>
@@ -158,16 +158,18 @@
     </div>
   </footer>
 
-  <!-- Signup Script -->
+  <!-- Supabase Scripts -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="supabase.js"></script>
   <script>
-    document.getElementById("signup-form").addEventListener("submit", function(e) {
+    document.getElementById("signup-form").addEventListener("submit", async function(e) {
       e.preventDefault();
 
-      // Simulate account creation
-      localStorage.setItem("userLoggedIn", "true");
+      const name = document.getElementById("name").value;
+      const email = document.getElementById("email").value;
+      const password = document.getElementById("password").value;
 
-      // Redirect to homepage
-      window.location.href = "index.html";
+      await signUp(email, password);
     });
 
     function isLoggedIn() {
