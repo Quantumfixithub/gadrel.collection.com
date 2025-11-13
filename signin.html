@@ -165,7 +165,12 @@
       const email = document.getElementById("email").value;
       const password = document.getElementById("password").value;
 
-      await signIn(email, password); // Calls the signIn function from supabase.js
+      try {
+        await signIn(email, password); // Calls the signIn function from supabase.js
+      } catch (err) {
+        console.error("Sign-in error:", err.message);
+        alert("Sign-in failed: " + err.message);
+      }
     });
 
     function isLoggedIn() {
