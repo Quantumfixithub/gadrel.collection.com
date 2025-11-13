@@ -134,3 +134,41 @@ async function updateCartCount() {
 
 // Run on page load
 document.addEventListener("DOMContentLoaded", updateCartCount);
+
+async function createOrderFromCart() {
+  const { data: { user } } = await supabase.auth.getUser();
+  if (!user) return;
+
+  const cartItems = await fetchCart();
+  if (cartItems.length === 0) return alert("Cart is empty!");
+
+  const total = cartItems.reduce((sum, item) => sum + item.products.price * item.quantity, 0);
+
+  const { data: order, error: orderErr } = await supabase
+    .from("orders")
+    .insert({ user_id: user.id, total })
+    .select()
+    .single();
+
+  if (orderErr) return alert(orderErr.message);
+
+  const orderItems = cartItems.map(item => ({
+    order_id: order.id,
+    product_id: item.products.id,
+    quantity: item.quantity,
+    price: item.products.price
+  }));
+
+  const { error: itemsErr } = await supabase
+    .from("order_items")
+    .insert(orderItems);
+
+  if (itemsErr) return alert(itemsErr.message);
+
+  await supabase
+    .from("cart_items")
+    .delete()
+    .eq("user_id", user.id);
+
+  alert("Order placed successfully!");
+}
