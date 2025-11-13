@@ -5,6 +5,108 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Sign Up - Gadrel Collection</title>
   <link rel="stylesheet" href="styles/styles.css" />
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #F8F8F8;
+      color: #021D34;
+      margin: 0;
+      padding: 0;
+    }
+
+    header {
+      background-color: #021D34;
+      color: #FFFFFF;
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .logo {
+      font-size: 1.5rem;
+      font-weight: bold;
+    }
+
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 1rem;
+      padding: 0;
+      margin: 0;
+    }
+
+    nav a {
+      color: #F5E3C7;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    .auth-box {
+      max-width: 400px;
+      margin: 4rem auto;
+      background-color: #FFFFFF;
+      padding: 2rem;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+
+    .auth-box h2 {
+      text-align: center;
+      margin-bottom: 1.5rem;
+    }
+
+    .auth-box label {
+      display: block;
+      margin-bottom: 0.5rem;
+      font-weight: bold;
+    }
+
+    .auth-box input {
+      width: 100%;
+      padding: 0.75rem;
+      margin-bottom: 1rem;
+      border: 1px solid #D9AF6C;
+      border-radius: 6px;
+      background-color: #F5E3C7;
+      color: #021D34;
+    }
+
+    .auth-box button {
+      width: 100%;
+      padding: 0.75rem;
+      background-color: #D9AF6C;
+      color: #021D34;
+      border: none;
+      border-radius: 6px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .auth-box button:hover {
+      background-color: #c89a4f;
+    }
+
+    .auth-footer {
+      text-align: center;
+      margin-top: 1rem;
+    }
+
+    footer {
+      background-color: #021D34;
+      color: #FFFFFF;
+      text-align: center;
+      padding: 2rem 1rem;
+      margin-top: 4rem;
+    }
+
+    .social-links a {
+      color: #D9AF6C;
+      margin: 0 1rem;
+      text-decoration: none;
+    }
+  </style>
 </head>
 <body>
   <!-- Header with full navigation -->
@@ -13,32 +115,11 @@
     <nav>
       <ul>
         <li><a href="index.html">Home</a></li>
-        <li class="dropdown">
-          <a href="shop.html">Shop ▾</a>
-          <ul class="dropdown-menu">
-            <li><a href="shop.html">All Products</a></li>
-            <li><a href="men.html">Men</a></li>
-            <li><a href="women.html">Women</a></li>
-            <li><a href="accessories.html">Accessories</a></li>
-            <li><a href="bags.html">Bags</a></li>
-            <li><a href="beauty.html">Beauty</a></li>
-            <li><a href="perfume.html">Perfume</a></li>
-            <li><a href="earrings.html">Earrings</a></li>
-          </ul>
-        </li>
+        <li><a href="#" onclick="redirectIfNotLoggedIn('shop.html')">Shop</a></li>
         <li><a href="about.html">About</a></li>
         <li><a href="contact.html">Contact</a></li>
-        <li><a href="cart.html">Cart 🛒</a></li>
-        <li class="dropdown">
-          <a href="account.html">Account ▾</a>
-          <ul class="dropdown-menu">
-            <li><a href="signin.html">Sign In</a></li>
-            <li><a href="signup.html">Sign Up</a></li>
-            <li><a href="account.html">My Account</a></li>
-            <li><a href="orders.html">Orders</a></li>
-            <li><a href="wishlist.html">Wishlist</a></li>
-          </ul>
-        </li>
+        <li><a href="#" onclick="redirectIfNotLoggedIn('cart.html')">Cart 🛒</a></li>
+        <li><a href="signin.html">Sign In</a></li>
       </ul>
     </nav>
   </header>
@@ -47,7 +128,7 @@
   <main>
     <div class="auth-box">
       <h2>Create Account</h2>
-      <form>
+      <form id="signup-form">
         <label for="name">Full Name</label>
         <input type="text" id="name" placeholder="Your name" required />
 
@@ -74,5 +155,30 @@
       <a href="https://wa.me/2348105429924">Chat on WhatsApp</a>
     </div>
   </footer>
+
+  <!-- Signup Script -->
+  <script>
+    document.getElementById("signup-form").addEventListener("submit", function(e) {
+      e.preventDefault();
+
+      // Simulate account creation
+      localStorage.setItem("userLoggedIn", "true");
+
+      // Redirect to homepage
+      window.location.href = "index.html";
+    });
+
+    function isLoggedIn() {
+      return localStorage.getItem("userLoggedIn") === "true";
+    }
+
+    function redirectIfNotLoggedIn(targetPage) {
+      if (!isLoggedIn()) {
+        window.location.href = "signin.html";
+      } else {
+        window.location.href = targetPage;
+      }
+    }
+  </script>
 </body>
 </html>
