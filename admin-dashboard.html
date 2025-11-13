@@ -80,6 +80,55 @@
         <tbody></tbody>
       </table>
     </div>
+
+    <!-- User Management -->
+    <div class="admin-section">
+      <h3>User Management</h3>
+      <table id="users-table">
+        <thead>
+          <tr>
+            <th>Email</th>
+            <th>Admin</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </div>
+
+    <!-- Product Analytics -->
+    <div class="admin-section">
+      <h3>Product Analytics</h3>
+      <div id="product-analytics"></div>
+    </div>
+
+    <!-- Sales Dashboard -->
+    <div class="admin-section">
+      <h3>Sales Dashboard</h3>
+      <div id="sales-summary"></div>
+    </div>
+
+    <!-- Export Data -->
+    <div class="admin-section">
+      <h3>Export Data</h3>
+      <button onclick="exportUsersToCSV()">Export Users</button>
+      <button onclick="exportOrdersToCSV()">Export Orders</button>
+    </div>
+
+    <!-- Broadcast Message -->
+    <div class="admin-section">
+      <h3>Broadcast Message</h3>
+      <form id="broadcast-form">
+        <textarea id="broadcast-message" placeholder="Type your message here..." rows="4" required></textarea>
+        <button type="submit">Send to All Users</button>
+      </form>
+    </div>
+
+    <!-- Product Gallery -->
+    <div class="admin-section">
+      <h3>Product Gallery</h3>
+      <div id="product-gallery" style="display: flex; flex-wrap: wrap; gap: 10px;"></div>
+    </div>
   </section>
 
   <footer>
@@ -97,22 +146,27 @@
     const supabase = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
     document.addEventListener("DOMContentLoaded", async () => {
-      const { data: { user } } = await supabase.auth.getUser();
-      if (!user) return window.location.href = "signin.html";
+      const { data: { user }, error } = await supabase.auth.getUser();
+      if (error || !user) return window.location.href = "signin.html";
 
-      const { data: profile } = await supabase
-        .from("profiles")
+      const { data: profile, error: fetchError } = await supabase
+        .from("users")
         .select("is_admin")
         .eq("id", user.id)
         .single();
 
-      if (!profile?.is_admin) {
+      if (fetchError || !profile?.is_admin) {
         alert("Access denied. Admins only.");
         window.location.href = "index.html";
-      } else {
-        loadProducts();
-        loadOrders();
+        return;
       }
+
+      loadProducts();
+      loadOrders();
+      loadUsers();
+      loadProductAnalytics();
+      loadSalesDashboard();
+      loadProductGallery();
     });
 
     async function loadProducts() {
@@ -151,7 +205,7 @@
       e.preventDefault();
       const name = document.getElementById("name").value;
       const price = parseFloat(document.getElementById("price").value);
-      const stock = parseInt(document.getElementById("stock").value);
+            const stock = parseInt(document.getElementById("stock").value);
       const fileInput = document.getElementById("image-upload");
       const file = fileInput.files[0];
       let image = document.getElementById("image").value;
@@ -212,6 +266,145 @@
           <td>${new Date(order.created_at).toLocaleString()}</td>
         `;
         tbody.appendChild(row);
+      });
+    }
+
+    async function loadUsers() {
+      const { data: users } = await supabase.from("users").select("id, email, is_admin");
+      const tbody = document.querySelector("#users-table tbody");
+      tbody.innerHTML = "";
+
+      users.forEach(user => {
+        const row = document.createElement("tr");
+        row.innerHTML = `
+          <td>${user.email}</td>
+          <td>${user.is_admin ? "✅" : "❌"}</td>
+          <td>
+            <button onclick="toggleAdmin('${user.id}', ${user.is_admin})">
+              ${user.is_admin ? "Demote" : "Promote"}
+            </button>
+            <button onclick="deleteUser('${user.id}')">Delete</button>
+          </td>
+        `;
+        tbody.appendChild(row);
+      });
+    }
+
+    async function toggleAdmin(userId, currentStatus) {
+      await supabase.from("users").update({ is_admin: !currentStatus }).eq("id", userId);
+      loadUsers();
+    }
+
+    async function deleteUser(userId) {
+      if (!confirm("Delete this user?")) return;
+      await supabase.from("users").delete().eq("id", userId);
+      loadUsers();
+    }
+
+    async function loadProductAnalytics() {
+      const { data: items } = await supabase
+        .from("order_items")
+        .select("product_id, quantity");
+
+      const totals = {};
+      items.forEach(i => {
+        totals[i.product_id] = (totals[i.product_id] || 0) + i.quantity;
+      });
+
+      const { data: products } = await supabase
+        .from("products")
+        .select("id, name, stock");
+
+      const container = document.getElementById("product-analytics");
+      container.innerHTML = "<ul>";
+
+      products.forEach(p => {
+        const sold = totals[p.id] || 0;
+        const lowStock = p.stock < 5 ? "⚠️ Low Stock" : "";
+        container.innerHTML += `<li><strong>${p.name}</strong>: Sold ${sold}, Stock ${p.stock} ${lowStock}</li>`;
+      });
+
+      container.innerHTML += "</ul>";
+    }
+
+    async function loadSalesDashboard() {
+      const { data: orders } = await supabase
+        .from("orders")
+        .select("total, created_at");
+
+      const totalRevenue = orders.reduce((sum, o) => sum + o.total, 0);
+      const totalOrders = orders.length;
+
+      const recent = orders
+        .filter(o => new Date(o.created_at) > new Date(Date.now() - 7 * 86400000))
+        .length;
+
+      document.getElementById("sales-summary").innerHTML = `
+        <p>Total Revenue: ₦${totalRevenue}</p>
+        <p>Total Orders: ${totalOrders}</p>
+        <p>Orders This Week: ${recent}</p>
+      `;
+    }
+
+    function convertToCSV(data, headers) {
+      const csvRows = [headers.join(",")];
+      data.forEach(row => {
+        const values = headers.map(h => `"${row[h] ?? ""}"`);
+        csvRows.push(values.join(","));
+      });
+      return csvRows.join("\n");
+    }
+
+    function downloadCSV(filename, csv) {
+      const blob = new Blob([csv], { type: "text/csv" });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = filename;
+      a.click();
+      URL.revokeObjectURL(url);
+    }
+
+    async function exportUsersToCSV() {
+      const { data: users } = await supabase.from("users").select("id, email, is_admin");
+      const csv = convertToCSV(users, ["id", "email", "is_admin"]);
+      downloadCSV("users.csv", csv);
+    }
+
+    async function exportOrdersToCSV() {
+      const { data: orders } = await supabase
+        .from("orders")
+        .select("id, user_id, total, status, created_at");
+
+      const csv = convertToCSV(orders, ["id", "user_id", "total", "status", "created_at"]);
+      downloadCSV("orders.csv", csv);
+    }
+
+    document.getElementById("broadcast-form").addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const message = document.getElementById("broadcast-message").value;
+
+      const { data: users } = await supabase.from("users").select("email");
+      const emails = users.map(u => u.email);
+
+      console.log("Broadcasting to:", emails);
+      console.log("Message:", message);
+
+      alert("Broadcast simulated. Connect to SendGrid or Mailchimp to send real emails.");
+    });
+
+    async function loadProductGallery() {
+      const { data: products } = await supabase.from("products").select("name, image");
+      const gallery = document.getElementById("product-gallery");
+      gallery.innerHTML = "";
+
+      products.forEach(p => {
+        const div = document.createElement("div");
+        div.innerHTML = `
+          <img src="${p.image}" alt="${p.name}" width="100"><br>
+          <small>${p.name}</small>
+        `;
+        gallery.appendChild(div);
       });
     }
   </script>
