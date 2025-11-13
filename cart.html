@@ -5,6 +5,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Your Cart - Gadrel Collection</title>
   <link rel="stylesheet" href="styles/styles.css" />
+  <script>
+    // 🔐 Redirect to signin.html if not logged in
+    if (localStorage.getItem("userLoggedIn") !== "true") {
+      window.location.href = "signin.html";
+    }
+  </script>
   <style>
     body {
       margin: 0;
@@ -52,6 +58,17 @@
 
     .dropdown:hover .dropdown-menu {
       display: block;
+    }
+
+    .signout-btn {
+      background-color: #D9AF6C;
+      color: #021D34;
+      border: none;
+      padding: 0.5rem 1rem;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: bold;
+      margin-left: auto;
     }
 
     h1 {
@@ -208,6 +225,7 @@
         </li>
       </ul>
     </nav>
+    <button class="signout-btn" onclick="logoutUser()">Sign Out</button>
     <h1>🛒 Your Cart</h1>
     <p>Review your selected items</p>
   </header>
@@ -253,11 +271,11 @@
         itemsHTML += `
           <div class="cart-item">
             <img src="${item.image || 'placeholder.jpg'}" alt="${item.name}" />
-            <div class="cart-item-details">
+                       <div class="cart-item-details">
               <h4>${item.name}</h4>
               <p>Size: ${item.size || 'N/A'}</p>
               <p>Color: ${item.color || 'N/A'}</p>
-                            <label>Quantity:
+              <label>Quantity:
                 <input type="number" min="1" value="${quantity}" onchange="updateQuantity(${index}, this.value)" />
               </label>
               <p>Total: ₦${itemTotal.toLocaleString()}</p>
@@ -287,6 +305,11 @@
       cart.splice(index, 1);
       localStorage.setItem("cart", JSON.stringify(cart));
       renderCart();
+    }
+
+    function logoutUser() {
+      localStorage.removeItem("userLoggedIn");
+      window.location.href = "signin.html";
     }
 
     renderCart();
