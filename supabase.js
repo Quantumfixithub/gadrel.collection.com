@@ -1,4 +1,3 @@
-// supabase.js
 const SUPABASE_URL = "https://amrvwccagixmktagoecv.supabase.co";
 const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImFtcnZ3Y2NhZ2l4bWt0YWdvZWN2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjMwNTEyMzksImV4cCI6MjA3ODYyNzIzOX0.I4lIPpprvDmD4Rs2ePlvnHXhdyyvmwxujAIE-8464Uw";
 
@@ -8,7 +7,7 @@ const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 // 🔐 AUTH FUNCTIONS
 //
 
-// Sign up new user and insert profile
+// Sign up new user and insert user profile
 async function signUp(email, password) {
   const { data, error } = await supabase.auth.signUp({ email, password });
 
@@ -23,15 +22,15 @@ async function signUp(email, password) {
     return;
   }
 
-  const { error: profileError } = await supabase.from("profiles").insert({
+  const { error: userInsertError } = await supabase.from("users").insert({
     id: userId,
     email: email,
     is_admin: false
   });
 
-  if (profileError) {
-    console.error("Profile insert error:", profileError.message);
-    alert("Account created, but profile setup failed: " + profileError.message);
+  if (userInsertError) {
+    console.error("User insert error:", userInsertError.message);
+    alert("Account created, but user setup failed: " + userInsertError.message);
   } else {
     alert("Account created! Please check your email to confirm.");
   }
@@ -48,19 +47,19 @@ async function signIn(email, password) {
 
   localStorage.setItem("userLoggedIn", "true");
 
-  const { data: profile, error: profileError } = await supabase
-    .from("profiles")
+  const { data: userRow, error: userFetchError } = await supabase
+    .from("users")
     .select("is_admin")
     .eq("id", data.user.id)
     .single();
 
-  if (profileError) {
-    console.error("Profile fetch error:", profileError.message);
-    alert("Login succeeded, but profile lookup failed.");
+  if (userFetchError) {
+    console.error("User fetch error:", userFetchError.message);
+    alert("Login succeeded, but user lookup failed.");
     return;
   }
 
-  if (profile?.is_admin) {
+  if (userRow?.is_admin) {
     window.location.href = "admin-dashboard.html";
   } else {
     window.location.href = "index.html";
@@ -79,13 +78,13 @@ async function isAdminUser() {
   const { data: { user }, error } = await supabase.auth.getUser();
   if (error || !user) return false;
 
-  const { data: profile } = await supabase
-    .from("profiles")
+  const { data: userRow } = await supabase
+    .from("users")
     .select("is_admin")
     .eq("id", user.id)
     .single();
 
-  return profile?.is_admin === true;
+  return userRow?.is_admin === true;
 }
 
 //
