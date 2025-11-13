@@ -1,27 +1,37 @@
 // supabase.js
 const SUPABASE_URL = "https://amrvwccagixmktagoecv.supabase.co";
-const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...";
+const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."; // Replace with full key
 
-const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
-
-// supabase.js
-
-// Load Supabase client (make sure you include the CDN in your HTML before this file)
-// <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-
-const SUPABASE_URL = "https://amrvwccagixmktagoecv.supabase.co";
-const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
 const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
 //
 // 🔐 AUTH FUNCTIONS
 //
 
-// Sign up new user
+// Sign up new user and insert profile
 async function signUp(email, password) {
   const { data, error } = await supabase.auth.signUp({ email, password });
+
   if (error) {
     alert(error.message);
+    return;
+  }
+
+  const userId = data.user?.id || data.session?.user?.id;
+  if (!userId) {
+    alert("Signup succeeded, but user ID is missing. Please confirm your email.");
+    return;
+  }
+
+  const { error: profileError } = await supabase.from("profiles").insert({
+    id: userId,
+    email: email,
+    is_admin: false
+  });
+
+  if (profileError) {
+    console.error("Profile insert error:", profileError.message);
+    alert("Account created, but profile setup failed.");
   } else {
     alert("Account created! Please check your email to confirm.");
   }
@@ -30,12 +40,24 @@ async function signUp(email, password) {
 // Sign in existing user
 async function signIn(email, password) {
   const { data, error } = await supabase.auth.signInWithPassword({ email, password });
+
   if (error) {
     alert(error.message);
+    return;
+  }
+
+  localStorage.setItem("userLoggedIn", "true");
+
+  const { data: profile } = await supabase
+    .from("profiles")
+    .select("is_admin")
+    .eq("id", data.user.id)
+    .single();
+
+  if (profile?.is_admin) {
+    window.location.href = "admin-dashboard.html";
   } else {
-    alert("Signed in successfully!");
-    localStorage.setItem("userLoggedIn", "true");
-    window.location.href = "index.html"; // redirect after login
+    window.location.href = "index.html";
   }
 }
 
@@ -46,11 +68,24 @@ async function signOut() {
   window.location.href = "signin.html";
 }
 
+// Check if current user is admin
+async function isAdminUser() {
+  const { data: { user } } = await supabase.auth.getUser();
+  if (!user) return false;
+
+  const { data: profile } = await supabase
+    .from("profiles")
+    .select("is_admin")
+    .eq("id", user.id)
+    .single();
+
+  return profile?.is_admin === true;
+}
+
 //
 // 🛒 CART FUNCTIONS
 //
 
-// Add product to cart by product ID
 async function addToCartByProductId(productId) {
   const { data: { user } } = await supabase.auth.getUser();
   if (!user) {
@@ -59,7 +94,6 @@ async function addToCartByProductId(productId) {
     return;
   }
 
-  // Check if item already exists in cart
   const { data: existing, error: findErr } = await supabase
     .from("cart_items")
     .select("*")
@@ -96,7 +130,6 @@ async function addToCartByProductId(productId) {
   updateCartCount();
 }
 
-// Fetch cart items for current user
 async function fetchCart() {
   const { data: { user } } = await supabase.auth.getUser();
   if (!user) return [];
@@ -116,7 +149,6 @@ async function fetchCart() {
   return data;
 }
 
-// Update cart count badge
 async function updateCartCount() {
   const { data: { user } } = await supabase.auth.getUser();
   const el = document.getElementById("cart-count");
@@ -132,7 +164,6 @@ async function updateCartCount() {
   el.textContent = totalQty;
 }
 
-// Run on page load
 document.addEventListener("DOMContentLoaded", updateCartCount);
 
 async function createOrderFromCart() {
