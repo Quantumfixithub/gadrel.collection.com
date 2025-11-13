@@ -146,17 +146,86 @@
       margin-bottom: 1rem;
     }
 
-    .featured-carousel {
-      padding: 2rem;
-      background: var(--white);
-      text-align: center;
-    }
+   /* Feature section container */
+.features {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  justify-content: center;
+}
 
-    .featured-carousel h2 {
-      color: var(--navy);
-      margin-bottom: 1rem;
-    }
+/* Each feature card */
+.feature-card {
+  width: 280px;              /* fixed width */
+  height: 350px;             /* fixed height */
+  background-color: #fff;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
 
+/* Hover animation */
+.feature-card:hover {
+  transform: translateY(-8px) scale(1.03);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+}
+
+/* Image inside feature card */
+.feature-card img {
+  width: 100%;
+  height: 200px;             /* consistent height */
+  object-fit: cover;         /* crop/scale nicely */
+  transition: transform 0.4s ease;
+}
+
+/* Image hover zoom */
+.feature-card:hover img {
+  transform: scale(1.1);
+}
+
+/* Text content */
+.feature-card .content {
+  padding: 1rem;
+  text-align: center;
+}
+ /* Categories and Featured Products unified styling */
+.category, .swiper-slide {
+  width: 250px;
+  height: 320px;
+  background: #fff;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  text-align: center;
+  cursor: pointer;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.category img, .swiper-slide img {
+  width: 100%;
+  height: 220px;       /* consistent height */
+  object-fit: cover;   /* crop nicely */
+  transition: transform 0.4s ease;
+}
+
+.category h3, .swiper-slide p {
+  margin: 0;
+  padding: 0.75rem;
+  font-weight: bold;
+  color: #021D34;
+  background-color: #F5E3C7;
+}
+
+.category:hover, .swiper-slide:hover {
+  transform: translateY(-8px) scale(1.03);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+}
+
+.category:hover img, .swiper-slide:hover img {
+  transform: scale(1.1);
+}
+  
     .swiper-slide {
       background: var(--cream);
       border-radius: 8px;
@@ -322,53 +391,54 @@
   </section>
 
   <section class="categories">
-    <div class="category">
-      <img src="images/nen suite.jpg" alt="Men" />
-      <h3>Men</h3>
-    </div>
-    <div class="category">
-      <img src="images/gown 2.jpg" alt="Women" />
-      <h3>Women</h3>
-    </div>
-    <div class="category">
-      <img src="images/bag4.jpg" alt="Bags" />
-      <h3>Bags</h3>
-    </div>
-    <div class="category">
-      <img src="images/Boadicea The Victorious Blue Sapphire.jpg" alt="Perfume" />
-      <h3>Perfume</h3>
-    </div>
-    <div class="category">
-      <img src="images/Diamond Pear Red Ruby Drop.jpg" alt="Earrings" />
-      <h3>Earrings</h3>
-    </div>
-     <div class="category">
-      <img src="images/sneakers 2.jpg" alt="Sneaker" />
-      <h3>Sneaker</h3>
-    </div>
-  </section>
+  <div class="category" onclick="addToCart('Men Outfit', 35000, 'images/nen suite.jpg')">
+    <img src="images/nen suite.jpg" alt="Men" />
+    <h3>Men</h3>
+  </div>
+  <div class="category" onclick="addToCart('Women Gown', 28000, 'images/gown 2.jpg')">
+    <img src="images/gown 2.jpg" alt="Women" />
+    <h3>Women</h3>
+  </div>
+  <div class="category" onclick="addToCart('Leather Bag', 15000, 'images/bag4.jpg')">
+    <img src="images/bag4.jpg" alt="Bags" />
+    <h3>Bags</h3>
+  </div>
+  <div class="category" onclick="addToCart('Blue Sapphire Perfume', 45000, 'images/Boadicea The Victorious Blue Sapphire.jpg')">
+    <img src="images/Boadicea The Victorious Blue Sapphire.jpg" alt="Perfume" />
+    <h3>Perfume</h3>
+  </div>
+  <div class="category" onclick="addToCart('Diamond Earrings', 22000, 'images/Diamond Pear Red Ruby Drop.jpg')">
+    <img src="images/Diamond Pear Red Ruby Drop.jpg" alt="Earrings" />
+    <h3>Earrings</h3>
+  </div>
+  <div class="category" onclick="addToCart('Sneakers', 18000, 'images/sneakers 2.jpg')">
+    <img src="images/sneakers 2.jpg" alt="Sneaker" />
+    <h3>Sneaker</h3>
+  </div>
+</section>
 
-  <section class="featured-carousel">
-    <h2>✨ Featured Products</h2>
-    <div class="swiper">
-      <div class="swiper-wrapper">
-        <div class="swiper-slide">
-          <img src="images/Gold Luxe Watch.jpg" alt="Gold Luxe Watch">
-          <p>Gold Luxe Watch</p>
-        </div>
-        <div class="swiper-slide">
-          <img src="images/Velvet Tote Bag.jpg" alt="Velvet Tote Bag">
-          <p>Velvet Tote Bag</p>
-        </div>
-        <div class="swiper-slide">
-          <img src="images/Silk Scarf.jpg" alt="Silk Scarf">
-          <p>Silk Scarf</p>
-        </div>
+<section class="featured-carousel">
+  <h2>✨ Featured Products</h2>
+  <div class="swiper">
+    <div class="swiper-wrapper">
+      <div class="swiper-slide" onclick="addToCart('Gold Luxe Watch', 25000, 'images/Gold Luxe Watch.jpg')">
+        <img src="images/Gold Luxe Watch.jpg" alt="Gold Luxe Watch">
+        <p>Gold Luxe Watch</p>
       </div>
-      <div class="swiper-button-prev"></div>
-      <div class="swiper-button-next"></div>
+      <div class="swiper-slide" onclick="addToCart('Velvet Tote Bag', 18000, 'images/Velvet Tote Bag.jpg')">
+        <img src="images/Velvet Tote Bag.jpg" alt="Velvet Tote Bag">
+        <p>Velvet Tote Bag</p>
+      </div>
+      <div class="swiper-slide" onclick="addToCart('Silk Scarf', 8000, 'images/Silk Scarf.jpg')">
+        <img src="images/Silk Scarf.jpg" alt="Silk Scarf">
+        <p>Silk Scarf</p>
+      </div>
     </div>
-  </section>
+    <div class="swiper-button-prev"></div>
+    <div class="swiper-button-next"></div>
+  </div>
+</section>
+
 
   <section class="testimonials">
     <h2>💬 What Our Customers Say</h2>
@@ -438,6 +508,66 @@
 
     setInterval(updateCountdown, 1000);
   </script>
+  <script>
+  function addToCart(name, price, image) {
+    // 🔐 Check login first
+    if (localStorage.getItem("userLoggedIn") !== "true") {
+      alert("Please sign in or sign up before adding items to your cart.");
+      window.location.href = "signin.html";
+      return;
+    }
+
+    let cart = JSON.parse(localStorage.getItem("cart") || "[]");
+
+    // Check if item already exists
+    let existingItem = cart.find(item => item.name === name);
+    if (existingItem) {
+      existingItem.quantity += 1;
+    } else {
+      cart.push({ name, price, image, quantity: 1 });
+    }
+
+    localStorage.setItem("cart", JSON.stringify(cart));
+
+    // ✅ Show popup with "View Cart" option
+    showCartPopup(name);
+  }
+
+  function showCartPopup(productName) {
+    // Create popup dynamically
+    const popup = document.createElement("div");
+    popup.innerHTML = `
+      <div style="
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        background: #021D34;
+        color: #fff;
+        padding: 1rem;
+        border-radius: 8px;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+        z-index: 9999;
+      ">
+        <p><strong>${productName}</strong> added to cart ✅</p>
+        <button onclick="window.location.href='cart.html'" style="
+          background: #D9AF6C;
+          color: #021D34;
+          border: none;
+          padding: 0.5rem 1rem;
+          border-radius: 6px;
+          cursor: pointer;
+          font-weight: bold;
+        ">View Cart</button>
+      </div>
+    `;
+    document.body.appendChild(popup);
+
+    // Auto-remove popup after 5 seconds
+    setTimeout(() => popup.remove(), 5000);
+  }
+</script>
+
+
 </body>
 </html>
 
