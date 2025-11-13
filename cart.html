@@ -48,27 +48,21 @@
       font-weight: bold;
     }
 
+    .dropdown {
+      position: relative;
+    }
+
     .dropdown-menu {
       display: none;
       position: absolute;
       background-color: #FFFFFF;
       box-shadow: 0 4px 8px rgba(0,0,0,0.1);
       padding: 0.5rem;
+      z-index: 1000;
     }
 
     .dropdown:hover .dropdown-menu {
       display: block;
-    }
-
-    .signout-btn {
-      background-color: #D9AF6C;
-      color: #021D34;
-      border: none;
-      padding: 0.5rem 1rem;
-      border-radius: 6px;
-      cursor: pointer;
-      font-weight: bold;
-      margin-left: auto;
     }
 
     h1 {
@@ -213,19 +207,12 @@
         <li><a href="about.html">About</a></li>
         <li><a href="contact.html">Contact</a></li>
         <li><a href="cart.html">Cart 🛒</a></li>
-        <li class="dropdown">
+        <li class="dropdown" id="account-dropdown">
           <a href="account.html">Account ▾</a>
-         <li class="dropdown">
-  <a href="account.html">Account ▾</a>
-  <ul class="dropdown-menu">
-    <li><a href="signin.html">Sign In</a></li>
-    <li><a href="signup.html">Sign Up</a></li>
-    <li><a href="account.html">My Account</a></li>
-    <li><a href="orders.html">Orders</a></li>
-    <li><a href="wishlist.html">Wishlist</a></li>
-    <li><a href="signout.html" onclick="logoutUser()">Sign Out</a></li>
-  </ul>
-</li>
+          <ul class="dropdown-menu" id="account-menu">
+            <!-- Filled by JavaScript -->
+          </ul>
+        </li>
       </ul>
     </nav>
     <h1>🛒 Your Cart</h1>
@@ -273,7 +260,7 @@
         itemsHTML += `
           <div class="cart-item">
             <img src="${item.image || 'placeholder.jpg'}" alt="${item.name}" />
-                       <div class="cart-item-details">
+            <div class="cart-item-details">
               <h4>${item.name}</h4>
               <p>Size: ${item.size || 'N/A'}</p>
               <p>Color: ${item.color || 'N/A'}</p>
@@ -281,7 +268,7 @@
                 <input type="number" min="1" value="${quantity}" onchange="updateQuantity(${index}, this.value)" />
               </label>
               <p>Total: ₦${itemTotal.toLocaleString()}</p>
-              <button class="remove-btn" onclick="removeItem(${index})">Remove</button>
+                            <button class="remove-btn" onclick="removeItem(${index})">Remove</button>
             </div>
           </div>
         `;
@@ -314,34 +301,29 @@
       window.location.href = "signin.html";
     }
 
-    renderCart();
-  </script>
-  <script>
-  function logoutUser() {
-    localStorage.removeItem("userLoggedIn");
-    window.location.href = "signin.html";
-  }
+    function updateAccountMenu() {
+      const menu = document.getElementById("account-menu");
+      const loggedIn = localStorage.getItem("userLoggedIn") === "true";
 
-  function updateAccountMenu() {
-    const menu = document.getElementById("account-menu");
-    const loggedIn = localStorage.getItem("userLoggedIn") === "true";
-
-    if (loggedIn) {
-      menu.innerHTML = `
-        <li><a href="account.html">My Account</a></li>
-        <li><a href="orders.html">Orders</a></li>
-        <li><a href="wishlist.html">Wishlist</a></li>
-        <li><a href="#" onclick="logoutUser()">Sign Out</a></li>
-      `;
-    } else {
-      menu.innerHTML = `
-        <li><a href="signin.html">Sign In</a></li>
-        <li><a href="signup.html">Sign Up</a></li>
-      `;
+      if (loggedIn) {
+        menu.innerHTML = `
+          <li><a href="account.html">My Account</a></li>
+          <li><a href="orders.html">Orders</a></li>
+          <li><a href="wishlist.html">Wishlist</a></li>
+          <li><a href="#" onclick="logoutUser()">Sign Out</a></li>
+        `;
+      } else {
+        menu.innerHTML = `
+          <li><a href="signin.html">Sign In</a></li>
+          <li><a href="signup.html">Sign Up</a></li>
+        `;
+      }
     }
-  }
 
-  document.addEventListener("DOMContentLoaded", updateAccountMenu);
-</script>
+    document.addEventListener("DOMContentLoaded", () => {
+      renderCart();
+      updateAccountMenu();
+    });
+  </script>
 </body>
 </html>
