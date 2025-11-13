@@ -8,7 +8,7 @@ const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 //
 
 // Sign up new user and insert user profile
-async function signUp(email, password) {
+async function signUp(email, password, name) {
   const { data, error } = await supabase.auth.signUp({ email, password });
 
   if (error) {
@@ -25,6 +25,7 @@ async function signUp(email, password) {
   const { error: userInsertError } = await supabase.from("users").insert({
     id: userId,
     email: email,
+    name: name,
     is_admin: false
   });
 
