@@ -6,6 +6,7 @@
   <title>Sign Up - Gadrel Collection</title>
   <link rel="stylesheet" href="styles/styles.css" />
   <style>
+    /* Styling preserved */
     body {
       font-family: 'Segoe UI', sans-serif;
       background-color: #F8F8F8;
@@ -169,7 +170,12 @@
       const email = document.getElementById("email").value;
       const password = document.getElementById("password").value;
 
-      await signUp(email, password);
+      try {
+        await signUp(email, password);
+      } catch (err) {
+        console.error("Signup error:", err.message);
+        alert("Signup failed: " + err.message);
+      }
     });
 
     function isLoggedIn() {
