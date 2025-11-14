@@ -154,13 +154,13 @@
         </li>
       </ul>
     </nav>
+    <button onclick="signOut()">Sign Out</button>
   </header>
 
   <main class="account-container">
     <section class="account-info">
       <h2>Account Details</h2>
-      <p><strong>Name:</strong> Remilekun</p>
-      <p><strong>Email:</strong> you@example.com</p>
+    <span id="user-name">Loading...</span>
     </section>
 
     <section class="account-links">
@@ -180,6 +180,28 @@
       <a href="https://wa.me/2348105429924">Chat on WhatsApp</a>
     </div>
   </footer>
+<script>
+  document.addEventListener("DOMContentLoaded", async () => {
+    const { data: { user }, error } = await supabase.auth.getUser();
+    if (error || !user) {
+      document.getElementById("user-name").textContent = "Guest";
+      return;
+    }
+
+    const { data: userRow } = await supabase
+      .from("users")
+      .select("name")
+      .eq("id", user.id)
+      .single();
+
+    if (userRow?.name) {
+      document.getElementById("user-name").textContent = userRow.name;
+    } else {
+      document.getElementById("user-name").textContent = "User";
+    }
+  });
+</script>
 
 </body>
 </html>
+
