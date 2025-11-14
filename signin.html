@@ -66,7 +66,8 @@
       font-weight: bold;
     }
 
-    .auth-box input {
+    .auth-box input[type="email"],
+    .auth-box input[type="password"] {
       width: 100%;
       padding: 0.75rem;
       margin-bottom: 1rem;
@@ -111,7 +112,6 @@
   </style>
 </head>
 <body>
-  <!-- Header -->
   <header>
     <div class="logo">GADREL COLLECTION</div>
     <nav>
@@ -126,7 +126,6 @@
     </nav>
   </header>
 
-  <!-- Sign In Form -->
   <main>
     <div class="auth-box">
       <h2>Sign In</h2>
@@ -137,15 +136,30 @@
         <label for="password">Password</label>
         <input type="password" id="password" placeholder="Enter your password" required />
 
+        <label>
+          <input type="checkbox" id="remember-me" />
+          Remember Me
+        </label>
+
         <button type="submit">Sign In</button>
       </form>
+
       <div class="auth-footer">
         <p>Don't have an account? <a href="signup.html">Sign Up</a></p>
+        <p><a href="#" onclick="showResetForm()">Forgot your password?</a></p>
+      </div>
+
+      <div id="reset-box" style="display:none; margin-top:2rem;">
+        <h3>Reset Password</h3>
+        <form id="reset-form">
+          <label for="reset-email">Enter your email</label>
+          <input type="email" id="reset-email" placeholder="you@example.com" required />
+          <button type="submit">Send Reset Link</button>
+        </form>
       </div>
     </div>
   </main>
 
-  <!-- Footer -->
   <footer>
     <p>&copy; 2025 Gadrel Collection. All rights reserved.</p>
     <div class="social-links">
@@ -155,66 +169,63 @@
     </div>
   </footer>
 
-  <!-- Supabase Scripts -->
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script src="supabase.js"></script>
- <script>
-  const SUPABASE_URL = "https://amrvwccagixmktagoecv.supabase.co";
-  const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...";
-  const supabase = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
-
-  document.getElementById("signin-form").addEventListener("submit", async function(e) {
-    e.preventDefault();
-
-    const email = document.getElementById("email").value;
-    const password = document.getElementById("password").value;
-
-    try {
-      const { data, error } = await supabase.auth.signInWithPassword({ email, password });
-
-      if (error || !data.user) {
-        alert("Login failed: " + error.message);
-        return;
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const savedEmail = localStorage.getItem("rememberedEmail");
+      if (savedEmail) {
+        document.getElementById("email").value = savedEmail;
+        document.getElementById("remember-me").checked = true;
       }
+    });
 
-      const userId = data.user.id;
+    document.getElementById("signin-form").addEventListener("submit", async function(e) {
+      e.preventDefault();
 
-      const { data: profile, error: fetchError } = await supabase
-        .from("users")
-        .select("is_admin")
-        .eq("id", userId)
-        .single();
+      const email = document.getElementById("email").value;
+      const password = document.getElementById("password").value;
+      const rememberMe = document.getElementById("remember-me").checked;
 
-      if (fetchError || !profile) {
-        alert("Login succeeded, but user lookup failed.");
-        return;
-      }
-
-      localStorage.setItem("userLoggedIn", "true");
-
-      if (profile.is_admin) {
-        window.location.href = "admin-dashboard.html";
+      if (rememberMe) {
+        localStorage.setItem("rememberedEmail", email);
       } else {
-        window.location.href = "shop.html";
+        localStorage.removeItem("rememberedEmail");
       }
-    } catch (err) {
-      console.error("Login error:", err.message);
-      alert("Login failed: " + err.message);
+
+      await signIn(email, password);
+    });
+
+    function showResetForm() {
+      document.getElementById("reset-box").style.display = "block";
     }
-  });
 
-  function isLoggedIn() {
-    return localStorage.getItem("userLoggedIn") === "true";
-  }
+    document.getElementById("reset-form").addEventListener("submit", async function(e) {
+      e.preventDefault();
+      const email = document.getElementById("reset-email").value;
 
-  function redirectIfNotLoggedIn(targetPage) {
-    if (!isLoggedIn()) {
-      window.location.href = "signin.html";
-    } else {
-      window.location.href = targetPage;
+      const { error } = await supabase.auth.resetPasswordForEmail(email, {
+        redirectTo: "https://yourdomain.com/update-password.html"
+      });
+
+      if (error) {
+        alert("Reset failed: " + error.message);
+      } else {
+        alert("Reset link sent! Check your email.");
+      }
+    });
+
+    function isLoggedIn() {
+      return localStorage.getItem("userLoggedIn") === "true";
     }
-  }
-</script>
 
+    function redirectIfNotLoggedIn(targetPage) {
+      if (!isLoggedIn()) {
+        window.location.href = "signin.html";
+      } else {
+        window.location.href = targetPage;
+      }
+    }
+  </script>
 </body>
 </html>
