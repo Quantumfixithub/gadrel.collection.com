@@ -6,94 +6,40 @@
   <title>Admin Signup - Gadrel Collection</title>
   <link rel="stylesheet" href="styles/styles.css" />
   <style>
-    body {
-      font-family: 'Segoe UI', sans-serif;
-      background-color: #F8F8F8;
-      color: #021D34;
-      margin: 0;
-      padding: 0;
-      display: flex;
-      flex-direction: column;
-      min-height: 100vh;
-    }
-
-    .auth-box {
-      max-width: 400px;
-      margin: 4rem auto;
-      background-color: #FFFFFF;
-      padding: 2rem;
-      border-radius: 8px;
-      box-shadow: 0 0 10px rgba(0,0,0,0.1);
-    }
-
-    .auth-box h2 {
+    .auth-box p {
       text-align: center;
-      margin-bottom: 1.5rem;
+      font-size: 1rem;
+      margin-top: 1rem;
     }
-
-    .auth-box label {
+    .toggle-label {
       display: block;
-      margin-bottom: 0.5rem;
-      font-weight: bold;
-    }
-
-    .auth-box input {
-      width: 100%;
-      padding: 0.75rem;
-      margin-bottom: 1rem;
-      border: 1px solid #D9AF6C;
-      border-radius: 6px;
-      background-color: #F5E3C7;
-      color: #021D34;
-    }
-
-    .auth-box button {
-      width: 100%;
-      padding: 0.75rem;
-      background-color: #D9AF6C;
-      color: #021D34;
-      border: none;
-      border-radius: 6px;
-      font-weight: bold;
-      cursor: pointer;
-    }
-
-    .auth-box button:hover {
-      background-color: #c89a4f;
-    }
-
-    footer {
-      background-color: #021D34;
-      color: #FFFFFF;
-      text-align: center;
-      padding: 2rem 1rem;
-    }
-
-    .social-links a {
-      color: #D9AF6C;
-      margin: 0 1rem;
-      text-decoration: none;
+      margin-top: -0.5rem;
+      font-size: 0.9rem;
     }
   </style>
 </head>
 <body>
   <main>
     <div class="auth-box">
-      <h2>Admin Signup</h2>
+      <h2>Create Admin Account</h2>
       <form id="admin-signup-form">
         <label for="name">Full Name</label>
         <input type="text" id="name" placeholder="Enter your name" required />
 
-        <label for="email">Email</label>
-        <input type="email" id="email" placeholder="Enter your email" required />
+        <label for="email">Email Address</label>
+        <input type="email" id="email" placeholder="admin@example.com" required />
 
         <label for="password">Password</label>
         <input type="password" id="password" placeholder="Create a password" required />
+        <label class="toggle-label">
+          <input type="checkbox" id="toggle-password" style="margin-right: 0.25rem;" />
+          Show Password
+        </label>
 
         <label for="admin-code">Admin Code</label>
         <input type="text" id="admin-code" placeholder="Enter admin code" required />
 
-        <button type="submit">Create Admin Account</button>
+        <button type="submit">Sign Up</button>
       </form>
     </div>
   </main>
@@ -107,17 +53,39 @@
     </div>
   </footer>
 
+  <!-- Supabase Scripts -->
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script src="supabase.js"></script>
   <script>
     document.getElementById("admin-signup-form").addEventListener("submit", async function(e) {
       e.preventDefault();
+
       const name = document.getElementById("name").value;
       const email = document.getElementById("email").value;
       const password = document.getElementById("password").value;
       const adminCode = document.getElementById("admin-code").value;
 
       await signUp(email, password, name, adminCode);
+
+      const successBox = document.createElement("div");
+      successBox.className = "auth-box";
+      successBox.innerHTML = `
+        <h2>✅ Admin Account Created!</h2>
+        <p>Welcome, ${name.split(" ")[0]}.</p>
+        <p>Redirecting to admin dashboard...</p>
+      `;
+
+      document.querySelector("main").innerHTML = "";
+      document.querySelector("main").appendChild(successBox);
+
+      setTimeout(() => {
+        window.location.href = "admin-dashboard.html";
+      }, 3000);
+    });
+
+    document.getElementById("toggle-password").addEventListener("change", function () {
+      const passwordInput = document.getElementById("password");
+      passwordInput.type = this.checked ? "text" : "password";
     });
   </script>
 </body>
