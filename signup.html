@@ -5,6 +5,18 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Sign Up - Gadrel Collection</title>
   <link rel="stylesheet" href="styles/styles.css" />
+  <style>
+    .auth-box p {
+      text-align: center;
+      font-size: 1rem;
+      margin-top: 1rem;
+    }
+    .toggle-label {
+      display: block;
+      margin-top: -0.5rem;
+      font-size: 0.9rem;
+    }
+  </style>
 </head>
 <body>
   <header>
@@ -25,11 +37,18 @@
     <div class="auth-box">
       <h2>Create Account</h2>
       <form id="signup-form">
+        <label for="name">Full Name</label>
+        <input type="text" id="name" placeholder="Enter your name" required />
+
         <label for="email">Email Address</label>
         <input type="email" id="email" placeholder="you@example.com" required />
 
         <label for="password">Password</label>
         <input type="password" id="password" placeholder="Create a password" required />
+        <label class="toggle-label">
+          <input type="checkbox" id="toggle-password" style="margin-right: 0.25rem;" />
+          Show Password
+        </label>
 
         <button type="submit">Sign Up</button>
       </form>
@@ -55,40 +74,26 @@
     document.getElementById("signup-form").addEventListener("submit", async function(e) {
       e.preventDefault();
 
+      const name = document.getElementById("name").value;
       const email = document.getElementById("email").value;
       const password = document.getElementById("password").value;
 
-      try {
-        const { data, error } = await supabase.auth.signUp({ email, password });
+      await signUp(email, password, name);
 
-        if (error) {
-          alert("Signup failed: " + error.message);
-          return;
-        }
+      const successBox = document.createElement("div");
+      successBox.className = "auth-box";
+      successBox.innerHTML = `
+        <h2>🎉 Account Created!</h2>
+        <p>Welcome to Gadrel Collection, ${name.split(" ")[0]}.</p>
+        <p>Redirecting to shop...</p>
+      `;
 
-        const userId = data.user?.id;
-        if (!userId) {
-          alert("Signup failed: No user ID returned");
-          return;
-        }
+      document.querySelector("main").innerHTML = "";
+      document.querySelector("main").appendChild(successBox);
 
-        const { error: insertError } = await supabase.from("users").insert({
-          id: userId,
-          email: email,
-          is_admin: false
-        });
-
-        if (insertError) {
-          alert("Account created, but profile setup failed: " + insertError.message);
-        } else {
-          alert("Account created successfully!");
-          localStorage.setItem("userLoggedIn", "true");
-          window.location.href = "shop.html";
-        }
-      } catch (err) {
-        console.error("Signup error:", err.message);
-        alert("Signup failed: " + err.message);
-      }
+      setTimeout(() => {
+        window.location.href = "shop.html";
+      }, 3000);
     });
 
     function isLoggedIn() {
@@ -102,6 +107,11 @@
         window.location.href = targetPage;
       }
     }
+
+    document.getElementById("toggle-password").addEventListener("change", function () {
+      const passwordInput = document.getElementById("password");
+      passwordInput.type = this.checked ? "text" : "password";
+    });
   </script>
 </body>
 </html>
