@@ -7,7 +7,6 @@ const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 // 🔐 AUTH FUNCTIONS
 //
 
-// Sign up new user and insert user profile
 async function signUp(email, password, name) {
   const { data, error } = await supabase.auth.signUp({ email, password });
 
@@ -37,7 +36,6 @@ async function signUp(email, password, name) {
   }
 }
 
-// Sign in existing user
 async function signIn(email, password) {
   const { data, error } = await supabase.auth.signInWithPassword({ email, password });
 
@@ -60,21 +58,29 @@ async function signIn(email, password) {
     return;
   }
 
-  if (userRow?.is_admin) {
-    window.location.href = "admin-dashboard.html";
+  console.log("Redirecting to:", userRow?.is_admin ? "admin-dashboard.html" : "index.html");
+
+  return window.location.href = userRow?.is_admin ? "admin-dashboard.html" : "index.html";
+}
+
+async function resetPassword(email) {
+  const { error } = await supabase.auth.resetPasswordForEmail(email, {
+    redirectTo: "https://yourdomain.com/update-password.html"
+  });
+
+  if (error) {
+    alert("Reset failed: " + error.message);
   } else {
-    window.location.href = "index.html";
+    alert("Reset link sent! Check your email.");
   }
 }
 
-// Sign out user
 async function signOut() {
   await supabase.auth.signOut();
   localStorage.removeItem("userLoggedIn");
   window.location.href = "signin.html";
 }
 
-// Check if current user is admin
 async function isAdminUser() {
   const { data: { user }, error } = await supabase.auth.getUser();
   if (error || !user) return false;
