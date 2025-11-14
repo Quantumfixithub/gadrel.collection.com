@@ -7,7 +7,7 @@ const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 // 🔐 AUTH FUNCTIONS
 //
 
-async function signUp(email, password, name) {
+async function signUp(email, password, name, adminCode = "") {
   const { data, error } = await supabase.auth.signUp({ email, password });
 
   if (error) {
@@ -17,22 +17,27 @@ async function signUp(email, password, name) {
 
   const userId = data.user?.id || data.session?.user?.id;
   if (!userId) {
-    alert("Signup succeeded, but user ID is missing. Please confirm your email.");
+    alert("Signup succeeded, but user ID is missing.");
     return;
   }
+
+  const ADMIN_SECRET = "GADREL2025"; // Change this to your secure admin code
+  const isAdmin = adminCode === ADMIN_SECRET;
 
   const { error: userInsertError } = await supabase.from("users").insert({
     id: userId,
     email: email,
     name: name,
-    is_admin: false
+    is_admin: isAdmin
   });
 
   if (userInsertError) {
     console.error("User insert error:", userInsertError.message);
     alert("Account created, but user setup failed: " + userInsertError.message);
   } else {
-    alert("Account created! Please check your email to confirm.");
+    alert(isAdmin
+      ? "✅ Admin account created successfully!"
+      : "Account created! You can now sign in.");
   }
 }
 
@@ -40,22 +45,50 @@ async function signIn(email, password) {
   const { data, error } = await supabase.auth.signInWithPassword({ email, password });
 
   if (error) {
-    alert("Login failed: " + error.message);
+    if (error.message.includes("Email not confirmed")) {
+      alert("Please confirm your email first. Check your inbox for a verification link.");
+    } else {
+      alert("Login failed: " + error.message);
+    }
     return;
   }
 
+  const userId = data.user.id;
   localStorage.setItem("userLoggedIn", "true");
 
-  const { data: userRow, error: userFetchError } = await supabase
+  let { data: userRow, error: userFetchError } = await supabase
     .from("users")
     .select("is_admin")
-    .eq("id", data.user.id)
+    .eq("id", userId)
     .single();
 
-  if (userFetchError) {
-    console.error("User fetch error:", userFetchError.message);
-    alert("Login succeeded, but user lookup failed.");
-    return;
+  if (userFetchError || !userRow) {
+    console.warn("User not found in 'users' table. Inserting now…");
+
+    const { error: insertError } = await supabase.from("users").insert({
+      id: userId,
+      email: email,
+      name: "", // Optional: prompt for name later
+      is_admin: false
+    });
+
+    if (insertError) {
+      alert("Login succeeded, but user setup failed: " + insertError.message);
+      return;
+    }
+
+    const { data: insertedRow, error: refetchError } = await supabase
+      .from("users")
+      .select("is_admin")
+      .eq("id", userId)
+      .single();
+
+    if (refetchError || !insertedRow) {
+      alert("Login succeeded, but user lookup failed after insert.");
+      return;
+    }
+
+    userRow = insertedRow;
   }
 
   console.log("Redirecting to:", userRow?.is_admin ? "admin-dashboard.html" : "index.html");
