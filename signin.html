@@ -158,32 +158,63 @@
   <!-- Supabase Scripts -->
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script src="supabase.js"></script>
-  <script>
-    document.getElementById("signin-form").addEventListener("submit", async function(e) {
-      e.preventDefault();
+ <script>
+  const SUPABASE_URL = "https://amrvwccagixmktagoecv.supabase.co";
+  const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...";
+  const supabase = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
-      const email = document.getElementById("email").value;
-      const password = document.getElementById("password").value;
+  document.getElementById("signin-form").addEventListener("submit", async function(e) {
+    e.preventDefault();
 
-      try {
-        await signIn(email, password); // This calls your supabase.js login function
-      } catch (err) {
-        console.error("Login error:", err.message);
-        alert("Login failed: " + err.message);
+    const email = document.getElementById("email").value;
+    const password = document.getElementById("password").value;
+
+    try {
+      const { data, error } = await supabase.auth.signInWithPassword({ email, password });
+
+      if (error || !data.user) {
+        alert("Login failed: " + error.message);
+        return;
       }
-    });
 
-    function isLoggedIn() {
-      return localStorage.getItem("userLoggedIn") === "true";
-    }
+      const userId = data.user.id;
 
-    function redirectIfNotLoggedIn(targetPage) {
-      if (!isLoggedIn()) {
-        window.location.href = "signin.html";
+      const { data: profile, error: fetchError } = await supabase
+        .from("users")
+        .select("is_admin")
+        .eq("id", userId)
+        .single();
+
+      if (fetchError || !profile) {
+        alert("Login succeeded, but user lookup failed.");
+        return;
+      }
+
+      localStorage.setItem("userLoggedIn", "true");
+
+      if (profile.is_admin) {
+        window.location.href = "admin-dashboard.html";
       } else {
-        window.location.href = targetPage;
+        window.location.href = "shop.html";
       }
+    } catch (err) {
+      console.error("Login error:", err.message);
+      alert("Login failed: " + err.message);
     }
-  </script>
+  });
+
+  function isLoggedIn() {
+    return localStorage.getItem("userLoggedIn") === "true";
+  }
+
+  function redirectIfNotLoggedIn(targetPage) {
+    if (!isLoggedIn()) {
+      window.location.href = "signin.html";
+    } else {
+      window.location.href = targetPage;
+    }
+  }
+</script>
+
 </body>
 </html>
