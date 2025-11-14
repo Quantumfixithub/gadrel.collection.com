@@ -21,7 +21,7 @@ async function signUp(email, password, name, adminCode = "") {
     return;
   }
 
-  const ADMIN_SECRET = "GADREL2025"; // Change this to your secure admin code
+  const ADMIN_SECRET = "GADREL2025";
   const isAdmin = adminCode === ADMIN_SECRET;
 
   const { error: userInsertError } = await supabase.from("users").insert({
@@ -38,7 +38,7 @@ async function signUp(email, password, name, adminCode = "") {
     alert(isAdmin
       ? "✅ Admin account created successfully!"
       : "Account created! You can now sign in.");
-    localStorage.setItem("userName", name); // for signUp
+    localStorage.setItem("userName", name);
   }
 }
 
@@ -59,7 +59,7 @@ async function signIn(email, password) {
 
   let { data: userRow, error: userFetchError } = await supabase
     .from("users")
-    .select("is_admin")
+    .select("name, is_admin")
     .eq("id", userId)
     .single();
 
@@ -69,9 +69,8 @@ async function signIn(email, password) {
     const { error: insertError } = await supabase.from("users").insert({
       id: userId,
       email: email,
-      name: "", // Optional: prompt for name later
+      name: "",
       is_admin: false
-      
     });
 
     if (insertError) {
@@ -81,22 +80,21 @@ async function signIn(email, password) {
 
     const { data: insertedRow, error: refetchError } = await supabase
       .from("users")
-      .select("is_admin")
+      .select("name, is_admin")
       .eq("id", userId)
       .single();
 
     if (refetchError || !insertedRow) {
       alert("Login succeeded, but user lookup failed after insert.");
       return;
-      localStorage.setItem("userName", userRow.name || "User");
     }
 
     userRow = insertedRow;
   }
 
-  console.log("Redirecting to:", userRow?.is_admin ? "admin-dashboard.html" : "index.html");
+  localStorage.setItem("userName", userRow.name || "User");
 
-  return window.location.href = userRow?.is_admin ? "admin-dashboard.html" : "index.html";
+  window.location.href = userRow.is_admin ? "admin-dashboard.html" : "shop.html";
 }
 
 async function resetPassword(email) {
@@ -113,7 +111,7 @@ async function resetPassword(email) {
 
 async function signOut() {
   await supabase.auth.signOut();
-  localStorage.removeItem("userLoggedIn");
+  localStorage.clear();
   window.location.href = "signin.html";
 }
 
@@ -251,10 +249,3 @@ async function createOrderFromCart() {
 
   alert("Order placed successfully!");
 }
-<script>
-  async function signOut() {
-    await supabase.auth.signOut();
-    localStorage.clear();
-    window.location.href = "signin.html";
-  }
-</script>
