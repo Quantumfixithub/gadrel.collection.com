@@ -71,16 +71,26 @@
 
     .account-info {
       background-color: var(--cream);
-      padding: 1rem;
+      padding: 2rem;
       border-radius: 8px;
       margin-bottom: 2rem;
       box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+      text-align: center;
     }
 
     .account-info h2 {
       margin-top: 0;
       border-bottom: 2px solid var(--gold);
       padding-bottom: 0.5rem;
+    }
+
+    .account-info img {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      object-fit: cover;
+      margin-bottom: 1rem;
+      border: 3px solid var(--gold);
     }
 
     .account-links {
@@ -159,8 +169,9 @@
 
   <main class="account-container">
     <section class="account-info">
-      <h2>Account Details</h2>
-    <span id="user-name">Loading...</span>
+      <img src="images/default-avatar.png" alt="Profile Image" id="profile-image" />
+      <h2>Welcome, <span id="user-name">Loading...</span> 👋</h2>
+      <p>Email: <span id="user-email">Loading...</span></p>
     </section>
 
     <section class="account-links">
@@ -180,28 +191,39 @@
       <a href="https://wa.me/2348105429924">Chat on WhatsApp</a>
     </div>
   </footer>
-<script>
-  document.addEventListener("DOMContentLoaded", async () => {
-    const { data: { user }, error } = await supabase.auth.getUser();
-    if (error || !user) {
-      document.getElementById("user-name").textContent = "Guest";
-      return;
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="supabase.js"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", async () => {
+      const { data: { user }, error } = await supabase.auth.getUser();
+      if (error || !user) {
+        window.location.href = "signin.html";
+        return;
+      }
+
+      const { data: userRow } = await supabase
+        .from("users")
+        .select("name, email")
+        .eq("id", user.id)
+        .single();
+
+      const name = userRow?.name || localStorage.getItem("userName") || "User";
+      const email = userRow?.email || user.email || "Not available";
+
+      document.getElementById("user-name").textContent = name;
+      document.getElementById("user-email").textContent = email;
+
+      // Optional: if you store profile image URL in your users table
+      // const imageUrl = userRow?.profile_image || "images/default-avatar.png";
+      // document.getElementById("profile-image").src = imageUrl;
+    });
+
+    async function signOut() {
+      await supabase.auth.signOut();
+      localStorage.clear();
+      window.location.href = "signin.html";
     }
-
-    const { data: userRow } = await supabase
-      .from("users")
-      .select("name")
-      .eq("id", user.id)
-      .single();
-
-    if (userRow?.name) {
-      document.getElementById("user-name").textContent = userRow.name;
-    } else {
-      document.getElementById("user-name").textContent = "User";
-    }
-  });
-</script>
-
+  </script>
 </body>
 </html>
-
