@@ -38,6 +38,7 @@ async function signUp(email, password, name, adminCode = "") {
     alert(isAdmin
       ? "✅ Admin account created successfully!"
       : "Account created! You can now sign in.");
+    localStorage.setItem("userName", name); // for signUp
   }
 }
 
@@ -70,6 +71,7 @@ async function signIn(email, password) {
       email: email,
       name: "", // Optional: prompt for name later
       is_admin: false
+      
     });
 
     if (insertError) {
@@ -86,6 +88,7 @@ async function signIn(email, password) {
     if (refetchError || !insertedRow) {
       alert("Login succeeded, but user lookup failed after insert.");
       return;
+      localStorage.setItem("userName", userRow.name || "User");
     }
 
     userRow = insertedRow;
@@ -248,3 +251,10 @@ async function createOrderFromCart() {
 
   alert("Order placed successfully!");
 }
+<script>
+  async function signOut() {
+    await supabase.auth.signOut();
+    localStorage.clear();
+    window.location.href = "signin.html";
+  }
+</script>
