@@ -6,108 +6,15 @@
   <title>Sign In - Gadrel Collection</title>
   <link rel="stylesheet" href="styles/styles.css" />
   <style>
-    body {
-      font-family: 'Segoe UI', sans-serif;
-      background-color: #F8F8F8;
-      color: #021D34;
-      margin: 0;
-      padding: 0;
-      display: flex;
-      flex-direction: column;
-      min-height: 100vh;
-    }
-
-    header {
-      background-color: #021D34;
-      color: #FFFFFF;
-      padding: 1rem 2rem;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      flex-wrap: wrap;
-    }
-
-    .logo {
-      font-size: 1.5rem;
-      font-weight: bold;
-    }
-
-    nav ul {
-      list-style: none;
-      display: flex;
-      gap: 1rem;
-      padding: 0;
-      margin: 0;
-    }
-
-    nav a {
-      color: #F5E3C7;
-      text-decoration: none;
-      font-weight: bold;
-    }
-
-    .auth-box {
-      max-width: 400px;
-      margin: 4rem auto;
-      background-color: #FFFFFF;
-      padding: 2rem;
-      border-radius: 8px;
-      box-shadow: 0 0 10px rgba(0,0,0,0.1);
-    }
-
-    .auth-box h2 {
+    .auth-box p {
       text-align: center;
-      margin-bottom: 1.5rem;
-    }
-
-    .auth-box label {
-      display: block;
-      margin-bottom: 0.5rem;
-      font-weight: bold;
-    }
-
-    .auth-box input[type="email"],
-    .auth-box input[type="password"] {
-      width: 100%;
-      padding: 0.75rem;
-      margin-bottom: 1rem;
-      border: 1px solid #D9AF6C;
-      border-radius: 6px;
-      background-color: #F5E3C7;
-      color: #021D34;
-    }
-
-    .auth-box button {
-      width: 100%;
-      padding: 0.75rem;
-      background-color: #D9AF6C;
-      color: #021D34;
-      border: none;
-      border-radius: 6px;
-      font-weight: bold;
-      cursor: pointer;
-    }
-
-    .auth-box button:hover {
-      background-color: #c89a4f;
-    }
-
-    .auth-footer {
-      text-align: center;
+      font-size: 1rem;
       margin-top: 1rem;
     }
-
-    footer {
-      background-color: #021D34;
-      color: #FFFFFF;
-      text-align: center;
-      padding: 2rem 1rem;
-    }
-
-    .social-links a {
-      color: #D9AF6C;
-      margin: 0 1rem;
-      text-decoration: none;
+    .toggle-label {
+      display: block;
+      margin-top: -0.5rem;
+      font-size: 0.9rem;
     }
   </style>
 </head>
@@ -121,7 +28,7 @@
         <li><a href="about.html">About</a></li>
         <li><a href="contact.html">Contact</a></li>
         <li><a href="#" onclick="redirectIfNotLoggedIn('cart.html')">Cart 🛒</a></li>
-        <li><a href="signin.html">Sign In</a></li>
+        <li><a href="signup.html">Sign Up</a></li>
       </ul>
     </nav>
   </header>
@@ -135,28 +42,15 @@
 
         <label for="password">Password</label>
         <input type="password" id="password" placeholder="Enter your password" required />
-
-       <label for="remember-me" style="display: inline-flex; align-items: center; justify-content: flex-start; gap: 0.1rem;">
-  <input type="checkbox" id="remember-me" />
-  Remember Me
-</label>
-
+        <label class="toggle-label">
+          <input type="checkbox" id="toggle-password" style="margin-right: 0.25rem;" />
+          Show Password
+        </label>
 
         <button type="submit">Sign In</button>
       </form>
-
       <div class="auth-footer">
         <p>Don't have an account? <a href="signup.html">Sign Up</a></p>
-        <p><a href="#" onclick="showResetForm()">Forgot your password?</a></p>
-      </div>
-
-      <div id="reset-box" style="display:none; margin-top:2rem;">
-        <h3>Reset Password</h3>
-        <form id="reset-form">
-          <label for="reset-email">Enter your email</label>
-          <input type="email" id="reset-email" placeholder="you@example.com" required />
-          <button type="submit">Send Reset Link</button>
-        </form>
       </div>
     </div>
   </main>
@@ -170,50 +64,17 @@
     </div>
   </footer>
 
+  <!-- Supabase Scripts -->
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script src="supabase.js"></script>
   <script>
-    document.addEventListener("DOMContentLoaded", () => {
-      const savedEmail = localStorage.getItem("rememberedEmail");
-      if (savedEmail) {
-        document.getElementById("email").value = savedEmail;
-        document.getElementById("remember-me").checked = true;
-      }
-    });
-
     document.getElementById("signin-form").addEventListener("submit", async function(e) {
       e.preventDefault();
 
       const email = document.getElementById("email").value;
       const password = document.getElementById("password").value;
-      const rememberMe = document.getElementById("remember-me").checked;
 
-      if (rememberMe) {
-        localStorage.setItem("rememberedEmail", email);
-      } else {
-        localStorage.removeItem("rememberedEmail");
-      }
-
-      await signIn(email, password);
-    });
-
-    function showResetForm() {
-      document.getElementById("reset-box").style.display = "block";
-    }
-
-    document.getElementById("reset-form").addEventListener("submit", async function(e) {
-      e.preventDefault();
-      const email = document.getElementById("reset-email").value;
-
-      const { error } = await supabase.auth.resetPasswordForEmail(email, {
-        redirectTo: "https://yourdomain.com/update-password.html"
-      });
-
-      if (error) {
-        alert("Reset failed: " + error.message);
-      } else {
-        alert("Reset link sent! Check your email.");
-      }
+      await signIn(email, password); // ✅ Uses your centralized logic
     });
 
     function isLoggedIn() {
@@ -227,6 +88,11 @@
         window.location.href = targetPage;
       }
     }
+
+    document.getElementById("toggle-password").addEventListener("change", function () {
+      const passwordInput = document.getElementById("password");
+      passwordInput.type = this.checked ? "text" : "password";
+    });
   </script>
 </body>
 </html>
